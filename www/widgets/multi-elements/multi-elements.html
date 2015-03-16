@@ -1,0 +1,19 @@
+<script id="h-multi-elements" type="text/template">
+{{#each elements}}
+  {{> single-element this}}
+{{/each}}
+</script>
+
+<script id="h-single-element" type="text/template">
+<div class="multielement">
+  <div class="multielementimg" style='background-image: url("{{photo.url}}")'></div>
+  <div style="margin-top:5px; text-align:center;"> 
+    <h4>{{h1}}</h4>
+    <p>{{txt}}</p>
+  </div>
+</div>
+</script>
+
+<div class="multielementscontainer" style='direction: ltr;'>
+  Multi
+</div>

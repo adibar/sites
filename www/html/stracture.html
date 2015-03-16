@@ -1,0 +1,123 @@
+<!-- <div id="editorcontainer">
+  <div class="editorwrapper">
+    <div id="widgeteditor"> </div>
+    <div id="globaleditor"> </div>
+  </div>
+</div> -->
+
+<div id="draggables-container" style="position:fixed; width:100%; height:100%; z-index:-2000000; "> </div>
+
+<div id="globalconfiguration" class="floating-menu panel-group" style="z-index:2000002; top:0px; left:0px; margin:0px;"> 
+	<div class="panel panel-default">
+		<div class="panel-heading" >
+			<span class="panel-title">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#globalconfiguration" href="#globalconfigurationcollapse">Main Editor</a>
+			</span>
+			<button type="button" class="btn btn-default btn-circle acordion-toggle"  data-parent="#globalconfiguration" href="#globalconfigurationcollapse" style="background-color:orange; float:right;" aria-label="Left Align" onclick="togglPosition('globalconfiguration', '1px');">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="top:0px;"></span>
+  		</button>
+      <button type="button" class="btn btn-default btn-circle acordion-toggle" data-toggle="collapse" data-parent="#globalconfiguration" href="#globalconfigurationcollapse" style="float:right;" aria-label="Left Align">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true" style="top:0px;"></span>
+      </button>
+		</div>
+		<div class="panel-collapse collapse in" id="globalconfigurationcollapse" style="margin:0px;">
+			<div class="panel-body">    
+        <p> <a style="font-size:1.2em; color:#333;" href="http://127.0.0.1:8000/static/simulator/index.html?viewas=iphone5-portrait&site=http://127.0.0.1:8000/static/index.html" target="_blank"><i class="icon-large icon-iphone"></i>View mobile site</a> </p>
+        <p> <a style="font-size:1.2em; color:#333;" href="http://127.0.0.1:8000/static/simulator/index.html?viewas=ipad-portrait&site=http://127.0.0.1:8000/static/index.html" target="_blank"><i class="icon-large icon-ipad"></i>View tablet site</a> </p>
+			</div>
+			<div id="newelementconfiguration" class="panel-group" style="margin:0px;">
+				<div href="#" class="list-group-item" style='background-color: rgb(235,235,235);'>
+          <button type="button" class="btn btn-default btn-circle acordion-toggle badge" data-toggle="collapse" data-parent="#newlementcollapse" href="#newlementcollapse" style="float:right;" aria-label="Left Align">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true" style="top:0px;"></span>
+          </button>
+          <span>
+            <a class="accordion-toggle panel-title" data-toggle="collapse" data-parent="#newelementconfiguration" href="#newlementcollapse">Create New Element</a>
+          </span>
+        </div>
+        <div class="panel-collapse collapse in" id="newlementcollapse" style="margin:0px;">
+          <div class="list-group" style="margin:0px;">
+            <a href="#" class="list-group-item" onclick="createWidget('general-txt')">
+              Rich text area
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Rich text area" data-content="Rich text area image">
+              </span>
+            </a>
+            <a href="#" class="list-group-item" onclick="createWidget('slick-gallery')">
+              Horizontal slider
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Horizontal slider" data-content="Horizontal slider image">
+              </span>
+            </a> 
+            <a href="#" class="list-group-item" onclick="createWidget('masonary-gallery')">
+              Mosaic gallery
+              <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Mosaic gallery" data-content="Mosaic gallery image">
+              </span>
+            </a> 
+            <a href="#" class="list-group-item" onclick="createWidget('multi-elements')">
+              Multi elements
+              <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Multi elements" data-content="Multi elements image">
+              </span>
+            </a>  
+            <!-- <button type="button" class="btn btn-lg btn-danger" data-container="body" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>      -->  
+<!--             <a href="#" class="list-group-item">
+              <span> 
+                View tablet site
+                <span class="popover" data-toggle="popover" data-trigger="hover" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
+                  <i class="glyphicon glyphicon-question-sign popover" style="float:right; margin-top:2px; color: orange;"></i>
+                </span>
+              </span>
+            </a>            -->
+          </div>
+        </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="widgetconfiguration" class="floating-menu panel-group" style="z-index:2000002; top:300px; left:0px;"> 
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<span class="panel-title">
+				<a class="accordion-toggle" data-toggle="collapse" data-parent="#widgetconfiguration" href="#widgetconfigurationcollapse">Element Editor</a>
+			</span>
+      <button type="button" class="btn btn-default btn-circle acordion-toggle"  data-parent="#widgetconfiguration" href="#widgetconfigurationcollapse" style="background-color:orange; float:right" aria-label="Left Align" onclick="togglPosition('widgetconfiguration', '253px');">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true" style="background-color:orange; top:0px;"></span>
+      </button>
+      <button type="button" class="btn btn-default btn-circle acordion-toggle" data-toggle="collapse" data-parent="#widgetconfiguration" href="#widgetconfigurationcollapse" style="float:right" aria-label="Left Align">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true" style="top:0px;"></span>
+      </button>
+		</div>
+		<div class="panel-collapse collapse in" id="widgetconfigurationcollapse">
+
+		</div>
+	</div>
+</div>
+
+<div id="contentcontainer">
+<!--   <div id="globalconfiguration" class="floating-menu" style="z-index:2000001;"> </div>
+  <div id="widgetconfiguration" class="floating-menu" style="z-index:2000000;"> </div> -->
+  <!-- <textarea id="content" name="content"></textarea> -->
+</div>  
+
+<script>
+
+function togglPosition(elid, pos) {
+  console.log("toggle position");
+  var el = $('#'+elid);
+  var top = el.css('top');
+  if (top == 'auto') { // maximize
+    el.css('bottom', 'auto');
+    el.css('top', '2000px');
+    el.animate( { 'top':'200', }, 400, "easeOutQuart" );
+    // el.animate( { 'top':'200', }, 400 );
+    el.find(".panel-collapse").collapse('show');
+  }
+  else { // minimize
+    el.css('top', 'auto');
+    el.animate( { 'left':pos, 'bottom':'0px', }, 400, "easeOutQuart" );
+    // el.animate( { 'left':pos, }, 300 );
+    el.find(".panel-collapse").collapse('hide');
+  }
+
+}
+
+</script>

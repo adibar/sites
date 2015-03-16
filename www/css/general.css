@@ -1,0 +1,81 @@
+html {
+  height:100%;
+}
+
+body {
+  margin:0px;
+  padding:0px;
+  /*padding-top:100px;*/
+  height:100%;
+
+}
+
+/*.clearfix {
+  overflow: auto;
+}*/
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.picndo-row {
+  /*width:auto !important;*/
+  /*display:inline-block;*/
+  max-width:100%;
+}
+
+.picndo-inline {
+  display:inline-block;
+}
+
+.picndo-editable {
+  position:relative !important;
+  /*margin-left:0px;*/
+  /*margin-right:0px;*/
+}
+
+.edit_menu {
+  position:absolute;
+  width: auto;
+  height: auto;
+  right: 20px;
+  top: 10px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  z-index:1000000;
+  visibility: hidden;
+}
+
+/*remove blue outline on click*/
+.btn:active,
+.btn:focus,
+/*.btn:focus:active,*/
+.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+/*.btn:focus, .btn:active, .btn.active, .btn:focus:active {
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}*/
+
+.btn-circle {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  /*padding: 6px 0;*/
+  padding: 0px 0;
+  margin-left:3px;
+  font-size: 10px;
+  /*line-height: 1.42;*/
+  line-height: 20px;
+  border-radius: 10px;
+  border:none;
+}

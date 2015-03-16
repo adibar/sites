@@ -1,0 +1,113 @@
+.masonary-container {
+  margin-top: 50px;
+  margin-bottom: 20px;
+  margin-left:0px;
+  margin-right:0px;
+  width:100%;
+}
+
+.masonary-container .datacontainer {
+  width:24.6%;
+  position:relative;
+  padding:20px;
+  border: none !important;
+}
+
+.masonary-container .datacontainer:hover {
+
+}
+
+.masonary-container .datacontainer > div {
+  top:20px;
+  bottom:20px;
+  left:20px;
+  right:20px;
+  position:absolute;
+  background-color: rgba(85,85,85,.001);
+}
+
+.masonary-container .datacontainer > div:hover {
+  background-color: rgba(0,0,0,.3);
+  cursor:pointer;
+}
+
+@media (min-width: 500px) and (max-width: 1024px) {
+  .masonary-container .datacontainer {
+    width:33%;
+    border: none !important;
+    padding:12px;
+  }
+}
+
+@media (max-width: 499px) {
+  .masonary-container .datacontainer {
+    width:50%;
+    border: none !important;
+    padding:6px;
+  }
+}
+
+.masonary-container .datacontainer > img {
+  width:100%;
+  height:auto;
+  padding:5px;
+}
+
+.masonary-container .datacontainer > img:hover {
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor:pointer;
+}
+
+/*.masonary-container > div {
+  width:24.9%;
+  position:relative;
+  padding:20px;
+  border: none !important;
+}
+
+.masonary-container > div:hover {
+
+}
+
+.masonary-container > div > div {
+  top:20px;
+  bottom:20px;
+  left:20px;
+  right:20px;
+  position:absolute;
+  background-color: rgba(85,85,85,.001);
+}
+
+.masonary-container > div > div:hover {
+  background-color: rgba(0,0,0,.3);
+  cursor:pointer;
+}
+
+@media (min-width: 500px) and (max-width: 1024px) {
+  .masonary-container > div {
+    width:33%;
+    border: none !important;
+    padding:12px;
+  }
+}
+
+@media (max-width: 499px) {
+  .masonary-container > div {
+    width:50%;
+    border: none !important;
+    padding:6px;
+  }
+}
+
+.masonary-container > div > img {
+  width:100%;
+  height:auto;
+  padding:5px;
+}
+
+.masonary-container > div > img:hover {
+  border: 1px solid #333;
+  border-radius: 5px;
+  cursor:pointer;
+}*/

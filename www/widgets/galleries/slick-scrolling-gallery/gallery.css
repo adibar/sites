@@ -1,0 +1,23 @@
+.slickcontainer {
+  height      : 400px;
+  max-width:100%;
+  /*margin-top  : 50px;*/
+  padding:0px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 20px;
+}
+
+.slickcontainer .datacontainer {
+  height  : 100%;
+  width   : auto;
+  margin  : 0px;
+  margin-left:8px;
+  padding : 0px;
+}
+
+.datacontainer > img {
+  height: 100%;
+  /*height:100%;*/
+  width:auto;
+}
