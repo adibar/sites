@@ -20,11 +20,19 @@ function PDG_general_txt(container, path, data) {
 
   /* each module declare lists of assets */
   var assets = {
-    'css' : ['general-txt.css', 'redactor/toolbar_he.css', 'redactor/he.css'],
+    // 'css' : ['general-txt.css', 'redactor/toolbar_he.css', 'redactor/he.css'],
+    'css' : ['general-txt.css', 'redactor/redactor.css', ],
     // TODO - adi baron - this is a temprorary fix - redactor.js must load before he.js otherwise crash - while async loading this fix might not work always
     // 'js'  : ['redactor/fontcolor.js', 'redactor/fontsize.js', 'redactor/fullscreen.js', 'redactor/he.js', 'redactor/redactor.js' ],
     // 'js'  : ['redactor/redactor.js', 'redactor/fontcolor.js', 'redactor/fontsize.js', 'redactor/fullscreen.js', 'redactor/he.js'],
-    'js'  : ['redactor/redactor.js', 'redactor/fontcolor.js', 'redactor/fontsize.js', 'redactor/fullscreen.js'],
+    'js'  : [ 'redactor/redactor.js',
+              'redactor/plugins/fontcolor/fontcolor.js',
+              'redactor/plugins/fontsize/fontsize.js',
+              'redactor/plugins/fontfamily/fontfamily.js',
+              'redactor/plugins/imagemanager/imagemanager.js',
+              'redactor/plugins/textdirection/textdirection.js',
+              'redactor/plugins/fullscreen/fullscreen.js',
+            ],
     'html': 'general-txt.html',
   }
 
@@ -44,15 +52,44 @@ function PDG_general_txt(container, path, data) {
       // var container = $("YOUR CONTAINER SELECTOR");
       var container = myobj.container.find(".txtcontainer");
 
-      if (!container.is(e.target) // if the target of the click isn't the container...
+      var x1 = !container.is(e.target);
+      var x2 = container.parent().has(e.target).length;
+      var x3 = $('#redactor-modal').has(e.target).length;
+      var x4 = $('.redactor-dropdown').has(e.target).length;
+
+      // var x3 = false;
+      // $('#redactor_modal').each(function() {
+      //   if ( $.contains( $(this).get(), e.target ) ) {
+      //     x3 = true;
+      //     return false;
+      //   }
+      // });
+
+      // var x4 = false;
+      // $('.redactor-dropdown').each(function() {
+      //   // alert('1');
+      //   if ( $.contains( $(this).get(), e.target ) ) {
+      //     x4 = true;
+      //     return false;
+      //   }
+      // });      
+
+      if (x1 // if the target of the click isn't the container...
         // && container.has(e.target).length === 0) // ... nor a descendant of the container
-        && (container.parent().has(e.target).length === 0) // ... nor a descendant of the container
-          && ($('#redactor_modal').has(e.target).length === 0) 
-            && ($('.redactor_dropdown').has(e.target).length === 0))
+        && (x2 === 0) // ... nor a descendant of the container
+          && (x3 === 0) 
+            && (x4 === 0))
+          // && (x2 === 0)
+          //   && (!x3)
+          //     && (!x4) )
       {
         if (myobj.redactor != null) {
-          var lhtml = myobj.container.find(".txtcontainer").redactor('get');
-          myobj.container.find(".txtcontainer").redactor('destroy');
+          // var lhtml = myobj.container.find(".txtcontainer").redactor('get');
+          var lhtml = myobj.container.find(".txtcontainer").redactor('code.get');
+          myobj.data.data = lhtml;
+          BaseWidget.save_obj(myobj);
+          //myobj.container.find(".txtcontainer").redactor('destroy');
+          myobj.container.find(".txtcontainer").redactor('core.destroy');
           myobj.redactor = null;
         }
       }
@@ -84,13 +121,35 @@ PDG_general_txt.prototype.edit = function(val) {
 
     console.log("PDG_general_txt");
 
+    var myobj = this;
+
     this.redactor = this.container.find(".txtcontainer").redactor({
+      //focus:          true,
+      //focusEnd:       true,
       lang:           'he',
       imageUpload:    '/siteseditor/image_upload',
       // imageUpload:    '/siteseditor/images',
-      imageGetJson:   '/siteseditor/images',
-      plugins:        ['fontcolor','fontsize','fullscreen','custombutton'],
+      imageManagerJson:   '/siteseditor/images',
+      // plugins:        ['fontcolor','fontsize', 'fullscreen', 'textdirection', 'custombutton'],
+      plugins:        ['fontcolor','fontsize', 'fontfamily', 'imagemanager', /*'fullscreen',*/ 'textdirection', 'custombutton'],
+
+      // focusCallback: function(e)
+      // {
+      //   // console.log(this.code.get());
+      //   myobj.container.find(".txtcontainer").redactor('focus.setEnd');
+      //   console.log('focus');
+      //   // myobj.container.find(".txtcontainer").redactor('caret.setEnd');
+        
+      // }
+      imageUploadCallback: function(image, json)
+      {
+        $(image).attr('id', json.id);
+        $(image).css('width', '500px');
+      },
+
     });
+
+    // this.redactor.focus.setEnd();
     //this.container.find(".txtcontainer").redactor('setEditor', this.data.data);
     // this.container.find(".txtcontainer").redactor('setEditor', lhtml);
     // this.container.find(".txtcontainer").redactor('set', lhtml);
@@ -98,6 +157,8 @@ PDG_general_txt.prototype.edit = function(val) {
     this.container.find(".txtcontainer").resizable( "destroy" );
     this.resize( this.container.find(".txtcontainer") );
 
+    //this.container.find(".txtcontainer").redactor('focus.setEnd');
+    // this.redactor('focus.setEnd');
   }
 }
 
@@ -110,7 +171,7 @@ PDG_general_txt.prototype.default_data = function() {
     "css": {
 
     },
-    'data': "<h1 style='text-align: center; background-color:'> Rich text are </h1> <p> Edit this text / Add photos / design </p>"
+    'data': "<h1 style='text-align: center; background-color:'> Rich text area </h1> <p> Edit this text / Add photos / design </p>"
   };
   return data;
 }

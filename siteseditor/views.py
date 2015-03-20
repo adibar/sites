@@ -24,5 +24,8 @@ def images(request):
 @csrf_exempt
 @require_POST
 def image_upload(request):
-  image = {"filelink":"http://adibaron.folyou.com/f-users/user_101578/website_101704/images/10010140_10152345637587375_1812037195_o.jpg"}
+  image = {
+    "filelink":"http://adibaron.folyou.com/f-users/user_101578/website_101704/images/10010140_10152345637587375_1812037195_o.jpg",
+    "id": 1
+  }
   return HttpResponse(json.dumps(image), mimetype="application/json")

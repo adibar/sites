@@ -6,8 +6,16 @@ function BaseWidget(container, path, data) {
 
   this.container = container
   this.path = path;
+  
   // this.data = data;
-  this.data = typeof data !== 'undefined' ? data : this.default_data();
+  // this.data = typeof data !== 'undefined' ? data : this.default_data();
+  this.data = data;
+  if ( _.isEqual(data.data, {}) && _.isEqual(data.css, {}) ) {
+    var def_data = this.default_data();
+    this.data["css"] = def_data.css;
+    this.data["data"] = def_data.data;
+  }
+
 
   this.controllers = {
     'root': {
@@ -45,18 +53,28 @@ BaseWidget.get_class_obj_from_container = function(container) {
 }
 
 BaseWidget.get_class_obj_from_container_id = function(id) {
-  var class_obj = picndoOBJs[id];
+  var class_obj = picndoOBJs[id][0];
   return class_obj;
 }
 
 BaseWidget.destroy_obj_and_element_for_event = function(obj) {
   var widgetContainer = BaseWidget.get_container_for_obj_action(obj);  
 
+  // delete the dom element
+  widgetContainer.remove();
+
+  // remove from json 
+  remove_obj_from_json(widgetContainer.id);
+
   // delete the class obj
   delete picndoOBJs[widgetContainer.id];
 
-  // delete the dom element
-  widgetContainer.remove();
+}
+
+BaseWidget.save_obj = function(obj) {
+  var obj_id = obj.container[0].id;
+  picndoOBJs[obj_id][1].data = obj.data.data;
+  picndoOBJs[obj_id][1].css = obj.data.css;
 }
 
 BaseWidget.get_class_obj_for_event = function(obj) {

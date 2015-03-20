@@ -38,22 +38,22 @@
           <div class="list-group" style="margin:0px;">
             <a href="#" class="list-group-item" onclick="createWidget('general-txt')">
               Rich text area
-              <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Rich text area" data-content="Rich text area image">
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Rich text area" data-content="Rich text area image" data-placement="auto right">
               </span>
             </a>
             <a href="#" class="list-group-item" onclick="createWidget('slick-gallery')">
               Horizontal slider
-              <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Horizontal slider" data-content="Horizontal slider image">
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Horizontal slider" data-content="Horizontal slider image" data-placement="auto right">
               </span>
             </a> 
             <a href="#" class="list-group-item" onclick="createWidget('masonary-gallery')">
               Mosaic gallery
-              <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Mosaic gallery" data-content="Mosaic gallery image">
+              <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Mosaic gallery" data-content="Mosaic gallery image" data-placement="auto right">
               </span>
             </a> 
             <a href="#" class="list-group-item" onclick="createWidget('multi-elements')">
               Multi elements
-              <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Multi elements" data-content="Multi elements image">
+              <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Multi elements" data-content="Multi elements image" data-placement="auto right">
               </span>
             </a>  
             <!-- <button type="button" class="btn btn-lg btn-danger" data-container="body" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>      -->  
@@ -91,6 +91,13 @@
 		</div>
 	</div>
 </div>
+
+<button type="button" class="btn btn-default btn-lg btn-circle" id="save-btn" style="display:none; position:fixed; z-index:2000003; top:15px; right:15px; background-color:transparent !important;" onclick="save_diff()"> 
+  <!-- <span class="glyphicon glyphicon-remove" style="background-color:red; top:0px;"></span> -->
+   <!-- glyphicon glyphicon-save -->
+  <!-- <span class="save-warn" data-container="body" data-toggle="popover" data-trigger="hover" title="Site Changed" data-content="Click the button to save changes" data-placement="left auto"> rrrrr </span> -->
+  <span class="glyphicon glyphicon-save save-warn" style="color:#cf4c4c !important; font-size:2.5em !important; top:0px !important; animation:warn_animation 2.0s; -moz-animation:warn_animation 2.0s infinite; -webkit-animation:warn_animation 2.0s infinite;" data-container="body" data-toggle="popover" data-trigger="hover" title="Site Changed" data-content="Click the button to save changes" data-placement="left auto">  </span>
+</button>
 
 <div id="contentcontainer">
 <!--   <div id="globalconfiguration" class="floating-menu" style="z-index:2000001;"> </div>

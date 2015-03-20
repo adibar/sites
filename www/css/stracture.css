@@ -119,3 +119,26 @@
 
 
 
+}
+
+.save-warn {
+  color:#cf4c4c !important;
+  font-size:2.0em !important;
+  top:0px !important;
+  animation:warn_animation 5s;
+  -moz-animation:warn_animation 5s infinite;
+  -webkit-animation:warn_animation 5s infinite;
+}
+
+
+@-moz-keyframes warn_animation {
+  0%   {color:#CF4C4C;}
+  15%  {color:orange;}
+  100% {color:#CF4C4C;}
+}
+ 
+@-webkit-keyframes warn_animation {
+  0%   {color:#B51F1F;}
+  15%  {color:orange;}
+  100% {color:#B51F1F;}
+}
