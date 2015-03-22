@@ -8,8 +8,8 @@ function PDG_general_txt(container, path, data) {
 
   this.controllers = {
     'root': {
-      'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.txtcontainer', },
-      'margin-top': { 'val':'20', 'type':'slider', 'range':[0,200], 'el':'.txtcontainer', },
+      'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.redactor-editor', },
+      'margin-top': { 'val':'20', 'type':'slider', 'range':[0,200], 'el':'.redactor-editor', },
       'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
     }
   }
@@ -39,9 +39,9 @@ function PDG_general_txt(container, path, data) {
   var myobj = this;
   
   this.load_assets( assets, function(myobj) {
-    myobj.container.find(".txtcontainer").html(myobj.data.data);
+    myobj.container.find(".redactor-editor").html(myobj.data.data);
       
-    myobj.container.find(".txtcontainer").on('click', function() {
+    myobj.container.find(".redactor-editor").on('click', function() {
       myobj.edit(1);
     });
 
@@ -50,12 +50,13 @@ function PDG_general_txt(container, path, data) {
       console.log("mouse up else");
 
       // var container = $("YOUR CONTAINER SELECTOR");
-      var container = myobj.container.find(".txtcontainer");
+      var container = myobj.container.find(".redactor-editor");
 
       var x1 = !container.is(e.target);
       var x2 = container.parent().has(e.target).length;
       var x3 = $('#redactor-modal').has(e.target).length;
       var x4 = $('.redactor-dropdown').has(e.target).length;
+      var x5 = !$(e.target).is('#redactor-modal-box')
 
       // var x3 = false;
       // $('#redactor_modal').each(function() {
@@ -78,25 +79,26 @@ function PDG_general_txt(container, path, data) {
         // && container.has(e.target).length === 0) // ... nor a descendant of the container
         && (x2 === 0) // ... nor a descendant of the container
           && (x3 === 0) 
-            && (x4 === 0))
+            && (x4 === 0)
+              && x5 )
           // && (x2 === 0)
           //   && (!x3)
           //     && (!x4) )
       {
         if (myobj.redactor != null) {
           // var lhtml = myobj.container.find(".txtcontainer").redactor('get');
-          var lhtml = myobj.container.find(".txtcontainer").redactor('code.get');
+          var lhtml = myobj.container.find(".redactor-editor").redactor('code.get');
           myobj.data.data = lhtml;
           BaseWidget.save_obj(myobj);
           //myobj.container.find(".txtcontainer").redactor('destroy');
-          myobj.container.find(".txtcontainer").redactor('core.destroy');
+          myobj.container.find(".redactor-editor").redactor('core.destroy');
           myobj.redactor = null;
         }
       }
 
     });    
 
-    myobj.resize( myobj.container.find(".txtcontainer") );
+    myobj.resize( myobj.container.find(".redactor-editor") );
   } );
 }
 
@@ -111,7 +113,7 @@ PDG_general_txt.prototype.edit = function(val) {
     
     console.log('editting redactor');
     
-    var lhtml = this.container.find(".txtcontainer").html();
+    var lhtml = this.container.find(".redactor-editor").html();
 
     console.log( lhtml );
 
@@ -123,9 +125,10 @@ PDG_general_txt.prototype.edit = function(val) {
 
     var myobj = this;
 
-    this.redactor = this.container.find(".txtcontainer").redactor({
+    this.redactor = this.container.find(".redactor-editor").redactor({
       //focus:          true,
       //focusEnd:       true,
+      iframekey:      true, 
       lang:           'he',
       imageUpload:    '/siteseditor/image_upload',
       // imageUpload:    '/siteseditor/images',
@@ -146,6 +149,18 @@ PDG_general_txt.prototype.edit = function(val) {
         $(image).attr('id', json.id);
         $(image).css('width', '500px');
       },
+      initCallback: function()
+      {
+        // var code = this.code.get();
+        //var code = myobj.container.find(".txtcontainer").redactor('code.get');
+        // this.caret.setOffset(code.length-1);  
+        this.selection.restore();      
+      },
+      startCallback: function()
+      {
+        var marker = this.selection.getMarker();
+        this.insert.node(marker);
+      },      
 
     });
 
@@ -154,11 +169,18 @@ PDG_general_txt.prototype.edit = function(val) {
     // this.container.find(".txtcontainer").redactor('setEditor', lhtml);
     // this.container.find(".txtcontainer").redactor('set', lhtml);
 
-    this.container.find(".txtcontainer").resizable( "destroy" );
-    this.resize( this.container.find(".txtcontainer") );
+    // adi baron
+    // this.container.find(".redactor-editor").resizable( "destroy" );
+    // this.resize( this.container.find(".redactor-editor") );
 
     //this.container.find(".txtcontainer").redactor('focus.setEnd');
-    // this.redactor('focus.setEnd');
+    //this.redactor('focus.setEnd');
+    //this.redactor.caret.setEnd( $('.txtcontainer') );
+    //this.container.find(".txtcontainer").redactor('caret.setEnd', this.container.find(".txtcontainer"));
+    //this.container.find(".txtcontainer").redactor('caret.setEnd', this.container.find(".txtcontainer")[0]);
+    
+    // var code = this.container.find(".txtcontainer").redactor('code.get');
+    // this.container.find(".txtcontainer").redactor('caret.setOffset', code.length-1);
   }
 }
 
@@ -178,34 +200,33 @@ PDG_general_txt.prototype.default_data = function() {
 
 PDG_general_txt.prototype.resize = function(container) {
   
-  //alert('resized');  
-  container.resizable({
-    //handles: "n, e, s, w",
-    handles: "e",
-    stop: function( event, ui ) {
-      // c_obj = BaseWidget.get_class_obj_for_event(ui.element[0]);
+  // container.resizable({
+  //   //handles: "n, e, s, w",
+  //   handles: "e",
+  //   stop: function( event, ui ) {
+  //     // c_obj = BaseWidget.get_class_obj_for_event(ui.element[0]);
         
-      // c_obj.container.find(".slickcontainer").resizable( "destroy" );
-      // c_obj.container.find(".slickcontainer").slick( 'unslick' );
-      // // c_obj.container.find(".slickcontainer").unslick();
-      // // c_obj.container.find(".slickcontainer").slick( 'setPosition' );
+  //     // c_obj.container.find(".slickcontainer").resizable( "destroy" );
+  //     // c_obj.container.find(".slickcontainer").slick( 'unslick' );
+  //     // // c_obj.container.find(".slickcontainer").unslick();
+  //     // // c_obj.container.find(".slickcontainer").slick( 'setPosition' );
 
-      // c_obj.container.find(".slickcontainer").slick({
-      //   dots: false,
-      //   arrows:true,
-      //   infinite: true,
-      //   speed: 800,
-      //   slidesToShow: 1,
-      //   centerMode: true,
-      //   variableWidth: true,    
-      //   slidesToScroll: 1,
-      //   focusOnSelect: true,
-      //   cssEase: "ease-out"
-      // });
-      // c_obj.resize( c_obj.container.find(".slickcontainer") );
+  //     // c_obj.container.find(".slickcontainer").slick({
+  //     //   dots: false,
+  //     //   arrows:true,
+  //     //   infinite: true,
+  //     //   speed: 800,
+  //     //   slidesToShow: 1,
+  //     //   centerMode: true,
+  //     //   variableWidth: true,    
+  //     //   slidesToScroll: 1,
+  //     //   focusOnSelect: true,
+  //     //   cssEase: "ease-out"
+  //     // });
+  //     // c_obj.resize( c_obj.container.find(".slickcontainer") );
     
-      console.log('resized');
-    }   
-  });
+  //     console.log('resized');
+  //   }   
+  // });
 }
 

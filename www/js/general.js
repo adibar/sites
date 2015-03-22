@@ -239,7 +239,8 @@ $(document).ready(function () {
     $(this).find('.edit_menu').css("visibility", "visible")
   });
   $(document).on('mouseleave', '.picndo-editable', function() { 
-    $(this).css("border", "none");
+    // $(this).css("border", "none");
+    $(this).css("border", "2px dotted transparent")
     $(this).find('.edit_menu').css("visibility", "hidden")
   });
 
@@ -336,9 +337,16 @@ function cleanPage(container, pName) {
 var elementsCounter = 0;
 function loadPage(container, pData) {
 
+  // var ldiv1 = jQuery('<div/>', {
+  //   class: 'row .picndo-editable'
+  // });
   var ldiv1 = jQuery('<div/>', {
+    // class: 'container-fluid'
+    class: 'container'
+  }).append( jQuery('<div/>', {
     class: 'row .picndo-editable'
-  });
+  }));
+
   container.append(ldiv1);
   
   // $.getScript("widgets/" + data.menu.type + "/" + data.menu.type + ".js", function() {

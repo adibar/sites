@@ -6,7 +6,10 @@
 function PDG_masonary_gallery(container, path, data) {
   
   // call base contructore
-  BaseWidget.call(this, container, path, data);
+  BaseWidget.call(this, container, path, data, { 
+    'btn1':'glyphicon glyphicon-picture', 
+    // 'btn1CB': $.proxy(this.addImage, this),
+  });
   
   // obj public properties
   this.msnry = null
@@ -50,6 +53,10 @@ function PDG_masonary_gallery(container, path, data) {
 PDG_masonary_gallery.prototype = Object.create(BaseWidget.prototype); 
 // Set the "constructor" property to refer to Student
 PDG_masonary_gallery.prototype.constructor = PDG_masonary_gallery;
+
+PDG_masonary_gallery.prototype.addImage = function() {
+  alert('PDG_masonary_gallery addImage');
+};
 
 PDG_masonary_gallery.prototype.image_load = function(obj, url) {
   console.log('image_load');

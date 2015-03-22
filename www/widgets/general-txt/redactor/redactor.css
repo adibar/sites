@@ -108,12 +108,15 @@ body .redactor-box-fullscreen {
 */
 .redactor-editor {
   position: relative;
-  overflow: auto;
-  margin: 0 !important;
+  /*adi baron
+  overflow: auto;*/
+  overflow: hidden;
+  /*margin: 0 !important;*/
+  margin: 0;
   padding: 20px;
   outline: none;
   white-space: normal;
-  border: 1px solid #eee;
+  /*border: 1px solid #eee;*/
   font-family: Arial, Helvetica, Verdana, Tahoma, sans-serif;
   font-size: 14px;
   line-height: 1.6em;
@@ -550,13 +553,19 @@ body .redactor-box-fullscreen {
   left: 0;
   bottom: 0;
   right: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  /*adi baron*/
+  /*overflow-x: hidden;*/
+  /*overflow-y: auto;*/
+  overflow:hidden;
 }
 #redactor-modal {
   position: relative;
-  margin: auto;
-  margin-bottom: 20px;
+  /*adi baron*/
+  /*margin: auto;*/
+  /*margin-bottom: 20px;*/
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 20px;
   padding: 0;
   background: #fff;
   color: #000;
@@ -565,14 +574,15 @@ body .redactor-box-fullscreen {
   box-shadow: 0 1px 70px rgba(0, 0, 0, 0.5);
 }
 #redactor-modal header {
-  padding: 30px 40px 5px 40px;
+  padding: 15px 40px 5px 40px;
   font-size: 18px;
   font-weight: bold;
 }
 #redactor-modal section {
   /*adi baron*/
   /*padding: 30px 40px 50px 40px;*/
-  padding: 20px 10px 30px 10px;
+  /*padding: 20px 10px 30px 10px;*/
+  padding: 0px 10px 10px 10px;
 }
 #redactor-modal label {
   display: block;

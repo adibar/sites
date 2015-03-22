@@ -2739,7 +2739,9 @@
 					this.$editor.off('.redactor');
 
 					// common
-					this.$editor.removeClass('redactor-editor redactor-linebreaks redactor-placeholder');
+					// adi baron
+					// this.$editor.removeClass('redactor-editor redactor-linebreaks redactor-placeholder');
+					this.$editor.removeClass('redactor-linebreaks redactor-placeholder');
 					this.$editor.removeAttr('contenteditable');
 
 					var html = this.code.get();
@@ -3098,7 +3100,7 @@
 			return {
 				show: function()
 				{
-					this.modal.load('image', this.lang.get('image'), 820);
+					this.modal.load('image', this.lang.get('image'), 1240);
 					this.upload.init('#redactor-modal-image-droparea', this.opts.imageUpload, this.image.insert);
 
 					this.selection.save();
@@ -5542,9 +5544,7 @@
 						+ '</section>',
 
 						image: String()
-						+ '<section id="redactor-modal-image-insert">'
-					 	// 		+ '<div id="redactor-modal-image-droparea"></div>'
- 						+ '</section>',
+						+ '<section id="redactor-modal-image-insert"></section>',
 
 						file: String()
 						+ '<section id="redactor-modal-file-insert">'
@@ -5621,7 +5621,7 @@
 					this.modal.build();
 					this.modal.enableEvents();
 					this.modal.setTitle(title);
-					this.modal.setDraggable();
+					// this.modal.setDraggable();
 					this.modal.setContent();
 
 					// callbacks
@@ -5647,7 +5647,7 @@
 					console.log('body overflow hidden');
 					console.log('***************************************************');
 					console.log('***************************************************');
-					// $(document.body).css('overflow', 'hidden');
+					$(document.body).css('overflow', 'hidden');
 
 					if (this.utils.isMobile())
 					{
@@ -5691,7 +5691,7 @@
 					{
 						this.$modal.css({
 							width: '96%',
-							marginTop: (windowHeight/2 - height/2) + 'px'
+							// marginTop: (windowHeight/2 - height/2) + 'px'
 						});
 						return;
 					}
@@ -5700,14 +5700,14 @@
 					{
 						this.$modal.css({
 							width: this.modal.width + 'px',
-							marginTop: '20px'
+							// marginTop: '20px'
 						});
 					}
 					else
 					{
 						this.$modal.css({
 							width: this.modal.width + 'px',
-							marginTop: (windowHeight/2 - height/2) + 'px'
+							// marginTop: (windowHeight/2 - height/2) + 'px'
 						});
 					}
 				},
@@ -5832,6 +5832,7 @@
 					{
 						if (!$(e.target).hasClass('redactor-modal-close-btn') && e.target != this.$modalClose[0] && e.target != this.$modalBox[0])
 						{
+							console.log('closing');
 							return;
 						}
 
@@ -5857,8 +5858,8 @@
 						console.log('reset overflow');
 						console.log('***************************************************');
 						console.log('***************************************************');
-						// $(document.body).css('overflow', this.modal.bodyOveflow);
-						this.core.setCallback('modalClosed', this.modal.templateName);
+						$(document.body).css('overflow', 'auto');
+						// this.core.setCallback('modalClosed', this.modal.templateName);
 
 					}, this));
 

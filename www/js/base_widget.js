@@ -1,8 +1,9 @@
 
-function BaseWidget(container, path, data) {
+function BaseWidget(container, path, data, opts) {
 
   BaseWidget.widgets_count++;
   
+  opts = typeof opts !== 'undefined' ? opts : { };
 
   this.container = container
   this.path = path;
@@ -25,8 +26,8 @@ function BaseWidget(container, path, data) {
     }
   }
 
-  BaseWidget.load_edit_menu(this.container)
-
+  // BaseWidget.load_edit_menu(this.container, opts);
+  this.load_edit_menu(this.container, opts);
 } 
 
 // static var
@@ -34,13 +35,32 @@ BaseWidget.widgets_count = 0;
 BaseWidget.widgeteditor_id = "widgetconfigurationcollapse"; //'widgeteditor';
 
 
-// static function
-BaseWidget.load_edit_menu = function(el) {
+BaseWidget.prototype.load_edit_menu = function(el, opts) {
+  var lobj = this;
   $.get( "html/base_widget_edit_menu.html" + '?' + Math.random()*Math.random(), function (ldata) {
     el.append(ldata)
+    if ( ('btn1' in opts) /*&& ('btn1CB' in opts)*/ ) {
+      var btn_group = el.find(".edit_menu")[0];
+      var btn = $('\
+        <button type="button" class="btn btn-default btn-lg" aria-label="Left Align" title="Add Image" > \
+          <span class="' + opts['btn1'] +'" aria-hidden="true"></span> \
+        </button>');
+      $(btn_group).append(btn);
+      // btn.click( $.proxy(this.addImage, this) );
+      console.log('adding on click');
+      // var lfunc = $.proxy(lobj.addImage, lobj);
+      // btn.on('click', lfunc() );
+      // btn.on('click', function() {
+      //   alert('clicking');
+      // });
+      btn.on('click', $.proxy(function(e) {
+        this.addImage();
+      }, lobj) );
+    }
   });
 }
 
+// static function
 BaseWidget.get_container_for_obj_action = function(obj) {
   var widgetContainer = $(obj).parents(".picndo-row")[0];
   return widgetContainer;

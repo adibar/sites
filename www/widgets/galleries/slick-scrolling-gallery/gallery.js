@@ -1,7 +1,10 @@
 function PDG_slick_gallery(container, path, data) {
           
   // call base contructore
-  BaseWidget.call(this, container, path, data);
+  BaseWidget.call(this, container, path, data, { 
+    'btn1':'glyphicon glyphicon-picture', 
+    // 'btn1CB': $.proxy(this.addImage, this),
+  });
   this.resize_counter = 0;
 
   container.addClass("picndo-inline");
@@ -77,6 +80,10 @@ PDG_slick_gallery.prototype = Object.create(BaseWidget.prototype);
 // Set the "constructor" property to refer to Student
 PDG_slick_gallery.prototype.constructor = PDG_slick_gallery;
 
+PDG_slick_gallery.prototype.addImage = function() {
+  alert('PDG_slick_gallery addImage');
+};
+
 BaseWidget.prototype.resize = function(container) {
   
   container.resizable({
@@ -105,7 +112,7 @@ BaseWidget.prototype.resize = function(container) {
       // console.log('resized');
     }   
   });
-}
+};
 
 BaseWidget.prototype.reload = function() {
 

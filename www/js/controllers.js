@@ -14,52 +14,26 @@ var t_controllers = " \
   </div> \
 {{/each}}"
 
-// var t_controllers = " \
-// {{#each controllers.root}} \
-//   <div> \
-//     {{#ifCond this.type '==' 'slider' }} \
-//       <span> {{@key}} </span> \
-//       <input class='slider' type='text' data-slider-min='{{../range.[0]}}' data-slider-max='{{../range.[1]}}' data-slider-step='5' data-slider-value='{{../val}}' name='page' data-name='{{@key}}' data-cid='{{../../container.[0].id}}' /> \
-//     {{else}} \
-//       {{#ifCond this.type '==' 'select' }} \
-//         {{@key}} select \
-//       {{else}} \
-//         {{@key}} other \
-//       {{/ifCond}} \
-//     {{/ifCond}} \
-//   </div> \
-// {{/each}}"
 
-// var t_controllers = " \
-// This was for jquery ui slider
-// {{#each controllers.root}} \
-//   <div> \
-//     {{#ifCond this.type '==' 'slider' }} \
-//       <span> {{@key}} </span> \
-//       <div class='c_slider' data-slider-min='{{../range.[0]}}' data-slider-max='{{../range.[1]}}' data-slider-step='5' data-slider-value='{{../val}}' name='page' data-name='{{@key}}' data-cid='{{../../container.[0].id}}' /> \
-//     {{else}} \
-//       {{#ifCond this.type '==' 'select' }} \
-//         {{@key}} select \
-//       {{else}} \
-//         {{@key}} other \
-//       {{/ifCond}} \
-//     {{/ifCond}} \
+// var t_image_selector = ' \
+// <div id="image-manager"> \
+//   <div id="image-manager-header"> \
+//     <button type="button" class="btn btn-default"> \
+//       Upload New Image \
+//       <span class="glyphicon glyphicon-upload" aria-hidden="true" style="top:0px;"></span> \
+//     </button> \
+//     <button type="button" class="btn btn-default"> \
+//       Insert selected \
+//       <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" style="top:0px;"></span> \
+//     </button> \
+//     <button type="button" class="btn btn-default"> \
+//       Edit selected \
+//       <span class="glyphicon glyphicon-edit" aria-hidden="true" style="top:0px;"></span> \
+//     </button> \
 //   </div> \
-// {{/each}}"
+//   <div id="image-manager-image-list"> \
+//     \
+//   </div> \
+// </div>'
 
-// var t_controllers = " \
-// {{#each controller controllers.root}} \
-//   <div> \
-//     {{#ifCond this.type '==' 'slider' }} \
-//       <span> {{@key}} </span> \
-//       <input class='slider' type='range' min='{{this.range.[0]}}' max='{{this.range.[1]}}' step='5' value='{{this.val}}' name='page' data-name='{{@key}}' data-cid='{{../../container.[0].id}}' /> \
-//     {{else}} \
-//       {{#ifCond this.type '==' 'select' }} \
-//         {{@key}} select \
-//       {{else}} \
-//         {{@key}} other \
-//       {{/ifCond}} \
-//     {{/ifCond}} \
-//   </div> \
-// {{/each}}"
 

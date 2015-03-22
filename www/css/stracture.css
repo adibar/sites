@@ -69,9 +69,9 @@
   /*background: url(http://static.wixstatic.com/media/320983_3aa8105cb44b46d88681861529b5731a.jpg_srz_p_1920_1920_75_22_0.50_1.20_0.00_jpg_srz) 50% 50% / cover no-repeat no-repeat fixed rgb(255, 255, 255);*/
   /*background: url("../img/backgrounds/symphony.png") repeat repeat;*/
   /*background: url("../img/backgrounds/45degreee_fabric.png") repeat repeat;*/
-  background: url("../img/backgrounds/texture_grain_200x200_v2.png") repeat repeat;
+  /*background: url("../img/backgrounds/texture_grain_200x200_v2.png") repeat repeat;*/
   /*background: url("../img/backgrounds/45degreee_fabric_@2X.png") repeat repeat;*/
-  /*background: url("../img/backgrounds/subtle_white_mini_waves.png") repeat repeat;*/
+  background: url("../img/backgrounds/subtle_white_mini_waves.png") repeat repeat;
 }
 
 .floating-menu {
@@ -141,4 +141,39 @@
   0%   {color:#B51F1F;}
   15%  {color:orange;}
   100% {color:#B51F1F;}
+}
+
+
+#image-manager-image-list-container {
+  height:400px; 
+  overflow-y:scroll; 
+  margin-top:3px; 
+  padding:3px; 
+  border:1px dashed #333;
+}
+
+#image-manager-image-list {
+  list-style-type: none; 
+  padding:0px;
+}
+
+#image-manager-image-list > li {
+  float:left; 
+  cursor:col-resize;
+  width: 128px; 
+  height: 110px; 
+  margin:3px;
+  overflow-y:hidden;
+  background-color:rgba(228,228,228,.6);
+}
+
+#image-manager-image-list > li > div >img {
+  width:100%;
+}
+
+#image-manager-image-list > li > div > button {
+  position: absolute;
+  bottom:3px;
+  background-color:rgba(255,255,255,.6); 
+  /*background-color:white;*/
 }
