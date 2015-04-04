@@ -145,7 +145,8 @@
 
 
 #image-manager-image-list-container {
-  height:400px; 
+  /*height:45%;*/
+  height:350px;
   overflow-y:scroll; 
   margin-top:3px; 
   padding:3px; 

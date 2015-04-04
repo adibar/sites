@@ -42,15 +42,20 @@
               </span>
             </a>
             <a href="#" class="list-group-item" onclick="createWidget('slick-gallery')">
-              Horizontal slider
+              Horizontal Gallery
               <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Horizontal slider" data-content="Horizontal slider image" data-placement="auto right">
               </span>
             </a> 
             <a href="#" class="list-group-item" onclick="createWidget('masonary-gallery')">
-              Mosaic gallery
+              Mosaic Gallery
               <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Mosaic gallery" data-content="Mosaic gallery image" data-placement="auto right">
               </span>
             </a> 
+            <a href="#" class="list-group-item" onclick="createWidget('square-gallery')">
+              Square Gallery 
+              <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Rich text area" data-content="Rich text area image" data-placement="auto right">
+              </span>
+            </a>                        
             <a href="#" class="list-group-item" onclick="createWidget('multi-elements')">
               Multi elements
               <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Multi elements" data-content="Multi elements image" data-placement="auto right">
@@ -73,7 +78,7 @@
 </div>
 
 
-<div id="widgetconfiguration" class="floating-menu panel-group" style="z-index:2000002; top:300px; left:0px;"> 
+<div id="widgetconfiguration" class="floating-menu panel-group" style="z-index:2000002; max-height:80%; overflow-y:scroll; top:300px; left:0px;"> 
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<span class="panel-title">
@@ -104,6 +109,24 @@
   <div id="widgetconfiguration" class="floating-menu" style="z-index:2000000;"> </div> -->
   <!-- <textarea id="content" name="content"></textarea> -->
 </div>  
+
+<div id="main-modal" class="modal fade">
+  <div class="modal-dialog" style="width:95%; margin-top:5px; max-height:98%; ">
+    <div class="modal-content" style="max-width:100%; max-height:100%;" >
+      <div class="modal-header" style="padding:5px;">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Image Selector</h4>
+      </div>
+      <div class="modal-body" style="padding:3px; width:100%; height:100%;">
+        <!-- <p>One fine body&hellip;</p> -->
+      </div>
+<!--       <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <script>
 
@@ -138,45 +161,69 @@ function togglPosition(elid, pos) {
       Upload New Image 
       <span class="glyphicon glyphicon-upload" aria-hidden="true" style="top:0px;"></span> 
     </button> 
-    <button id="insert-img" type="button" class="btn btn-default"> 
+    <button id="insert-img" type="button" class="btn btn-default" > 
       Insert selected 
       <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" style="top:0px;"></span> 
     </button> 
-    <button id="edit-img" type="button" class="btn btn-default"> 
+    {{!-- <button id="edit-img" type="button" class="btn btn-default"> 
       Edit selected 
       <span class="glyphicon glyphicon-edit" aria-hidden="true" style="top:0px;"></span> 
-    </button> 
+    </button> --}}
   </div> 
 
   <div id="image-manager-image-list-container" style=""> 
     <ul id="image-manager-image-list" style=""> 
       {{#each images}}
-        {{> image-manager-img}}
+        {{> image-manager-img cbs=../img_cbs}}
       {{/each}}
     </ul>
   </div> 
 
-  <div id="image-manager-obj-list" style="height:200px; overflow-y:scroll; margin-top:10px; padding:3px; border:1px dashed #333;">
-    <span> Gallery images: Drag images to change order or click (x) to remove from gallery. </span>
-  </div>
+
+  {{> image-manager-obj-list}}
+  {{!-- 
+  {{#if object_images}}
+    <div id="image-manager-obj-list" style="overflow-y:scroll; margin-top:10px; margin-bottom:0px; padding:3px; border:1px dashed #333;">
+      <span> Gallery images: Drag images to change order or click (x) to remove from gallery. </span>
+      <ul id="image-manager-image-list" style=""> 
+        {{#each object_images}}
+          {{> image-manager-img cbs=../obj_cbs }}
+        {{/each}}      
+    </div>
+  {{/if}}
+  --}}
 
 </div>
 
 </script>
 
+<script id="image-manager-obj-list" type="x-handlebars-template">​
+
+  <div id="image-manager-obj-list" style="overflow-y:scroll; margin-top:10px; margin-bottom:0px; padding:3px; border:1px dashed #333;">
+    <span> Gallery images: Drag images to change order or click (x) to remove from gallery. </span>
+    <ul id="image-manager-image-list" style=""> 
+      {{#each object_images}}
+        {{> image-manager-img cbs=../obj_cbs }}
+      {{/each}}      
+  </div>
+
+</script>
+
 <script id="image-manager-img" type="x-handlebars-template">​
   
-<li style="">
-  <div style="position:relative; width:100%; height:100%;" data-id="{{id}}">
-    <button type="button" class="btn btn-default btn-circle" style="right:3px;" onclick="alert('Delete');" title="Delete Image">
+<li id="{{id}}" style="">
+  <div style="position:relative; width:100%; height:100%;" data-id="{{@index}}">
+    <button type="button" class="btn btn-default btn-circle {{cbs.delete_class}} " style="right:3px;" title="Delete Image">
       <span class="glyphicon glyphicon-remove" style="top:0px;"></span>
     </button>
-    <button type="button" class="btn btn-default btn-circle" style="right:25px;" onclick="alert('Edit');" title="Edit Image">
+    <button type="button" class="btn btn-default btn-circle {{cbs.edit_class}}" style="right:25px;"   title="Edit Image">
       <span class="glyphicon glyphicon-pencil" style="top:0px;"></span>
     </button>    
-    <button type="button" class="btn btn-default btn-circle" style="right:47px;" onclick="select_img(this);" title="Select Image">
-      <span class="glyphicon glyphicon-ok" style="top:0px;"></span>
-    </button>        
+    {{#if cbs.select_class}}
+      <button type="button" class="btn btn-default btn-circle {{cbs.select_class}}" style="right:47px;" title="Select Image" onclick="select_img(this);">
+        <span class="glyphicon glyphicon-ok" style="top:0px;"></span>
+      </button>        
+    {{/if}}
     <img src="{{thumb}}" rel="{{image}}" title="{{txt}}" style="" />
   </div>
 </li>
@@ -205,5 +252,54 @@ function select_img(elem) {
     parent.removeClass('selected-img');
   }
 }
+
+function unselect_all() {
+  $('.glyphicon-ban-circle').each(function( index ) {
+    // var imgs = this.find('glyphicon-ban-circle');
+    // imgs.removeClass('glyphicon-ban-circle');
+    // imgs.addClass('glyphicon-ok');
+    // this.removeClass('selected-img');
+    // this.parent().css("border", "none");
+    console.log('unselecting');
+    $(this).removeClass('glyphicon-ban-circle');
+    $(this).addClass('glyphicon-ok');
+    $(this).parent().parent().removeClass('selected-img');
+    $(this).parent().parent().parent().css("border", "none");
+  });
+}
+
+</script>
+
+
+<script id="t_controllers" type="x-handlebars-template">​
+
+<div class='list-group'>
+{{#each controllers.root}} 
+  <div class='list-group-item'>
+    {{#ifCond this.type '==' 'slider' }}
+      <span> {{@key}} </span>
+      <input class='slider' type='range' min='{{../range.[0]}}' max='{{../range.[1]}}' step='1' value='{{../val}}' name='page' data-name='{{@key}}' data-cid='{{../../container.[0].id}}' />
+    {{/ifCond}}
+    {{#ifCond this.type '==' 'select' }}
+      <span> {{@key}} </span>
+      <select id='{{@key}}select' data-name='{{@key}}' data-cid='{{../../container.[0].id}}' class='form-control'>
+        {{#each ../options}}
+          <option>{{this}}</option>
+        {{/each}}          
+      </select>
+    {{/ifCond}}
+    {{#ifCond this.type '==' 'checkbox' }}
+      <div class='checkbox checkbox-primary' style='margin-top:0px; margin-bottom:0px; margin-left:0px;'>
+        <input id='{{@key}}checkbox' type='checkbox' value='{{../val}}' data-name='{{@key}}' data-cid='{{../../container.[0].id}}'  >
+        <label for='{{@key}}checkbox'> {{@key}}  </label>
+      </div>
+    {{/ifCond}}
+    {{#ifCond this.type '==' 'color-picker' }}
+      <span> {{@key}} </span>
+      <input type='text' id='{{@key}}color-picker' class='color-picker' value='{{../val}}' data-name='{{@key}}' data-cid='{{../../container.[0].id}}'/>
+    {{/ifCond}}
+  </div>
+{{/each}}
+</div>
 
 </script>

@@ -232,6 +232,11 @@ var jsonObj;
 var jsonObj_orig;
 var picndoOBJs = {}
 
+// TEMPLATES
+var image_manager_templete;
+var t_controllers;
+
+
 $(document).ready(function () {
 
   $(document).on('mouseenter', '.picndo-editable', function() { 
@@ -245,6 +250,18 @@ $(document).ready(function () {
   });
 
   $('body').load('html/stracture.html', function() {
+
+
+      var source = $('#image-manager').html().replace(/[\u200B]/g, '');
+      image_manager_templete = Handlebars.compile(source);
+      source = $('#t_controllers').html().replace(/[\u200B]/g, '');
+      t_controllers = Handlebars.compile(source);
+
+      Handlebars.registerPartial("image-manager-img", $("#image-manager-img").html().replace(/[\u200B]/g, '') );
+      Handlebars.registerPartial("image-manager-obj-list", $("#image-manager-obj-list").html().replace(/[\u200B]/g, '') );     
+      Handlebars.registerHelper("ifCond",function(v1,operator,v2,options) {
+        return ifCond(v1,operator,v2,options);
+      });       
     
     // $('#content').redactor({
     //   lang:           'he',
@@ -279,7 +296,9 @@ $(document).ready(function () {
 
     
     jsonObj_orig = _.clone(jsonObj, true);
-    start_diff();    
+    start_diff();  
+
+
 
   });
 });
@@ -337,80 +356,115 @@ function cleanPage(container, pName) {
 var elementsCounter = 0;
 function loadPage(container, pData) {
 
-  // var ldiv1 = jQuery('<div/>', {
-  //   class: 'row .picndo-editable'
-  // });
-  var ldiv1 = jQuery('<div/>', {
+
+  // menu
+  // loadMenu(container, pData);
+
+  var elId = 'picndo-obj' + elementsCounter;
+  var ldiv = jQuery('<div/>', {
     // class: 'container-fluid'
     class: 'container'
-  }).append( jQuery('<div/>', {
-    class: 'row .picndo-editable'
-  }));
-
-  container.append(ldiv1);
-  
-  // $.getScript("widgets/" + data.menu.type + "/" + data.menu.type + ".js", function() {
-  $.getScript("widgets/" + jsonObj.menu.type + "/" + jsonObj.menu.type + ".js", function() {
-    //loadmenu($("#contentcontainer"), "widgets/top-menu/", data);
-    loadmenu(ldiv1, "widgets/top-menu/", jsonObj);
   });
+  var ldiv1 = jQuery('<div/>', {
+    // class: 'container-fluid',
+    // class: 'row picndo-editable',
+    class: 'picndo-row picndo-editable',
+    id: elId,
+  });
+  ldiv.append(ldiv1);
 
+  container.append(ldiv);
+  elementsCounter++;
+
+  jsonObj["menu"]["id"] = elId;
+
+  cbObj = {
+    "widget_name" : "menu",
+    "container"   : ldiv1,          
+    "data"        : jsonObj["menu"],
+    "path"        : "widgets/top-menu/",
+  };
+
+  // // $.getScript("widgets/" + data.menu.type + "/" + data.menu.type + ".js", function() {
+  // $.getScript("widgets/" + jsonObj.menu.type + "/" + jsonObj.menu.type + ".js", function() {
+  //   //loadmenu($("#contentcontainer"), "widgets/top-menu/", data);
+  //   loadmenu(ldiv1, "widgets/top-menu/", jsonObj);
+  // });
+  loadWidgetSctipt("widgets/top-menu/top-menu.js", cbObj);          
+
+  // Elements
   var i;
   for (i=0; i<pData.length; i++) {
-    console.log("loading " + pData[i]["widget_name"]);
-    var cbObj = {};
-
+    
     var elId = 'picndo-obj' + elementsCounter;
-
     var ldiv = jQuery('<div/>', {
-      // class: 'row picndo-row',
       class: 'picndo-row picndo-editable',
-      // id: 'picndo-obj' + elementsCounter + i,
       id: elId,
     });
     container.append(ldiv);
     elementsCounter++;
 
     pData[i]["id"] = elId;
+
+    cbObj = {
+      "widget_name":pData[i]["widget_name"],
+      "container":ldiv,          
+      "data":pData[i],
+    }
+
     switch (pData[i]["widget_name"]) {
 
       case 'slick-gallery':
-        cbObj = {
-          "widget_name":pData[i]["widget_name"],
-          "container":ldiv,          
-          "path":"widgets/galleries/slick-scrolling-gallery/",
-          "data":pData[i],
-        }
+        // cbObj = {
+        //   "widget_name":pData[i]["widget_name"],
+        //   "container":ldiv,          
+        //   "path":"widgets/galleries/slick-scrolling-gallery/",
+        //   "data":pData[i],
+        // }
+        cbObj["path"] = "widgets/galleries/slick-scrolling-gallery/";
         loadWidgetSctipt("widgets/galleries/slick-scrolling-gallery/gallery.js", cbObj);
         break;
     
       case 'masonary-gallery':
-        cbObj = {
-          "widget_name":pData[i]["widget_name"],
-          "container":ldiv,          
-          "path":"widgets/galleries/masonary/",
-          "data":pData[i],
-        }
+        // cbObj = {
+        //   "widget_name":pData[i]["widget_name"],
+        //   "container":ldiv,          
+        //   "path":"widgets/galleries/masonary/",
+        //   "data":pData[i],
+        // }
+        cbObj["path"] = "widgets/galleries/masonary/";
         loadWidgetSctipt("widgets/galleries/masonary/gallery.js", cbObj);      
-        break;        
-
+        break;    
+      case 'square-gallery':    
+        // cbObj = {
+        //   "widget_name":pData[i]["widget_name"],
+        //   "container":ldiv,          
+        //   "path":"widgets/galleries/square/",
+        //   "data":pData[i],
+        // }
+        
+        cbObj["path"] = "widgets/galleries/square/";
+        loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);      
+        break;    
       case 'general-txt':
-        cbObj = {
-          "widget_name":pData[i]["widget_name"],
-          "container":ldiv,          
-          "path":"widgets/general-txt/",
-          "data":pData[i],
-        }
+        // cbObj = {
+        //   "widget_name":pData[i]["widget_name"],
+        //   "container":ldiv,          
+        //   "path":"widgets/general-txt/",
+        //   "data":pData[i],
+        // }
+        cbObj["path"] = "widgets/general-txt/";        
         loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
         break;
 
       case 'multi-elements':        
-        cbObj = {
-          "widget_name":pData[i]["widget_name"],
-          "container":ldiv,          
-          "path":"widgets/multi-elements/",
-          "data":pData[i],
-        }
+        // cbObj = {
+        //   "widget_name":pData[i]["widget_name"],
+        //   "container":ldiv,          
+        //   "path":"widgets/multi-elements/",
+        //   "data":pData[i],
+        // }
+        cbObj["path"] = "widgets/multi-elements/";        
         loadWidgetSctipt("widgets/multi-elements/multi-elements.js", cbObj);      
         break;
 
@@ -421,8 +475,38 @@ function loadPage(container, pData) {
   }
 
   // $(".picndo-row").resizable();
-
 }
+
+// function loadMenu() {
+//   var elId = 'picndo-obj' + elementsCounter;
+
+//   var ldiv1 = jQuery('<div/>', {
+//     // class: 'container-fluid'
+//     class: 'container',
+//     id:elId
+//   }).append( jQuery('<div/>', {
+//     class: 'row .picndo-editable'
+//   }));
+
+//   container.append(ldiv1);
+
+//   cbObj = {
+//     "widget_name":pData[i]["widget_name"],
+//     "container":ldiv,          
+//     "path":"widgets/galleries/slick-scrolling-gallery/",
+//     "data":pData[i],
+//   }
+  
+//   // $.getScript("widgets/" + data.menu.type + "/" + data.menu.type + ".js", function() {
+//   $.getScript("widgets/" + jsonObj.menu.type + "/" + jsonObj.menu.type + ".js", function() {
+//     //loadmenu($("#contentcontainer"), "widgets/top-menu/", data);
+//     loadmenu(ldiv1, "widgets/top-menu/", jsonObj);
+//   });  
+// }
+
+// function loadElement( ) {
+
+// }
 
 function remove_obj_from_json(lid) {
   
@@ -476,40 +560,22 @@ function createWidget(widgetName, container) {
         "widget_name":widgetName,
         "container": ldiv,          
         "path": "widgets/general-txt/",
-        // "data":pData[i],
-        //"data": typeof pData !== 'undefined' ? pData : PDG_general_txt.default_data(),
-        // "data": typeof pData !== 'undefined' ? pData : {},
-        // "data": pData,
         "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
-      }
-
-      // var ljson = { 
-      //   "widget_name":  widgetName,
-      //   "css":          { },
-      //   "data":         { },
-      // };
-      
+      }    
 
       loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
-
-      
-
-      // {
-      //   "widget_name": 'masonary-gallery',
-      //   'css': {
-
-      //   },
-      //   'data':{
-      //     'photos': [
-      //       { 'url': '/static/img/media/IMG_1531.jpg' },
-      //       { 'url': '/static/img/media/IMG_1536.jpg' },
-      //       { 'url': '/static/img/media/IMG_1549.jpg' },
-      //       { 'url': '/static/img/media/IMG_1558.jpg' },
-      //       { 'url': '/static/img/media/IMG_1564.jpg' },
-      //       { 'url': '/static/img/media/IMG_1570.jpg' },
-      //       { 'url': '/static/img/media/IMG_1578.jpg' },
-      // }
       break;
+    
+    case 'square-gallery':
+      cbObj = {
+        "widget_name":widgetName,
+        "container": ldiv,          
+        "path": "widgets/galleries/square/",
+        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+      }    
+
+      loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);                
+      break
 
     default:
       alert("Unknown widget element");
@@ -519,12 +585,15 @@ function createWidget(widgetName, container) {
 }
 
 function loadWidgetSctipt(jsURL, wData) {
-  $.ajax({
-    url: jsURL,
-    dataType: 'script',
-    success: function() {
-      loadWidget(wData);
-    }
+  // TODO => this is wrong to make masonary gallery.js a must for square gallery => load all from header, no dynamically
+  $.getScript( './widgets/galleries/masonary/gallery.js', function( ldata, textStatus, jqxhr ) {
+    $.ajax({
+      url: jsURL,
+      dataType: 'script',
+      success: function() {
+        loadWidget(wData);
+      }
+    });
   });
 }
 
@@ -539,12 +608,18 @@ function loadWidget(wData) {
       break;
     case 'masonary-gallery':
       obj = new PDG_masonary_gallery(wData.container, wData.path, wData.data);
-      break;    
+      break;  
+    case 'square-gallery': 
+      obj = new PDG_square_gallery(wData.container, wData.path, wData.data);
+      break;  
     case 'general-txt':
       obj = new PDG_general_txt(wData.container, wData.path, wData.data);
       break;
     case 'multi-elements':
       obj = new PDG_multi_elements(wData.container, wData.path, wData.data);
+      break;
+    case 'menu':
+      obj = new PDG_top_menu(wData.container, wData.path, wData.data);
       break;    
   }
 

@@ -191,7 +191,7 @@ PDG_general_txt.prototype.default_data = function() {
   {
     "widget_name": 'general-txt',
     "css": {
-
+      "root": { },
     },
     'data': "<h1 style='text-align: center; background-color:'> Rich text area </h1> <p> Edit this text / Add photos / design </p>"
   };

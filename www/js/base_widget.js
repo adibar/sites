@@ -8,23 +8,28 @@ function BaseWidget(container, path, data, opts) {
   this.container = container
   this.path = path;
   
-  // this.data = data;
-  // this.data = typeof data !== 'undefined' ? data : this.default_data();
-  this.data = data;
-  if ( _.isEqual(data.data, {}) && _.isEqual(data.css, {}) ) {
-    var def_data = this.default_data();
-    this.data["css"] = def_data.css;
-    this.data["data"] = def_data.data;
-  }
-
-
-  this.controllers = {
-    'root': {
-      'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.slickcontainer', },
-      'margin-top': { 'val':'20', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer', },
-      'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
+  if ( !(this.default_controllers) ) {
+    this.default_controllers = {
+      "root" : { 
+        'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.slickcontainer', },
+        'margin-top': { 'val':'20', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer', },
+        // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
+      }
     }
   }
+
+  var def_data = this.default_data();
+
+  this.data = data;
+  if ( _.isEqual( data.data, { } ) )  {  // && _.isEqual( data.css, { } ) ) {
+    this.data["data"] = def_data.data;
+  }
+  if ( _.isEqual( data.css, { } ) || ( !data.css ) ) {
+    this.data["css"] = def_data.css;
+  }
+  this.data["css"]["root"] = BaseWidget.extend( this.data["css"]["root"], this.default_controllers["root"] ); // allowing upgrading controllers with new ones 
+
+  this.controllers = this.data["css"];
 
   // BaseWidget.load_edit_menu(this.container, opts);
   this.load_edit_menu(this.container, opts);
@@ -33,6 +38,54 @@ function BaseWidget(container, path, data, opts) {
 // static var
 BaseWidget.widgets_count = 0;
 BaseWidget.widgeteditor_id = "widgetconfigurationcollapse"; //'widgeteditor';
+
+BaseWidget.prototype.load_style = function() {
+  for ( var property in this.controllers["root"] ) {
+    if (this.controllers["root"].hasOwnProperty(property)) { // why ???
+      if ( 'cb' in this.controllers["root"][property] ) {
+        var fnstring = this.controllers["root"][property]['cb'];
+        // var fn = window[fnstring];
+        // if (typeof fn === "function") { 
+        //   fn.call(this, property);
+        // }
+
+        this[fnstring]( property, this.controllers["root"][property]['val'] );
+      }
+      // this.load_css( property, this.controllers["root"][property] );
+    }
+  }
+}
+
+BaseWidget.extend = function(target, source) {
+
+  for (var property in source) {
+    if (source.hasOwnProperty(property)) { // why ???
+      if ( !(property in target) ) {           // if doesnt exist
+        target[property] = source[property];   // => copy it
+      }
+      // else { // in target but ... 
+      //   for ( var lkey in source[property] ) {
+      //     if ( !(lkey in target[property])  ) {// ... added key
+      //       target[property][lkey] = source[property][lkey]; // we add the new key     
+      //     }
+      //     else { // exists => overload all except value
+
+      //     }
+      //   }  
+      // }
+      else { // overwrite all except val
+        for ( var lkey in source[property] ) {
+          if (source[property].hasOwnProperty(lkey)) { // why ???
+            if ( lkey != 'val' ) { // => do not overwrite the value
+              target[property][lkey] = source[property][lkey];
+            }
+          }
+        }
+      }
+    }
+  }
+  return target;
+}
 
 
 BaseWidget.prototype.load_edit_menu = function(el, opts) {
@@ -46,15 +99,9 @@ BaseWidget.prototype.load_edit_menu = function(el, opts) {
           <span class="' + opts['btn1'] +'" aria-hidden="true"></span> \
         </button>');
       $(btn_group).append(btn);
-      // btn.click( $.proxy(this.addImage, this) );
       console.log('adding on click');
-      // var lfunc = $.proxy(lobj.addImage, lobj);
-      // btn.on('click', lfunc() );
-      // btn.on('click', function() {
-      //   alert('clicking');
-      // });
       btn.on('click', $.proxy(function(e) {
-        this.addImage();
+        imageEditor(this);
       }, lobj) );
     }
   });
@@ -104,7 +151,10 @@ BaseWidget.get_class_obj_for_event = function(obj) {
 }
 
 BaseWidget.prototype.default_data = function() {
-  alert('default_data not implemented for class');
+  console.log('**************************************');
+  console.log('default_data not implemented for class');
+  console.log('**************************************');
+  return { 'data':{}, 'css':{ "root":{} } };
 }
 
 // object function
@@ -124,20 +174,6 @@ BaseWidget.prototype.load_assets = function(assets, cb) {
     });  
   } 
   
-  // // load js
-  // var loaded = 0 ;
-  // for (var i=0; i<assets.js.length; i++) {
-  //   $.getScript( obj.path + assets.js[i], function( data, textStatus, jqxhr ) {
-  //     console.log("loaded " + obj.path + "..." ); 
-  //     loaded++;
-  //     if (loaded == assets.js.length) {
-  //       $.get(obj.path + assets.html + '?'+Math.random()*Math.random(), function (ldata) {
-  //         obj.container.append(ldata);
-  //         cb(obj);
-  //       });
-  //     }
-  //   });
-  // }
   this.load_js_and_html(assets,cb);
 }
 
@@ -197,24 +233,45 @@ BaseWidget.prototype.reload = function() {
 // value: edit element type and posiable value (enum / range)
 BaseWidget.prototype.edit = function() {
   console.log('editing ' + this.container[0].id);
-  // $("#" + BaseWidget.widgeteditor_id).html(this.data.widget_name);
-  
-  var source = t_controllers;
-  var template = Handlebars.compile(source);
-  // var partial = $("#h-single-element").html();
-  // Handlebars.registerPartial('single-element', partial);
 
-  // var data = this.controllers;
   var data = this;
   console.log( "c-id = " + this.container[0].id);
 
-  Handlebars.registerHelper("ifCond",function(v1,operator,v2,options) {
-    return ifCond(v1,operator,v2,options);
+  var html  = t_controllers(data);  
+  $("#" + BaseWidget.widgeteditor_id).html(html);
+
+  $('#'+BaseWidget.widgeteditor_id).find('.color-picker').each( function() {
+    $(this).spectrum({
+      showPaletteOnly: true,
+      togglePaletteOnly: true,
+      togglePaletteMoreText: 'more',
+      togglePaletteLessText: 'less',
+      color: $(this).val(),
+      showAlpha: true,
+      palette: [
+          ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+          ["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+          ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+          ["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+          ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+          ["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+          ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+          ["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+      ]
+    });
   });
 
-  var html  = template(data);  
+  
+  $('#'+BaseWidget.widgeteditor_id).find(':checkbox').each( function() {
+    var val = $(this).val();
+    if (val == "true") {
+      $(this).prop('checked', true);
+    }
+    else {
+      $(this).prop('checked', false); 
+    }
+  });
 
-  $("#" + BaseWidget.widgeteditor_id).html(html);
   $('.slider').change(function(ev) {
     widgetid = $(this).data('cid');
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
@@ -224,13 +281,43 @@ BaseWidget.prototype.edit = function() {
 
     // var lwidget = BaseWidget.get_class_obj_for_event($(this));
     console.log('slider changed');
-    lwidget.set_data(lattr, val);
+    lwidget.set_css(lattr, val);
     
     if (reload == 'true') {
       lwidget.reload();
     }
-
   });
+
+  $('#'+BaseWidget.widgeteditor_id).find(':checkbox').change(function(ev) {
+    widgetid = $(this).data('cid');
+    console.log('checkbox changed for ' + widgetid);
+    var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
+    var lattr = $(this).data('name');  
+    var val = $(this).is(':checked');
+    lwidget.set_css_class(lattr, val);
+  });
+
+  $('#'+BaseWidget.widgeteditor_id).find('select').change(function(ev) {
+    widgetid = $(this).data('cid');
+    console.log('select changed for ' + widgetid);
+    var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
+    var lattr = $(this).data('name');
+    var val = $(this).val();  
+    lwidget.set_css(lattr, val);
+  });
+
+  $('#'+BaseWidget.widgeteditor_id).find('.color-picker').change(function(ev) {
+    widgetid = $(this).data('cid');
+    console.log('color-picker changed for ' + widgetid);    
+    var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
+    var lattr = $(this).data('name');
+    var val = $(this).spectrum("get").toHexString()    
+    console.log('color-picker val=' + val);        
+    lwidget.set_css(lattr, val);
+  });
+
+
+
   // $('.c_slider').each( function() {
   //   $(this).slider({
       
@@ -257,12 +344,37 @@ BaseWidget.prototype.edit = function() {
   $("#" + BaseWidget.widgeteditor_id).collapse('show');
 }
 
-BaseWidget.prototype.set_data = function(attr, val) {
-  console.log("set_data");
-  var selector = this.controllers.root[attr].el
+BaseWidget.prototype.set_css = function(attr, val) {
+  console.log("set_css");
+  var selector = this.controllers.root[attr]["el"][0][0];
   var elements = this.container.find(selector);
-  elements.css(attr, val+'px');
+  //elements.css( this.controllers.root[attr].el[0][1], val+this.controllers.root[attr]["units"]  );
+  var style_attr = this.controllers.root[attr].el[0][1];
+  var style_val  = val+this.controllers.root[attr]["units"];
+  elements[0].style[style_attr] = style_val;
+  
+  this.controllers.root[attr]["val"] = val;
 }
+
+BaseWidget.prototype.set_css_class = function(attr, val) {
+  console.log( JSON.stringify( this.controllers.root[attr] ) );
+  els = this.controllers['root'][attr]['el']
+  for (var i=0; i<els.length; i++) {
+    objs = this.container.find(els[i][0]);
+    if (val == true) {
+      objs.addClass(els[i][1]);
+    } else {
+      objs.removeClass(els[i][1]);
+    }
+  }
+
+  this.controllers["root"][attr]["val"] = val;
+
+}
+
+// function global_set_css_class( obj, attr, value) {
+
+// }
 
 
 

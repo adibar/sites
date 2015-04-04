@@ -35,6 +35,10 @@
     }
 }
 
+.navbar-collapse.in {
+    overflow-y:hidden;
+}
+
 .navbar-collapse-style {
     /*display:inline-block !important;*/
     /*position:relative;*/
@@ -92,3 +96,26 @@
         margin-right:auto;
     }
 }    
+
+/*************************************************
+                    controllers
+*************************************************/
+
+.navbar-header-center {
+    float:none !important;
+}
+.navbar-brand-style-center {
+    display:block !important;
+    float:none !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+.navbar-nav-center {
+    display: inline-block;
+    float: none;
+}
+
+.navbar-collapse-center {
+    text-align: center;
+}

@@ -60,7 +60,8 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 		  			console.log('setting');
 		  			var html  = template( { "images": data, "insert":$.proxy(this.imagemanager.insert, this), } );  
 		  			$modal.append( html); 
-		  			$("#insert-img").click(this.imagemanager.insert);
+		  			var insert = $("#insert-img");
+		  			insert.click(this.imagemanager.insert);
 
 						$('#image-manager-image-list').sortable({
       				cursor: "col-resize",
@@ -95,7 +96,10 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 				els.each(function( index ) {
 					var limg = $(this).find('img')[0];
 					var lstr = '<img src="' + $(limg).attr('rel') + '" alt="' + $(limg).attr('title') + '" style="width:500px;" ' + '>';
+					var marker = lobj.selection.getMarker();
+        	lobj.insert.node(marker);
 					lobj.image.insert(lstr);
+					console.log("insert -> " + $(limg).attr('rel')) ;
 				});
 			}
 		};
