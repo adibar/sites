@@ -7,6 +7,12 @@ function PDG_masonary_gallery(container, path, data, assetsLoad) {
   
   assetsLoad = typeof assetsLoad !== 'undefined' ? assetsLoad : true;
 
+  this.default_controllers = typeof this.default_controllers !== 'undefined' ? this.default_controllers : {
+    "root" : { 
+      'margin-top': { 'type':'slider', 'val':'20',  'range':[0,300],    'units':'px', "cb":"set_css", 'el':[ [ '.masonary-container', 'margin-top'] ], },
+    }
+  }
+
   // call base contructore
   BaseWidget.call(this, container, path, data, { 
     'btn1':'glyphicon glyphicon-picture', 
@@ -44,6 +50,8 @@ function PDG_masonary_gallery(container, path, data, assetsLoad) {
       myobj.msnry.bindResize();
 
       myobj.load_images();
+
+      myobj.load_style();
       
     });
   }

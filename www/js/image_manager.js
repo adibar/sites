@@ -1,7 +1,14 @@
 
 var imageEditorObj; 
 
-function imageEditor(obj) {
+function imageEditor(obj, opts) {
+  
+  opts = typeof opts !== 'undefined' ? opts : { 
+    'insertImage'     : insertImage,
+    'removeImage'     : removeImage,
+    'multippleSelect' : 1
+  };
+
   $("#main-modal").modal( { } );
   console.log('modal called');
   $("#main-modal").off('hidden.bs.modal');
@@ -20,18 +27,23 @@ function imageEditor(obj) {
 
       console.log('setting');
 
-      var lobj = {  "images": data,  
-                    "object_images":obj.data.data.photos, 
-                    "img_cbs":{ 
-                      "delete_class"  : "img_delete", 
-                      "edit_class"    : "img_edit",
-                      "select_class"  : "img_select"
-                    },                              
-                    "obj_cbs":{ 
-                      "delete_class"  : "obj_delete", 
-                      "edit_class"    : "obj_edit",
-                    } 
-                } ;
+      var lobj = {  
+        "images": data,  
+        "img_cbs":{ 
+          "delete_class"  : "img_delete", 
+          "edit_class"    : "img_edit",
+          "select_class"  : "img_select"
+        },
+      };
+      if ( (typeof obj.data.data !== 'undefined') && ( typeof obj.data.data.photos !== 'undefined') ) {
+        lobj["object_images"] = obj.data.data.photos,                               
+        lobj["obj_cbs"] = { 
+          "delete_class"  : "obj_delete", 
+          "edit_class"    : "obj_edit",
+        } 
+      }
+
+
 
       var html = image_manager_templete( lobj );
       
@@ -42,8 +54,8 @@ function imageEditor(obj) {
 
       // $("#insert-img").click( $.proxy(this.insertImage, this) );
       // $("#insert-img").click( $.proxy(insertImage, obj) );
-      $("#insert-img").click( { obj: obj }, insertImage);
-      $(".obj_delete").click( { obj: obj }, removeImage);
+      $("#insert-img").click( { obj: obj }, opts.insertImage);
+      $(".obj_delete").click( { obj: obj }, opts.removeImage);
 
       sortable();
       // $('#image-manager-obj-list > ul').sortable({        
@@ -65,6 +77,9 @@ function editorClose() {
   if ( imageEditorObj.modified == true ) {
     imageEditorObj.reload() ;
   }
+
+  $("#main-modal").modal( 'hide' );
+
 }
 
 function sortable() {
@@ -97,10 +112,10 @@ function sortable() {
   });  
 }
 
-function insertImage(ev) {
-
-  var obj = ev.data.obj;
+function selectedImages() {
+  var photos = []
   var els = $(".selected-img");
+  
   els.each(function( index ) {
     var limg = $(this).find('img')[0];
     var attrs = { 
@@ -110,9 +125,32 @@ function insertImage(ev) {
       'txt'   : $(limg).attr('title')
     };
 
-    obj.data.data.photos.push( attrs );
+    photos.push(attrs)
+  });  
+  return photos;
+}
+
+function insertImage(ev) {
+
+  var obj = ev.data.obj;
+  // var els = $(".selected-img");
+  // els.each(function( index ) {
+  //   var limg = $(this).find('img')[0];
+  //   var attrs = { 
+  //     'id'    : $(this).data('id'),
+  //     'thumb' : $(limg).attr('src'),
+  //     'image' : $(limg).attr('rel'),
+  //     'txt'   : $(limg).attr('title')
+  //   };
+
+  //   obj.data.data.photos.push( attrs );
+  //   obj.added( );
+  // });
+  var photos = selectedImages();
+  for (var i=0; i<photos.length; i++) {
+    obj.data.data.photos.push( photos[i] );
     obj.added( );
-  });
+  }
   
   obj.reload();
 

@@ -41,6 +41,7 @@ def images(request):
     {"id":32, "thumb": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2107.jpg', "image": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2107.jpg', "txt":'' },
     {"id":33, "thumb": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2125.jpg', "image": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2125.jpg', "txt":'' },
     {"id":34, "thumb": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2131.jpg', "image": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2131.jpg', "txt":'' },
+    {"id":35, "thumb": 'http://127.0.0.1:8000/static/img/media/alonlogo.jpg', "image": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2131.jpg', "txt":'' },
 
 
   ]

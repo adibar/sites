@@ -83,6 +83,20 @@ body {
   border:none;
 }
 
+.btn-micro {
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  /*padding: 6px 0;*/
+  padding: 0px;
+  /*margin-left:3px;*/
+  font-size: 10px;
+  /*line-height: 1.42;*/
+  line-height: 16px;
+  /*border-radius: 7px;*/
+  border:none;
+}
+
 .controller-element {
   border-bottom: #ccc;
 }

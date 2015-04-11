@@ -43,13 +43,10 @@ BaseWidget.prototype.load_style = function() {
   for ( var property in this.controllers["root"] ) {
     if (this.controllers["root"].hasOwnProperty(property)) { // why ???
       if ( 'cb' in this.controllers["root"][property] ) {
-        var fnstring = this.controllers["root"][property]['cb'];
-        // var fn = window[fnstring];
-        // if (typeof fn === "function") { 
-        //   fn.call(this, property);
-        // }
-
-        this[fnstring]( property, this.controllers["root"][property]['val'] );
+        if ( !( 'loadstyle' in this.controllers["root"][property] ) ) {
+          var fnstring = this.controllers["root"][property]['cb'];
+          this[fnstring]( property, this.controllers["root"][property]['val'] );
+        }
       }
       // this.load_css( property, this.controllers["root"][property] );
     }
@@ -109,7 +106,8 @@ BaseWidget.prototype.load_edit_menu = function(el, opts) {
 
 // static function
 BaseWidget.get_container_for_obj_action = function(obj) {
-  var widgetContainer = $(obj).parents(".picndo-row")[0];
+  // var widgetContainer = $(obj).parents(".picndo-row")[0];
+  var widgetContainer = $(obj).parents(".picndo-editable")[0];
   return widgetContainer;
 }
 
@@ -303,7 +301,10 @@ BaseWidget.prototype.edit = function() {
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
     var lattr = $(this).data('name');
     var val = $(this).val();  
-    lwidget.set_css(lattr, val);
+    
+    var cb = lwidget.controllers.root[lattr]['cb'];
+    lwidget[cb](lattr, val);
+    //lwidget.set_css(lattr, val);
   });
 
   $('#'+BaseWidget.widgeteditor_id).find('.color-picker').change(function(ev) {
@@ -351,9 +352,11 @@ BaseWidget.prototype.set_css = function(attr, val) {
   //elements.css( this.controllers.root[attr].el[0][1], val+this.controllers.root[attr]["units"]  );
   var style_attr = this.controllers.root[attr].el[0][1];
   var style_val  = val+this.controllers.root[attr]["units"];
-  elements[0].style[style_attr] = style_val;
   
-  this.controllers.root[attr]["val"] = val;
+  if (elements.length > 0) {
+    elements[0].style[style_attr] = style_val;
+    this.controllers.root[attr]["val"] = val;
+  }
 }
 
 BaseWidget.prototype.set_css_class = function(attr, val) {

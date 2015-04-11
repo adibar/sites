@@ -252,16 +252,16 @@ $(document).ready(function () {
   $('body').load('html/stracture.html', function() {
 
 
-      var source = $('#image-manager').html().replace(/[\u200B]/g, '');
-      image_manager_templete = Handlebars.compile(source);
-      source = $('#t_controllers').html().replace(/[\u200B]/g, '');
-      t_controllers = Handlebars.compile(source);
+    var source = $('#image-manager').html().replace(/[\u200B]/g, '');
+    image_manager_templete = Handlebars.compile(source);
+    source = $('#t_controllers').html().replace(/[\u200B]/g, '');
+    t_controllers = Handlebars.compile(source);
 
-      Handlebars.registerPartial("image-manager-img", $("#image-manager-img").html().replace(/[\u200B]/g, '') );
-      Handlebars.registerPartial("image-manager-obj-list", $("#image-manager-obj-list").html().replace(/[\u200B]/g, '') );     
-      Handlebars.registerHelper("ifCond",function(v1,operator,v2,options) {
-        return ifCond(v1,operator,v2,options);
-      });       
+    Handlebars.registerPartial("image-manager-img", $("#image-manager-img").html().replace(/[\u200B]/g, '') );
+    Handlebars.registerPartial("image-manager-obj-list", $("#image-manager-obj-list").html().replace(/[\u200B]/g, '') );     
+    Handlebars.registerHelper("ifCond",function(v1,operator,v2,options) {
+      return ifCond(v1,operator,v2,options);
+    });       
     
     // $('#content').redactor({
     //   lang:           'he',
@@ -273,6 +273,21 @@ $(document).ready(function () {
     
     // $(".floating-menu").draggable( { containment: "#contentcontainer", scroll: false } );
     $(".floating-menu").draggable( { containment: "#draggables-container", scroll: false } );
+
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 600) {
+        $('.scrollup').fadeIn();
+      } else {
+        $('.scrollup').fadeOut();
+      }
+    });
+
+    $('.scrollup').click(function () {
+      $("html, body").animate({
+        scrollTop: 0
+      }, 600);
+      return false;
+    });
 
     // storeData(1, jsonObj);
     jsonObj = getData(1);
@@ -289,6 +304,7 @@ $(document).ready(function () {
 
     // var pageData = data["pages"][data["menu"]["view"]["active"]];
     var pageData = jsonObj["pages"][jsonObj["menu"]["view"]["active"]];
+    loadMenu( $("#menucontainer"), $("#contentcontainer"),  pageData );  
     loadPage( $("#contentcontainer"), pageData );  
 
     // $(".mypopover").popover({ trigger: "hover" });
@@ -344,53 +360,53 @@ function activatePage(pName) {
   data = jsonObj;
   data["menu"]["view"]["active"] = pName;
   var pageData = data["pages"][data["menu"]["view"]["active"]];
-  cleanPage($("#contentcontainer"), pName);
+  cleanPage($("#contentcontainer"), $("#contentcontainer"), pName);
+  
+  loadMenu( $("#menucontainer"), $("#contentcontainer"), pageData );
   loadPage( $("#contentcontainer"), pageData );    
 }
 
-function cleanPage(container, pName) {
-  container.empty(); // clean container
-  picndoOBJs = {};   // clean all objects
+function cleanPage(container, menuContainer, pName) {
+  container.empty();      // clean container
+  menuContainer.empty();  // clean menu
+  picndoOBJs = {};        // clean all objects
 }
 
 var elementsCounter = 0;
-function loadPage(container, pData) {
 
+// TBD - TODO 
+function modifyMenuType() {
 
-  // menu
-  // loadMenu(container, pData);
+}
+
+function loadMenu(container, contentcontainer, pData) {
+
+  // empty menu
+  container.empty();
+
+  // remove all classes
+  container.removeClass();
+  contentcontainer.removeClass();
 
   var elId = 'picndo-obj' + elementsCounter;
-  var ldiv = jQuery('<div/>', {
-    // class: 'container-fluid'
-    class: 'container'
-  });
-  var ldiv1 = jQuery('<div/>', {
-    // class: 'container-fluid',
-    // class: 'row picndo-editable',
-    class: 'picndo-row picndo-editable',
-    id: elId,
-  });
-  ldiv.append(ldiv1);
-
-  container.append(ldiv);
   elementsCounter++;
 
   jsonObj["menu"]["id"] = elId;
 
   cbObj = {
+    "elId"        : elId, 
     "widget_name" : "menu",
-    "container"   : ldiv1,          
+    // "container"   : ldiv1,          
+    "container"   : container,
+    "content"     : contentcontainer,
     "data"        : jsonObj["menu"],
     "path"        : "widgets/top-menu/",
   };
-
-  // // $.getScript("widgets/" + data.menu.type + "/" + data.menu.type + ".js", function() {
-  // $.getScript("widgets/" + jsonObj.menu.type + "/" + jsonObj.menu.type + ".js", function() {
-  //   //loadmenu($("#contentcontainer"), "widgets/top-menu/", data);
-  //   loadmenu(ldiv1, "widgets/top-menu/", jsonObj);
-  // });
+ 
   loadWidgetSctipt("widgets/top-menu/top-menu.js", cbObj);          
+}
+
+function loadPage(container, pData) {
 
   // Elements
   var i;
@@ -415,55 +431,26 @@ function loadPage(container, pData) {
     switch (pData[i]["widget_name"]) {
 
       case 'slick-gallery':
-        // cbObj = {
-        //   "widget_name":pData[i]["widget_name"],
-        //   "container":ldiv,          
-        //   "path":"widgets/galleries/slick-scrolling-gallery/",
-        //   "data":pData[i],
-        // }
         cbObj["path"] = "widgets/galleries/slick-scrolling-gallery/";
         loadWidgetSctipt("widgets/galleries/slick-scrolling-gallery/gallery.js", cbObj);
         break;
     
       case 'masonary-gallery':
-        // cbObj = {
-        //   "widget_name":pData[i]["widget_name"],
-        //   "container":ldiv,          
-        //   "path":"widgets/galleries/masonary/",
-        //   "data":pData[i],
-        // }
         cbObj["path"] = "widgets/galleries/masonary/";
         loadWidgetSctipt("widgets/galleries/masonary/gallery.js", cbObj);      
         break;    
+
       case 'square-gallery':    
-        // cbObj = {
-        //   "widget_name":pData[i]["widget_name"],
-        //   "container":ldiv,          
-        //   "path":"widgets/galleries/square/",
-        //   "data":pData[i],
-        // }
-        
         cbObj["path"] = "widgets/galleries/square/";
         loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);      
         break;    
+
       case 'general-txt':
-        // cbObj = {
-        //   "widget_name":pData[i]["widget_name"],
-        //   "container":ldiv,          
-        //   "path":"widgets/general-txt/",
-        //   "data":pData[i],
-        // }
         cbObj["path"] = "widgets/general-txt/";        
         loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
         break;
 
       case 'multi-elements':        
-        // cbObj = {
-        //   "widget_name":pData[i]["widget_name"],
-        //   "container":ldiv,          
-        //   "path":"widgets/multi-elements/",
-        //   "data":pData[i],
-        // }
         cbObj["path"] = "widgets/multi-elements/";        
         loadWidgetSctipt("widgets/multi-elements/multi-elements.js", cbObj);      
         break;
@@ -619,7 +606,8 @@ function loadWidget(wData) {
       obj = new PDG_multi_elements(wData.container, wData.path, wData.data);
       break;
     case 'menu':
-      obj = new PDG_top_menu(wData.container, wData.path, wData.data);
+      // obj = new PDG_top_menu(wData.container, wData.path, wData.data);
+      obj = new PDG_top_menu(wData.path, wData);
       break;    
   }
 
@@ -634,7 +622,14 @@ function loadWidget(wData) {
     //   picndoOBJs[wData.container[0].id] = [obj, wData.data];
     // }
 
-    picndoOBJs[wData.container[0].id] = [obj, obj.data];
+    if ( ( 'container' in obj ) && ( obj.container != undefined) ) {
+      picndoOBJs[obj.container[0].id] = [obj, obj.data];
+    } 
+    else { // sometimes depends on other usync file loading => returns uninitialized
+      picndoOBJs[wData.container[0].id] = [obj, obj.data];
+    }
+    
+    
   }
 }
 
@@ -678,4 +673,49 @@ function storeData(index, data) {
 
 function getData(index) {
   return JSON.parse(localStorage.getItem(index.toString()) );
+}
+
+function remove_page(name) {
+  console.log('removing page ' + name);
+  
+  // TODO currently do not support multi layer (dropboxed) menus 
+  console.log( 'TODO currently do not support multi layer (dropboxed) menus' ); 
+
+  // remove from menu
+  for (var i=0; i<jsonObj['menu']['pages'].length; i++) {
+    if ( jsonObj['menu']['pages'][i][0]['name'] == name ) {
+      jsonObj['menu']['pages'].splice(i, 1);
+      break;
+    }
+  }
+  
+  // remove from pages
+  delete delete jsonObj['pages'][name];
+
+  // handle if active
+  var active = jsonObj["menu"]["view"]["active"]
+  if (name == active) {
+    if ( jsonObj['menu']['pages'].length > 0 ) {
+      var first = jsonObj['menu']['pages'][0][0]['name'];
+      activatePage(first);
+    }
+  }
+}
+
+function add_page(name) {
+
+  // check if such page allready exist
+  for (var i=0; i<jsonObj['menu']['pages'].length; i++) {
+    if ( jsonObj['menu']['pages'][i][0]['name'] == name ) {
+      alert("page named " + name + "already exist")
+      return;
+    }
+  }  
+
+  var pageUrl = ("/" + name + ".html");
+  jsonObj['menu']['pages'].push( [{ "name":name, "url":pageUrl },] );
+
+  jsonObj['pages'][name] = [];
+
+  activatePage(name);
 }

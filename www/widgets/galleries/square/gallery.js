@@ -1,5 +1,11 @@
 function PDG_square_gallery(container, path, data) {
   
+  this.default_controllers = {
+    "root" : { 
+      'margin-top': { 'type':'slider', 'val':'20',  'range':[0,300],    'units':'px', "cb":"set_css", 'el':[ [ '.masonary-container', 'margin-top'] ], },
+    }
+  }
+
   var myobj = this
   
   $.getScript( './widgets/galleries/masonary/gallery.js', function( ldata, textStatus, jqxhr ) {
@@ -20,9 +26,6 @@ function PDG_square_gallery(container, path, data) {
       myobj.masnry_container = myobj.container.get(0).querySelector('.masonary-container');
       
       myobj.msnry = new Masonry( myobj.masnry_container, {
-        // options
-        // columnWidth: 200,
-        // itemSelector: '.item'
         "columnWidth": ".masonary-container > div"
       });
 
@@ -31,6 +34,8 @@ function PDG_square_gallery(container, path, data) {
       myobj.msnry.bindResize();
 
       myobj.load_images();
+
+      myobj.load_style();
         
     });
 
