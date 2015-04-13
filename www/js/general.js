@@ -445,9 +445,13 @@ function loadPage(container, pData) {
         loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);      
         break;    
 
+      // case 'general-txt':
+      //   cbObj["path"] = "widgets/general-txt/";        
+      //   loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
+      //   break;
       case 'general-txt':
-        cbObj["path"] = "widgets/general-txt/";        
-        loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
+        cbObj["path"] = "widgets/froala-txt/";        
+        loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);      
         break;
 
       case 'multi-elements':        
@@ -543,14 +547,23 @@ function createWidget(widgetName, container) {
   switch (widgetName) {
 
     case 'general-txt':
+      // cbObj = {
+      //   "widget_name":widgetName,
+      //   "container": ldiv,          
+      //   "path": "widgets/general-txt/",
+      //   "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+      // }    
+
+      // loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
+      
       cbObj = {
-        "widget_name":widgetName,
+        "widget_name":'froala-txt',
         "container": ldiv,          
-        "path": "widgets/general-txt/",
+        "path": "widgets/froala-txt/",
         "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
       }    
 
-      loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
+      loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);       
       break;
     
     case 'square-gallery':
@@ -599,9 +612,13 @@ function loadWidget(wData) {
     case 'square-gallery': 
       obj = new PDG_square_gallery(wData.container, wData.path, wData.data);
       break;  
+    // case 'general-txt':
+    //   obj = new PDG_general_txt(wData.container, wData.path, wData.data);
+    //   break;
     case 'general-txt':
-      obj = new PDG_general_txt(wData.container, wData.path, wData.data);
-      break;
+    case 'froala-txt':
+      obj = new PDG_froala_txt(wData.container, wData.path, wData.data);
+      break;      
     case 'multi-elements':
       obj = new PDG_multi_elements(wData.container, wData.path, wData.data);
       break;
