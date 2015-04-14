@@ -340,6 +340,16 @@ function start_diff() {
 function save_diff() {
   storeData(1, jsonObj);
   jsonObj_orig = _.clone(jsonObj, true);
+
+  $.ajax({
+    type: "POST",
+    url: '/siteseditor/save_site',
+    // data: { 'json' : JSON.stringify(jsonObj) },
+    data: JSON.stringify(jsonObj),
+    success: function() { alert('saved!!!') },
+    dataType: 'json'
+  });  
+
   $("#save-btn").css( "display", "none" );
 }
 
@@ -689,7 +699,25 @@ function storeData(index, data) {
 }
 
 function getData(index) {
-  return JSON.parse(localStorage.getItem(index.toString()) );
+  var storage_data = JSON.parse(localStorage.getItem(index.toString()) );
+  
+  var ldata ;
+
+  $.ajax({
+    type: "GET",
+    async: false,
+    url: '/siteseditor/save_site',
+    // data: { 'json' : JSON.stringify(jsonObj) },
+    // data: jsonObj,
+    success: function(data) { 
+      ldata = data;
+    },
+    dataType: 'text',
+  });  
+
+  var ret = JSON.parse(ldata);
+  return ret;
+  // return storage_data;
 }
 
 function remove_page(name) {

@@ -60,3 +60,20 @@ def image_upload(request):
     "id": 1
   }
   return HttpResponse(json.dumps(image), mimetype="application/json")
+
+@csrf_exempt
+# @require_POST
+def save_site(request):
+  if request.method == 'GET':
+    with open("site.txt", "r") as text_file:
+      data = text_file.read()
+    return HttpResponse(data, mimetype="application/json")
+  
+  elif request.method == 'POST':
+    # import pdb; pdb.set_trace()
+    # data = request.POST['json']
+    data = request.body
+    #save to file
+    with open("site.txt", "w") as text_file:
+      text_file.write(data) 
+    return HttpResponse()     
