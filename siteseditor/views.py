@@ -43,6 +43,11 @@ def images(request):
     {"id":34, "thumb": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2131.jpg', "image": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2131.jpg', "txt":'' },
     {"id":35, "thumb": 'http://127.0.0.1:8000/static/img/media/alonlogo.jpg', "image": 'http://127.0.0.1:8000/static/img/media/newborn/IMG_2131.jpg', "txt":'' },
 
+    {"id":36, "thumb": 'http://127.0.0.1:8000/static/img/media/trips/2169dbff8fde9ebe.jpeg', "image": 'http://127.0.0.1:8000/static/img/media/trips/2169dbff8fde9ebe.jpeg', "txt":'' },
+    {"id":37, "thumb": 'http://127.0.0.1:8000/static/img/media/trips/4c84b84f6e232389.jpeg', "image": 'http://127.0.0.1:8000/static/img/media/trips/4c84b84f6e232389.jpeg', "txt":'' },
+    {"id":38, "thumb": 'http://127.0.0.1:8000/static/img/media/trips/b3db88a8946e7cd5.jpeg', "image": 'http://127.0.0.1:8000/static/img/media/trips/b3db88a8946e7cd5.jpeg', "txt":'' },
+    {"id":39, "thumb": 'http://127.0.0.1:8000/static/img/media/trips/bf329957f5d9a86c.jpeg', "image": 'http://127.0.0.1:8000/static/img/media/trips/bf329957f5d9a86c.jpeg', "txt":'' },
+    {"id":40, "thumb": 'http://127.0.0.1:8000/static/img/media/trips/c9361809be1e5135.jpeg', "image": 'http://127.0.0.1:8000/static/img/media/trips/c9361809be1e5135.jpeg', "txt":'' },
 
   ]
   return HttpResponse(json.dumps(images), mimetype="application/json")

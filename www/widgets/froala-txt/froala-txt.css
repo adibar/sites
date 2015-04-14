@@ -1,9 +1,6 @@
-.txtcontainer {
-  padding-left: 10px;
-  padding-right: 10px;
-  overflow: hidden;
-}
-
-.txtcontainer img {
-  max-width: 100%;
+.editable {
+  margin-left:auto;
+  margin-right:auto;
+  border-bottom: 1px solid #888; 
+  padding-bottom: 7px;
 }

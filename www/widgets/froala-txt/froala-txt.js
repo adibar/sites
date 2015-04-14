@@ -1,19 +1,19 @@
 function PDG_froala_txt(container, path, data) {
+
+  this.default_controllers = {
+    'root': {
+      // 'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.redactor-editor', },
+      'margin-top': { 'type':'slider', 'val':'50',  'range':[0,300], 'units':'px', "cb":"set_css", 'el':[ [ '.editable', 'margin-top'] ], },
+      // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
+      'width': { 'type':'slider', 'val':'500', 'range':[100,1920], 'units':'px', "cb":"set_css", 'el':[ [ '.editable', 'width'] ], },
+    }
+  }
           
   // call base contructore
   BaseWidget.call(this, container, path, data);
 
   // obj public properties
   this.froala = null;
-
-  this.controllers = {
-    'root': {
-      // 'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.redactor-editor', },
-      // 'margin-top': { 'val':'20', 'type':'slider', 'range':[0,200], 'el':'.redactor-editor', },
-      // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
-      'width': { 'type':'slider', 'val':'500', 'range':[100,800], 'units':'px', "cb":"set_css", 'el':[ [ '.editor', 'width'] ], },
-    }
-  }
 
   this.resize_counter = 0;
 
@@ -77,6 +77,7 @@ function PDG_froala_txt(container, path, data) {
 
     });    
 
+    myobj.load_style();
     myobj.resize( myobj.container.find(".editable") );
   } );
 }

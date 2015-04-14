@@ -312,7 +312,8 @@ BaseWidget.prototype.edit = function() {
     console.log('color-picker changed for ' + widgetid);    
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
     var lattr = $(this).data('name');
-    var val = $(this).spectrum("get").toHexString()    
+    //var val = $(this).spectrum("get").toHexString()    
+    var val = $(this).spectrum("get").toRgbString();
     console.log('color-picker val=' + val);        
     lwidget.set_css(lattr, val);
   });
