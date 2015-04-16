@@ -1,5 +1,6 @@
 ompiled python 
 #####################
 *.pyc
+.DS_Store
 
 

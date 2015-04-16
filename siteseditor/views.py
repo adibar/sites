@@ -49,6 +49,9 @@ def images(request):
     {"id":39, "thumb": 'http://127.0.0.1:8000/static/img/media/trips/bf329957f5d9a86c.jpeg', "image": 'http://127.0.0.1:8000/static/img/media/trips/bf329957f5d9a86c.jpeg', "txt":'' },
     {"id":40, "thumb": 'http://127.0.0.1:8000/static/img/media/trips/c9361809be1e5135.jpeg', "image": 'http://127.0.0.1:8000/static/img/media/trips/c9361809be1e5135.jpeg', "txt":'' },
 
+    {"id":41, "thumb": 'http://127.0.0.1:8000/static/img/media/logos/inspiration.jpg', "image": 'http://127.0.0.1:8000/static/img/media/logos/inspiration.jpg', "txt":'' },
+    {"id":42, "thumb": 'http://127.0.0.1:8000/static/img/media/logos/logo1.png', "image": 'http://127.0.0.1:8000/static/img/media/logos/logo1.png', "txt":'' },
+
   ]
   return HttpResponse(json.dumps(images), mimetype="application/json")
 
