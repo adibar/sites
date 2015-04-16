@@ -455,6 +455,11 @@ function loadPage(container, pData) {
         loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);      
         break;    
 
+      case 'flow-gallery':    
+        cbObj["path"] = "widgets/galleries/image-flow/";
+        loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);      
+        break;    
+
       // case 'general-txt':
       //   cbObj["path"] = "widgets/general-txt/";        
       //   loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
@@ -587,6 +592,17 @@ function createWidget(widgetName, container) {
       loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);                
       break
 
+    case 'flow-gallery':
+      cbObj = {
+        "widget_name":widgetName,
+        "container": ldiv,          
+        "path": "widgets/galleries/image-flow/",
+        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+      }    
+
+      loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);                
+      break
+
     default:
       alert("Unknown widget element");
       break;  
@@ -621,6 +637,9 @@ function loadWidget(wData) {
       break;  
     case 'square-gallery': 
       obj = new PDG_square_gallery(wData.container, wData.path, wData.data);
+      break;  
+    case 'flow-gallery':
+      obj = new PDG_image_flow_gallery(wData.container, wData.path, wData.data);
       break;  
     // case 'general-txt':
     //   obj = new PDG_general_txt(wData.container, wData.path, wData.data);
