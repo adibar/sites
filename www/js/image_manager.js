@@ -203,7 +203,8 @@ function reloadEditor(obj) {
             } ;
 
   var lhtml = Handlebars.partials["image-manager-obj-list"](lobj);
-  $("#image-manager-obj-list").replaceWith(lhtml);
+  // $("#image-manager-obj-list").replaceWith(lhtml);
+  $("image-manager").find("#image-manager-obj-list").replaceWith(lhtml);
 
   sortable();  
   

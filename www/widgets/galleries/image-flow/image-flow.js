@@ -43,7 +43,7 @@ PDG_image_flow_gallery.prototype.loadImagesAndInit = function() {
 
   // assign id to image flow container
   var newId = myobj.container.attr('id') + 'image_flow';
-  myobj.container.find(".image-flow").attr('id', newId);
+  myobj.container.find(".imageflow").attr('id', newId);
 
   var imgLoaded = 0;
   var imgAppended = 0;
@@ -59,7 +59,7 @@ PDG_image_flow_gallery.prototype.loadImagesAndInit = function() {
       var limg = jQuery('<img/>', {
         src       : myobj.data["data"]["photos"][i]["image"],
         longdesc  : myobj.data["data"]["photos"][i]["image"],
-        alt       : ""
+        alt       : "Hey Boobi Ma Kore - Im OK Thank you, and see you tomorrow. :-) " + i 
       });
 
 
@@ -71,6 +71,22 @@ PDG_image_flow_gallery.prototype.loadImagesAndInit = function() {
           myobj.image_flow.init({
             ImageFlowID: newId,
             reflections: false,
+            opacity: true,
+            opacityArray: [10, 8, 4, 2, 1],
+            circular: true,
+            slider: true,
+            buttons:true,
+            slideshow: true,
+            sliderWidth: 24,
+            onClick: function() { console.log("clicked to view"); },
+            percentOther: 120,
+            percentLandscape: 175,
+            xStep: 200,
+            aspectRatio: 2.333,
+            imagesHeight: 0.7,
+
+            slideshowSpeed: 3500,
+            animationSpeed: 100,
           });
           
           // myobj.resize( myobj.container.find(".image-flow") );
@@ -79,7 +95,7 @@ PDG_image_flow_gallery.prototype.loadImagesAndInit = function() {
 
       // ldiv.append(limg);
 
-      myobj.container.find(".image-flow").append(limg);
+      myobj.container.find(".imageflow").append(limg);
       
       imgAppended++;
       if ( (imgLoaded == imgAppended) && (imgLoaded == myobj.data["data"]["photos"].length) ) {
@@ -88,6 +104,7 @@ PDG_image_flow_gallery.prototype.loadImagesAndInit = function() {
         myobj.image_flow.init({
           ImageFlowID: newId,
           reflections: false,
+          circular: true,
         });
 
         // myobj.resize( myobj.container.find(".image-flow") );
@@ -121,7 +138,7 @@ PDG_image_flow_gallery.prototype.reload = function() {
       // this.container.find(".image-flow").resizable( "destroy" );
       // this.container.find(".image-flow").slick( 'unslick' );
 
-      this.container.find(".image-flow").empty();
+      this.container.find(".imageflow").empty();
 
       this.loadImagesAndInit();
 

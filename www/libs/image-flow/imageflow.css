@@ -9,6 +9,7 @@
 		text-align:left;
 		visibility:hidden;
 		width:100%;
+		height:auto;
 	}
 	.imageflow img {
 		border:none;
@@ -19,6 +20,8 @@
 	}
 	.imageflow p {
 		margin:0 auto;
+		/*margin-left:0px;
+		margin-right:0px;*/
 		text-align:center;
 	}
 	.imageflow .loading {

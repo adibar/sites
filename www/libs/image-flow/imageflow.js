@@ -374,6 +374,8 @@ function ImageFlow ()
 		/* Cache global variables */
 		this.imagesDivWidth = my.imagesDiv.offsetWidth+my.imagesDiv.offsetLeft;
 		this.maxHeight = Math.round(my.imagesDivWidth / my.aspectRatio);
+		// adi baron
+		// this.maxHeight = 400;
 		this.maxFocus = my.imageFocusMax * my.xStep;
 		this.size = my.imagesDivWidth * 0.5;
 		this.sliderWidth = my.sliderWidth * 0.5;
@@ -387,16 +389,22 @@ function ImageFlow ()
 		my.imagesDiv.style.height =  my.imagesDivHeight + 'px'; 
 		
 		/* Change images div properties */
+		// adi baron
 		my.navigationDiv.style.height =  (my.maxHeight - my.imagesDivHeight) + 'px'; 
+		// my.navigationDiv.style.height =  50 + 'px'; 
 
 		/* Change captions div properties */
 		my.captionDiv.style.width = my.imagesDivWidth + 'px';
-		my.captionDiv.style.paddingTop = Math.round(my.imagesDivWidth * 0.02) + 'px';
+		// adi baron
+		// my.captionDiv.style.paddingTop = Math.round(my.imagesDivWidth * 0.02) + 'px';
+		my.captionDiv.style.paddingTop = '0px';
 
 		/* Change scrollbar div properties */
 		my.scrollbarDiv.style.width = my.scrollbarWidth + 'px';
-		my.scrollbarDiv.style.marginTop = Math.round(my.imagesDivWidth * 0.02) + 'px';
+		// my.scrollbarDiv.style.marginTop = Math.round(my.imagesDivWidth * 0.02) + 'px';
+		my.scrollbarDiv.style.marginTop = '0px'
 		my.scrollbarDiv.style.marginLeft = Math.round(my.sliderWidth + ((my.imagesDivWidth - my.scrollbarWidth)/2)) + 'px';
+		// my.scrollbarDiv.style.marginLeft = '0px';
 
 		/* Set slider attributes */
 		my.sliderDiv.style.cursor = my.sliderCursor;
@@ -1459,5 +1467,11 @@ domReadyEvent.init();
 domReady(function()
 {
 	var instanceOne = new ImageFlow();
-	instanceOne.init({ ImageFlowID:'myImageFlow' });
+	instanceOne.init({ 
+		ImageFlowID:'myImageFlow',
+		reflections: false,
+		imagesHeight: 1.00,
+		reflectionP: 0.01,
+		aspectRatio: 3.0,
+	});
 });
