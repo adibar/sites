@@ -603,6 +603,17 @@ function createWidget(widgetName, container) {
       loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);                
       break
 
+    case 'contact':
+      cbObj = {
+        "widget_name":widgetName,
+        "container": ldiv,          
+        "path": "widgets/contact/",
+        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+      }    
+
+      loadWidgetSctipt("widgets/contact/contact.js", cbObj);                
+      break
+
     default:
       alert("Unknown widget element");
       break;  
@@ -651,10 +662,19 @@ function loadWidget(wData) {
     case 'multi-elements':
       obj = new PDG_multi_elements(wData.container, wData.path, wData.data);
       break;
+
+    case 'contact':
+      obj = new PDG_contact(wData.container, wData.path, wData);
+      break;   
+
     case 'menu':
       // obj = new PDG_top_menu(wData.container, wData.path, wData.data);
       obj = new PDG_top_menu(wData.path, wData);
-      break;    
+      break;   
+
+    default:
+      alert("loadWidget - Unknown widget element");
+      break;         
   }
 
   if (obj != null) {

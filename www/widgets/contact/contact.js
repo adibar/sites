@@ -2,7 +2,7 @@ function PDG_contact(container, path, data) {
 
   this.default_controllers = {
     'root': {
-
+      'menu-margin-top': { 'type':'slider', 'val':100, 'range':[0,200], 'units':'px', "cb":"set_css", 'el':[ ['.PDG_contact', 'margin-top'] ], }, 
     }
   }
           
@@ -27,6 +27,15 @@ function PDG_contact(container, path, data) {
     
     var source = $('#PDG_contact').html().replace(/[\u200B]/g, '');
     var contact_templete = Handlebars.compile(source);
+    var html = contact_templete( { 'address': "מאפו 23 תל אביב ישראל", } );
+    myobj.container.find(".PDG_contact").html( html ); 
+
+    squareThis("#map_canvas");
+
+    var addr = $(myobj.container.find('.contact_container')[0]).data('address');
+    var map_container = myobj.container.find('#map_canvas')[0];
+    myobj.load_map(map_container, addr );
+
 
     // myobj.container.find(".editable").html(myobj.data.data);
       
@@ -76,7 +85,7 @@ function PDG_contact(container, path, data) {
     //     }
     //   }
 
-    });    
+    // });    
 
     myobj.load_style();
     myobj.resize( myobj.container.find(".editable") );
@@ -86,33 +95,33 @@ function PDG_contact(container, path, data) {
 // See note below
 PDG_contact.prototype = Object.create(BaseWidget.prototype); 
 // Set the "constructor" property to refer to Student
-PDG_contact.prototype.constructor = PDG_froala_txt;
+PDG_contact.prototype.constructor = PDG_contact
 
-PDG_contact.prototype.edit = function(val) {
+// PDG_contact.prototype.edit = function(val) {
   
-  if (this.froala == null) {
+//   if (this.froala == null) {
     
-    console.log('editting froala-view');
+//     console.log('editting froala-view');
     
-    var lhtml = this.container.find(".editable").html();
+//     var lhtml = this.container.find(".editable").html();
 
-    console.log( lhtml );
+//     console.log( lhtml );
 
-    if (val != 1) {
-      BaseWidget.prototype.edit.call(this);
-    }
+//     if (val != 1) {
+//       BaseWidget.prototype.edit.call(this);
+//     }
 
-    console.log("PDG_froala_txt");
+//     console.log("PDG_froala_txt");
 
-    var myobj = this;
+//     var myobj = this;
 
-    this.froala = this.container.find(".editable").editable({
-      inlineMode  : false,
-      language    : 'he',
-    });
+//     this.froala = this.container.find(".editable").editable({
+//       inlineMode  : false,
+//       language    : 'he',
+//     });
 
-  }
-}
+//   }
+// }
 
 PDG_contact.prototype.default_data = function() {
   
@@ -130,4 +139,82 @@ PDG_contact.prototype.default_data = function() {
 PDG_contact.prototype.resize = function(container) {
   
 }
+
+PDG_contact.prototype.load_map = function(container, address) {
+  geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(-34.397, 150.644);
+  var myOptions = {
+    zoom: 15,
+    center: latlng,
+    mapTypeControl: true,
+    mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+    navigationControl: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(container, myOptions);
+  if (geocoder) {
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+          
+          map.setCenter(results[0].geometry.location);
+
+          var infowindow = new google.maps.InfoWindow(
+              { content: '<b>'+address+'</b>',
+                size: new google.maps.Size(150,50)
+              });
+
+          var marker = new google.maps.Marker({
+              position: results[0].geometry.location,
+              map: map, 
+              title:address
+          }); 
+          google.maps.event.addListener(marker, 'click', function() {
+              infowindow.open(map,marker);
+          });
+        } else {
+          alert("No results found");
+        }
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+}  
+
+function squareThis (element, ratio, minLimit)
+{
+    // First of all, let's square the element
+    square(ratio, minLimit);
+ 
+    // Now we'll add an event listener so it happens automatically
+    window.addEventListener('resize', function(event) {
+        square(ratio, minLimit);
+    });
+    
+    // This is just an inner function to help us keep DRY
+    function square(ratio, minLimit)
+    {
+        if(typeof(ratio) === "undefined")
+        {
+            ratio = 1;
+        }
+        if(typeof(minLimit) === "undefined")
+        {
+            minLimit = 0;
+        }
+        var viewportWidth = window.innerWidth;
+        
+        if(viewportWidth >= minLimit)
+        {
+            var newElementHeight = $(element).width() * ratio;
+            $(element).height(newElementHeight);
+        }
+        else
+        {
+            $(element).height('auto');
+        }
+    }
+}
+
 
