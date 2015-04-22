@@ -664,7 +664,7 @@ function loadWidget(wData) {
       break;
 
     case 'contact':
-      obj = new PDG_contact(wData.container, wData.path, wData);
+      obj = new PDG_contact(wData.container, wData.path, wData.data);
       break;   
 
     case 'menu':
