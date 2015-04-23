@@ -474,6 +474,11 @@ function loadPage(container, pData) {
         loadWidgetSctipt("widgets/multi-elements/multi-elements.js", cbObj);      
         break;
 
+      case 'contact':
+        cbObj["path"] = "widgets/contact/";        
+        loadWidgetSctipt("widgets/contact/contact.js", cbObj);        
+        break;
+        
       default:
         alert("Unknown widget element");
         break;

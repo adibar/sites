@@ -72,7 +72,7 @@ PDG_image_flow_gallery.prototype.loadImagesAndInit = function() {
             ImageFlowID: newId,
             reflections: false,
             opacity: true,
-            opacityArray: [10, 8, 4, 2, 1],
+            opacityArray: [10, 8, 5, 2, 1],
             circular: true,
             slider: true,
             buttons:true,

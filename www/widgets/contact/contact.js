@@ -3,6 +3,8 @@ function PDG_contact(container, path, data) {
   this.default_controllers = {
     'root': {
       'menu-margin-top': { 'type':'slider', 'val':100, 'range':[0,200], 'units':'px', "cb":"set_css", 'el':[ ['.PDG_contact', 'margin-top'] ], }, 
+      'form-color': { 'type':'color-picker', 'val':'#000000',       'units':'', "cb":"set_css", 'el':[ ['.form-header', 'background-color'], ['.form-body', 'background-color'], ['.form-button', 'background-color'] ], },      
+      // 'background-color': { 'type':'color-picker', 'val':'#000000', 'units':'', "cb":"set_css", 'el':[ ['.wrapper-addons', 'background-color'] ], },      
     }
   }
           
@@ -69,7 +71,7 @@ function PDG_contact(container, path, data) {
           console.log('***************************');
           
           var lhtml = myobj.container.find(".editable").editable("getHTML", true, true);
-          myobj.data.data = lhtml;
+          myobj.data.data.header = lhtml;
           BaseWidget.save_obj(myobj);
           //myobj.container.find(".txtcontainer").redactor('destroy');
           myobj.container.find(".editable").editable('destroy');

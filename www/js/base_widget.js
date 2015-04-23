@@ -348,14 +348,21 @@ BaseWidget.prototype.edit = function() {
 
 BaseWidget.prototype.set_css = function(attr, val) {
   console.log("set_css");
-  var selector = this.controllers.root[attr]["el"][0][0];
-  var elements = this.container.find(selector);
-  //elements.css( this.controllers.root[attr].el[0][1], val+this.controllers.root[attr]["units"]  );
-  var style_attr = this.controllers.root[attr].el[0][1];
-  var style_val  = val+this.controllers.root[attr]["units"];
   
+  for (var i=0; i<this.controllers.root[attr]["el"].length; i++) {
+    var selector = this.controllers.root[attr]["el"][i][0];
+    var elements = this.container.find(selector);
+    //elements.css( this.controllers.root[attr].el[0][1], val+this.controllers.root[attr]["units"]  );
+    var style_attr = this.controllers.root[attr].el[i][1];
+    var style_val  = val+this.controllers.root[attr]["units"];
+    
+    for (var j=0; j<elements.length; j++) {
+      elements[j].style[style_attr] = style_val;
+    }
+  }
+
   if (elements.length > 0) {
-    elements[0].style[style_attr] = style_val;
+    // elements[0].style[style_attr] = style_val;
     this.controllers.root[attr]["val"] = val;
   }
 }
