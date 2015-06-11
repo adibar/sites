@@ -1,0 +1,128 @@
+
+
+.navbar-style {
+    /*margin-top:100px;*/
+    /*top: 100px;*/
+    margin-bottom:0px; 
+    border-bottom:0px solid black; 
+    background-color:rgba(255,255,255,.01);
+    
+    /*text-align: left;*/
+    
+    /*background: transparent url('http://placehold.it/350x150') no-repeat center center;*/
+    /*background-size:cover;*/
+}
+.navbar-header-style {
+    /*float:none !important; */
+    /*height:100px;*/
+    overflow: hidden;
+    display:block !important;
+    /*width:100%;*/
+}
+
+.navbar-brand-style {
+    /*display:block; */
+    /*float:left;*/
+    overflow: hidden;
+    width:300px; 
+    height:auto;
+    /*height:100%; */
+    padding:0px;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand-style {
+        /*display:block; */
+        /*float:left;*/
+        width:260px; 
+        height:100%; 
+        padding:0px;
+    }
+}
+
+.navbar-collapse.in {
+    overflow-y:hidden;
+}
+
+.navbar-collapse-style {
+    /*display:inline-block !important;*/
+    /*position:relative;*/
+    /*float:left;*/
+    /*text-align: center;*/
+}
+.navbar-collapse-style > ul {
+    margin-top:79px;
+    /*display:inline-block !important; */
+    /*float:right !important;*/
+    /*position:absolute;*/
+    /*text-align: center;*/
+    /*width:100%;*/
+    /*bottom: 0px;*/
+
+/*        margin-left:30px !important; 
+    margin-right:auto !important; 
+    margin-top:auto;
+    margin-bottom: 0px;*/
+}
+
+.navbar-collapse-style > ul > li {
+    padding-left:7px;
+    padding-right:7px;
+    margin-left: 0px;  
+    /*background-color:#eaeaea;*/
+    max-width:180px;
+    min-width:90px;
+    text-align:center;
+    /*border-radius: 28px;*/
+    /*border-right: 1px dotted #dadada;*/
+    border-right: 1px dotted black;
+    /*background-color:blue;*/
+}
+
+/*.navbar-collapse-style > ul > li:active {
+    background-color: blue;
+}*/
+
+.navbar-collapse-style > ul > li:hover {
+    cursor: pointer;
+}
+
+.navbar-collapse-style > ul > li > a{
+    padding:0px;
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse-style > ul {
+        margin-top:20px;
+    }
+    .navbar-collapse-style > ul > li {
+        text-align:left;
+        border:none;
+        margin-top:10px;
+        margin-left:auto ;
+        margin-right:auto;
+    }
+}    
+
+/*************************************************
+                    controllers
+*************************************************/
+
+.navbar-header-center {
+    float:none !important;
+}
+.navbar-brand-style-center {
+    display:block !important;
+    float:none !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+}
+
+.navbar-nav-center {
+    display: inline-block;
+    float: none;
+}
+
+.navbar-collapse-center {
+    text-align: center;
+}

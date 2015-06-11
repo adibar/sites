@@ -1,0 +1,8 @@
+<div class="masonary-container" style=" {{{get_css "masonary-container" }}} ">
+{{#each this.data.photos}} 
+	<div class="datacontainer fancyble" style=" {{{get_css "datacontainer" }}} " data-image="{{this.image}}" data-index={{@index}} >
+		<img src="{{this.image}}"  />
+		<div class=""> </div>
+	</div>
+{{/each}}
+</div>

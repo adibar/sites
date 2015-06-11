@@ -2,4 +2,6 @@ ompiled python
 #####################
 *.pyc
 
+public/uploads/*
+tmp/*
 

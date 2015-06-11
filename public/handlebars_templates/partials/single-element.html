@@ -1,0 +1,30 @@
+{{#if @root.edit_mode }}
+<div class="multielement" data-index="{{@index}}">
+{{else}}
+<div class="multielement" data-index="{{@index}}" onclick="location.href='{{href}}';">
+{{/if}}
+  {{#if @root.edit_mode }}
+  <div class="btn-group" style="position:absolute; right:10px; top:10px;">
+    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_multi_elements.set_link(this)" title="Set link">
+      <span class="glyphicon glyphicon-link" aria-hidden="true" style="top:0px;"></span>
+    </button>
+  </div>
+  {{/if}}
+  <div class="multielementimg" style='background-image: url("{{photo.url}}")'>
+  	{{#if @root.edit_mode }}
+	  <div class="btn-group" style="position:absolute; right:10px; bottom:10px;">
+	    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="logo_img();" title="Change logo">
+	      <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="top:0px;"></span>
+	    </button>
+	  </div>
+    {{/if}}
+  </div>
+  {{#if @root.edit_mode }}
+  {{/if}}
+  {{#if this }}
+  <div style="margin-top:5px; text-align:center;"> 
+    <h4>{{h1}}</h4>
+    <p>{{txt}}</p>
+  </div>
+  {{/if}}
+</div>

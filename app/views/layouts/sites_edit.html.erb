@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sites</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag "sites_edit" %>
+
+  <%= csrf_meta_tags %>
+    <!-- Google maps api -->
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=he"></script>
+
+  <script>
+  	var current_site = <%= current_site %>
+  </script>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

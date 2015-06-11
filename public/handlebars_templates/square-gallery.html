@@ -1,0 +1,9 @@
+<div class="masonary-container" style=" {{{get_css "masonary-container" }}} ">
+{{#each this.data.photos}} 
+	<div class="squaredatacontainer fancyble" data-image="{{this.image}}" data-index={{@index}} >
+		<div class="in" style="background-image:url('{{this.image}}'); background-repeat:no-repeat; background-position:center center; {{{get_css "squaredatacontainer .in" }}}"> 
+			<div style="width:100%; height:100%"> </div>
+		</div>
+	</div>
+{{/each}}
+</div>

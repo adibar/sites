@@ -1,0 +1,53 @@
+<!--script id="PDG_contact" type="x-handlebars-template"-->​
+
+<div class='PDG_contact' style='min-height:100px; {{{get_css "PDG_contact" }}}'>
+	<div class='container-fluid contact_container' data-address='{{data.data.address}}'>
+	  
+		<div class='row' style='{{{get_css "row" }}}'>  
+	    
+	    	<div id='contact_txt' class='col-sm-6 col-lg-offset-1 col-lg-4 {{{get_class "#contact_txt" }}}' style='height:100%; max-width:360px; {{{get_css "contact_txt"}}}'>      
+	      		<div>
+		  			<div class='form-header {{{get_class "form-header"}}}' style='background-color:#E15940; margin-bottom:3px; padding:20px; {{{get_css "form-header"}}}'>
+						<!--div class="editable">
+							{{{data.data.header}}}
+						</div -->
+					   <section id="editor">
+					     <div id="edit">
+						   {{{data.data.header}}}
+						 </div >
+					   </section>
+		  			</div>
+		  			<form >
+			 			<div class='form-body {{{get_class "form-body"}}}' style='background-color:#E15940; margin-bottom:3px; {{{get_css "form-body"}}}'>
+				 			<br>
+				 			<div class="form-group" style="padding:3px 20px; margin:0px;" >
+				      			<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Name">
+				    		</div>
+				  			<div class="form-group" style="padding:3px 20px; margin:0px;">
+				      			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Phone Number">
+				    		</div>
+				    		<div class="form-group" style="padding:3px 20px; margin:0px;">
+				      			<input type="text" class="form-control" id="exampleInputPassword1" placeholder="Email">
+				    		</div>
+				    		<div class="form-group" style="padding:3px 20px; margin:0px;">
+				      			<textarea class="form-control" rows="3" placeholder="Add details"></textarea>
+				    		</div>
+				    		<br>
+				    	</div>
+			    		
+				    	<div class='form-button {{{get_class "form-button"}}}' style='background-color:#E15940; margin-bottom:3px; {{{get_css "form-button"}}}'>
+				    		<button type="submit" class="btn btn-default" style='width:100%; background-color:transparent; padding:10px;'>Send</button>
+				    	</div>
+
+				  	</form>
+				</div>
+	    	</div>
+	    	<div id='map_canvas' class='col-sm-6 col-lg-offset-1 col-lg-4' style=''>
+	      	
+	    	</div>
+	  	</div>
+
+	</div>
+</div>
+
+<!--/script-->
