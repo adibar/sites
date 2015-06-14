@@ -75,6 +75,16 @@ PDG_multi_elements.prototype.resize = function(container) {
 
 PDG_multi_elements.prototype.set_link = function(page_url, index) {
   this.data.data.elements[index]['href'] = page_url;
+  this.reload();
+}
+
+PDG_multi_elements.prototype.remove_element = function(index) {
+  this.data.data.elements.splice(index, 1);
+  this.reload();
+}
+
+PDG_multi_elements.prototype.reload = function() {
+
 }
 
 //PDG_multi_elements.prototype.onLayout = function() {
@@ -106,4 +116,10 @@ PDG_multi_elements.set_link = function(obj) {
   var page_url = add_page(random_name, false); // do not add to menu
 
   lobj.set_link(page_url, index);
+}
+
+PDG_multi_elements.remove_element = function(obj) {
+  var lobj = BaseWidget.get_class_obj_for_event(obj);
+  var index = $(obj).parents('.multielement').data('index');
+  lobj.remove_element(index);
 }

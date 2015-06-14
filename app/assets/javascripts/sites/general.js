@@ -315,7 +315,7 @@ $(document).ready(function () {
   // var pageData = data["pages"][data["menu"]["view"]["active"]];
   var pageData = jsonObj["pages"][jsonObj["menu"]["view"]["active"]];
   loadMenu( $("#menucontainer"), $("#contentcontainer"),  pageData );  
-  loadPage( $("#contentcontainer"), pageData );  
+  loadPage( $("#contentcontainer"), pageData, jsonObj["widgets"] );  
 
   // $(".mypopover").popover({ trigger: "hover" });
   $('[data-toggle="popover"]').popover( { /*placement: "auto right"*/ });
@@ -383,7 +383,7 @@ function activatePage(pName) {
   cleanPage($("#contentcontainer"), $("#contentcontainer"), pName);
   
   loadMenu( $("#menucontainer"), $("#contentcontainer"), pageData );
-  loadPage( $("#contentcontainer"), pageData );    
+  loadPage( $("#contentcontainer"), pageData, jsonObj["widgets"] );    
 }
 
 function cleanPage(container, menuContainer, pName) {
@@ -426,11 +426,11 @@ function loadMenu(container, contentcontainer, pData) {
   loadWidgetSctipt("/assets/widgets/top-menu/top-menu.js", cbObj);          
 }
 
-function loadPage(container, pData) {
+function loadPage(container, pData, widgets) {
 
   // Elements
   var i;
-  for (i=0; i<pData.length; i++) {
+  for (i=0; i<pData["widgets"].length; i++) {
     
     var elId = 'picndo-obj' + elementsCounter;
     var ldiv = jQuery('<div/>', {
@@ -440,15 +440,16 @@ function loadPage(container, pData) {
     container.append(ldiv);
     elementsCounter++;
 
-    pData[i]["id"] = elId;
+    var widget = widgets[ pData["widgets"][i] ];
+    widget["id"] = elId;
 
     cbObj = {
-      "widget_name":pData[i]["widget_name"],
+      "widget_name":widget["widget_name"],
       "container":ldiv,          
-      "data":pData[i],
+      "data":widget,
     }
 
-    switch (pData[i]["widget_name"]) {
+    switch (widget["widget_name"]) {
 
       case 'slick-gallery':
         cbObj["path"] = "widgets/galleries/slick-scrolling-gallery/";
@@ -563,17 +564,20 @@ function createWidget(widgetName, container) {
   elementsCounter++;
   container.append(ldiv);
 
-
+  var widget_name = random_name();
   var ljson = { 
     "widget_name":  widgetName,
     "css":          { },
     "data":         { },
     "id":           elId,  
+    "name":         widget_name,
   };
 
   var lactive = jsonObj["menu"]["view"]["active"];
-  jsonObj["pages"][lactive].push( ljson );
-  
+  // jsonObj["pages"][lactive].push( ljson );
+  jsonObj["pages"][lactive]["widgets"].push( widget_name );
+  jsonObj["widgets"][widget_name] = ljson;  
+
   switch (widgetName) {
 
     case 'general-txt':
@@ -590,7 +594,8 @@ function createWidget(widgetName, container) {
         "widget_name":'froala-txt',
         "container": ldiv,          
         "path": "widgets/froala-txt/",
-        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        "data": ljson,
       }    
 
       loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);       
@@ -601,7 +606,8 @@ function createWidget(widgetName, container) {
         "widget_name":widgetName,
         "container": ldiv,          
         "path": "widgets/galleries/square/",
-        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        "data": ljson,
       }    
 
       loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);                
@@ -612,7 +618,8 @@ function createWidget(widgetName, container) {
         "widget_name":widgetName,
         "container": ldiv,          
         "path": "widgets/galleries/full-width/",
-        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        "data": ljson,
       }    
 
       loadWidgetSctipt("widgets/galleries/full-width/gallery.js", cbObj);                
@@ -624,7 +631,8 @@ function createWidget(widgetName, container) {
         "widget_name":widgetName,
         "container": ldiv,          
         "path": "widgets/galleries/image-flow/",
-        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        "data": ljson,
       }    
 
       loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);                
@@ -635,7 +643,8 @@ function createWidget(widgetName, container) {
         "widget_name":widgetName,
         "container": ldiv,          
         "path": "widgets/contact/",
-        "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
+        "data": ljson,
       }    
 
       loadWidgetSctipt("widgets/contact/contact.js", cbObj);                
@@ -848,9 +857,13 @@ function add_page(name, linked_to, addToMenu) {
 }
 
 function set_link() {
-  var random_name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6);
+  var random_name = random_name();
   var page_url = add_page(rando_name, flase); // do not add to menu
 
+}
+
+function random_name() {
+  return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6);
 }
 
 

@@ -21,15 +21,15 @@ class SitesController < ApplicationController
   	# byebug
   	respond_to do |format|
   	  
-  	  format.js do
-  	  	render :json => Site.first.data 
+  	  @site = Site.last.data
+      
+      format.js do
+  	  	render :json => @site 
   	  end
     	  
     	# format.html 	{ render :nothing => true, :status => 200 }
     	format.html do 
-    	  @site = Site.first.data 
-    	  # byebug
-    	  	
+    	   	
     	  @edit = false
   
         handlebars = Handlebars::Context.new    
@@ -69,7 +69,9 @@ class SitesController < ApplicationController
 
 
     		@elements = []
-    		@page.each do |el|
+    		@page["widgets"].each do |el_name|
+          # byebug
+          el = @site["widgets"][el_name]
   		  
           rebase_css( el["css"] )
           # byebug  
@@ -168,8 +170,9 @@ class SitesController < ApplicationController
   # POST	/sites	sites#create	create a new site
   def create
   	Site.create! if Site.first.nil?
-   	s = Site.first
-   	s.data = params["data"]
+   	s = Site.last
+
+    s.data = params["data"]
    	s.save
    	render :nothing => true, :status => 200
   end  	

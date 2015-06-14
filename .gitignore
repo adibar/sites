@@ -2,6 +2,7 @@ ompiled python
 #####################
 *.pyc
 
+.DS_Store
 public/uploads/*
 tmp/*
-
+log/*
