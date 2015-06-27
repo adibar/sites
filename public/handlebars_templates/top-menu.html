@@ -11,7 +11,7 @@
                 <img src="{{data.logoimage.thumb}}" style="width:100%; position:relative; left:0px; top:0px;"> </img>
                 {{#if @root.edit_mode}}    
                 <div class="btn-group" style="position:absolute; right:10px; bottom:10px;">
-                    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="logo_img();" title="Change logo">
+                    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_top_menu.logoImg('{{containerId}}');" title="Change logo">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="top:0px;"></span>
                     </button>
                 </div>

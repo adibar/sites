@@ -62,6 +62,16 @@ body {
           box-shadow: none;
 }
 
+.site-link {
+  margin-left:    40px;
+  font-size:      14pt;
+  color:          #555;
+}
+
+.site-link:hover {
+  color:        #555;
+}
+
 /*.btn:focus, .btn:active, .btn.active, .btn:focus:active {
   background-image: none;
   outline: none;

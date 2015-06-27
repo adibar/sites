@@ -27,13 +27,6 @@ function PDG_contact(container, path, data) {
   
   this.load_assets( assets, function(myobj) {
     
-    // var source = $('#PDG_contact').html().replace(/[\u200B]/g, '');
-    // var contact_templete = Handlebars.compile(source);
-    
-    // var html = contact_templete( myobj.data.data );
-    
-    // myobj.container.html(html);
-
     squareThis("#map_canvas");
 
     var addr = $(myobj.container.find('.contact_container')[0]).data('address');
@@ -41,7 +34,6 @@ function PDG_contact(container, path, data) {
     myobj.load_map(map_container, addr );
 
 
-    // myobj.container.find(".editable").html(myobj.data.data);                        
     myobj.container.find("#edit").on('click', function() {
       myobj.edit(1);
     });
@@ -74,17 +66,10 @@ function PDG_contact(container, path, data) {
           var lhtml = myobj.container.find("#edit").editable("getHTML", true, true);
           myobj.data.data.header = lhtml;
           BaseWidget.save_obj(myobj);
-          //myobj.container.find(".txtcontainer").redactor('destroy');
+          
           myobj.container.find("#edit").editable('destroy');
           myobj.froala = null;
 
-          // // var lhtml = myobj.container.find(".txtcontainer").redactor('get');
-          // var lhtml = myobj.container.find(".froala-view").redactor('code.get');
-          // myobj.data.data = lhtml;
-          // BaseWidget.save_obj(myobj);
-          // //myobj.container.find(".txtcontainer").redactor('destroy');
-          // myobj.container.find(".froala-view").redactor('core.destroy');
-          // myobj.redactor = null;
         }
       }
 
@@ -121,7 +106,6 @@ PDG_contact.prototype.edit = function(val) {
 
     var myobj = this;
 
-    //this.froala = this.container.find(".editable").editable({ 
     this.froala = this.container.find("#edit").editable({  
       inlineMode: true,
       alwaysVisible: false,

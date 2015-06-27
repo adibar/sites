@@ -1,7 +1,7 @@
 {{#if @root.edit_mode }}
 <div class="multielement" data-index="{{@index}}">
 {{else}}
-<div class="multielement" data-index="{{@index}}" onclick="location.href='{{href}}';">
+<div class="multielement" data-index="{{@index}}" onclick="location.href='{{url}}';">
 {{/if}}
   {{#if @root.edit_mode }}
   <div class="btn-group" style="position:absolute; left:5px; top:5px;">
@@ -12,14 +12,14 @@
   {{/if}}
   {{#if @root.edit_mode }}
   <div class="btn-group" style="position:absolute; right:25px; top:5px;">
-    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_multi_elements.set_link(this)" title="Remove Element">
+    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_multi_elements.view_link(this)" title="View Element">
       <span class="glyphicon glyphicon-eye-open" aria-hidden="true" style="top:0px;"></span>
     </button>
   </div>
   {{/if}}  
   {{#if @root.edit_mode }}
   <div class="btn-group" style="position:absolute; right:5px; top:5px;">
-    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_multi_elements.remove_element(this)" title="Set link">
+    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_multi_elements.set_link(this)" title="Set link">
       <span class="glyphicon glyphicon-link" aria-hidden="true" style="top:0px;"></span>
     </button>
   </div>
@@ -27,7 +27,7 @@
   <div class="multielementimg" style='background-image: url("{{photo.url}}")'>
   	{{#if @root.edit_mode }}
 	  <div class="btn-group" style="position:absolute; right:5px; bottom:5px;">
-	    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="logo_img();" title="Change logo">
+	    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_multi_elements.addImg(this)" title="Change logo">
 	      <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="top:0px;"></span>
 	    </button>
 	  </div>
@@ -36,9 +36,13 @@
   {{#if @root.edit_mode }}
   {{/if}}
   {{#if this }}
-  <div style="margin-top:5px; text-align:center;"> 
-    <h4>{{h1}}</h4>
-    <p>{{txt}}</p>
+  <div style="margin-top:5px;"> 
+    <div id="edit{{@index}}" class="edit" data-index="{{@index}}"> 
+      {{{txt}}}
+    </div>
+    {{!-- <div id="edit{{@index}}" class="edit" data-index="{{@index}}" onclick="PDG_multi_elements.edit_txt(this, {{@index}})"> 1111 </div> --}}
+    {{!-- <h4>{{h1}}</h4>
+          <p>{{txt}}</p> --}}
   </div>
   {{/if}}
 </div>

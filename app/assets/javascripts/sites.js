@@ -119,6 +119,10 @@ $(document).ready(function(){
     $('.multielementscontainer').masonry( 'on', 'layoutComplete', function(){ PDG_multi_elements.onLayout(); } );
   // });
 
+
+});
+
+function google_maps_loaded() {
   squareThis("#map_canvas");
   var addrcontainer = $('.contact_container')
   if (addrcontainer.length > 0) {
@@ -128,9 +132,7 @@ $(document).ready(function(){
   if (map_container) {
     load_map(map_container, addr );    
   }  
-
-});
-
+}
 
 function load_map(container, address) {
   geocoder = new google.maps.Geocoder();

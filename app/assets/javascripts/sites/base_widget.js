@@ -212,7 +212,7 @@ BaseWidget.prototype.load_html = function(assets, cb) {
   // });
 
   $.get('/handlebars_templates/' + assets.html, function (ldata) {
-    obj['edit_mode'] = 1
+    obj['edit_mode'] = !g_query_string_params.view 
     var l_template = Handlebars.compile(ldata);
     var l_html = l_template(obj);
 
@@ -369,10 +369,10 @@ BaseWidget.prototype.set_css = function(attr, val) {
     }
   }
 
-  if (elements.length > 0) {
-    // elements[0].style[style_attr] = style_val;
+  // if (elements.length > 0) { // is this condition needed???
+    //// elements[0].style[style_attr] = style_val;
     this.controllers.root[attr]["val"] = val;
-  }
+  //}
 }
 
 BaseWidget.prototype.set_css_class = function(attr, val) {

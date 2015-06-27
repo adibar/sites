@@ -202,7 +202,8 @@ PDG_top_menu.prototype.loadMenu = function(menuType) {
     });    
     
     $(".sidebar-ul").sortable({
-      items: "> li.menutab",
+      // items: "> li.menutab",
+      items: " li.menutab",
       update: function( event, ui ) {
         console.log("sortable updated => TODO do not support multi levels menu");
         var arr = $(".sidebar-ul").sortable( "toArray" );
@@ -219,7 +220,7 @@ PDG_top_menu.prototype.loadMenu = function(menuType) {
         }
 
         jsonObj['menu']['pages'] = tempMenuPages;
-
+        update_overflow();
       },
 
     });    

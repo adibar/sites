@@ -54,7 +54,7 @@ function imageEditor(obj, opts) {
 
       // $("#insert-img").click( $.proxy(this.insertImage, this) );
       // $("#insert-img").click( $.proxy(insertImage, obj) );
-      $("#insert-img").click( { obj: obj }, opts.insertImage);
+      $("#insert-img").click( { obj: obj, opts:opts }, opts.insertImage);
       $(".obj_delete").click( { obj: obj }, opts.removeImage);
       $("#upload-img").click( function() {
         jQuery.get( '/images/new', function(data) {

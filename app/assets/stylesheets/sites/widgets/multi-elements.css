@@ -21,8 +21,9 @@
   /*width: 33.3333%;*/
   position:relative;
   width:393px;
-  /*height: auto;*/
-  height: 315px;
+  height: auto;
+  min-height: 320px;
+  /*height: 315px;*/
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;

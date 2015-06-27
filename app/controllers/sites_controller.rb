@@ -2,11 +2,18 @@ require 'handlebars'
 
 class SitesController < ApplicationController
 
+  before_filter :allow_iframe_requests, only: [:show]
+
   helper_method :current_site
 
   def current_site
     params[:id]
   end
+
+  def allow_iframe_requests
+    response.headers.delete('X-Frame-Options')
+    # response.headers["X-Frame-Options"] = "ALLOW-FROM http://some-origin.com"
+  end  
   
   # /sites/new
   # return an HTML form for creating a new site
@@ -50,6 +57,10 @@ class SitesController < ApplicationController
           'yellow'
         end
 
+        handlebars.register_helper(:to_text) do |context, html|
+          html.gsub(/<\/?[^>]*>/, '').gsub(/\n\n+/, "\n").gsub(/^\n|\n$/, '')
+        end
+
         rebase_css( @site["menu"]["css"] )
         
         if (@site["menu"]["type"] == "Top Menu")
@@ -61,12 +72,17 @@ class SitesController < ApplicationController
     		template = handlebars.compile(side_menu_template)
     		@menu = template.call(:edit => @edit, :data => @site["menu"]).html_safe
 
-    		index = @site["pages"].keys.map(&:strip).map(&:downcase).find_index( params[:route].downcase.strip )
-    		# byebug
+        #byebug
+        index = params[:route] ? 
+                  @site["pages"].keys.map(&:strip).map(&:downcase).find_index( params[:route].nil_or.downcase.nil_or.strip ) : 0
+
     		(render :file => 'public/404.html', :status => :not_found, :layout => false and return) unless index
 
-    		@page = @site["pages"][ @site["pages"].keys[index] ]
-
+        @page_name = params[:route] ? @site["pages"].keys[index] : @site["menu"]["pages"][index][0]["name"]
+    		
+        # @page = params[:route] ? @site["pages"][ @site["pages"].keys[index] ] : 
+        #                            @site["pages"][@site["menu"]["pages"][index][0]["name"]]
+        @page = @site["pages"][@page_name]
 
     		@elements = []
     		@page["widgets"].each do |el_name|
@@ -121,12 +137,64 @@ class SitesController < ApplicationController
           end
     		end
 
+        if ( next_prev = next_prev_page(@page_name) )
+          np_template = File.read(Rails.public_path.to_s + '/handlebars_templates/next_prev.html')       
+          template = handlebars.compile(np_template)
+          @elements << (template.call( { :next => next_prev["next"], :prev => next_prev["prev"] } ).html_safe) 
+        end
+
   		  #render :text => @menu, :status => 200
   		  # byebug
   		  render layout: "sites" 
     	end
   	end
   end
+
+  def next_prev_page(pName)
+    next_index = prev_index= nil;
+    page = @site["pages"][pName];    
+  
+    if page["belongs_to"] 
+      widget = @site["widgets"][page["belongs_to"]]
+      length = widget["data"]["elements"].length;
+      if length > 1
+        (0...length).each do |i|
+          if widget["data"]["elements"][i]["name"] == pName  
+            next_index = (i+1)%length
+            prev_index = (i == 0) ? (length-1) : (i-1)
+          end
+        end
+      end
+    end
+
+    (next_index && prev_index) ? { "prev" => widget["data"]["elements"][prev_index], "next" => widget["data"]["elements"][next_index] } : nil
+  end
+
+# function next_prev_page(pName) {
+#   var next_index = null;
+#   var prev_index = null;
+
+#   var page = jsonObj.pages[pName];
+#   if (page.belongs_to) {
+#     var widget = jsonObj.widgets[page.belongs_to];
+#     var length = widget.data.elements.length;
+    
+#     if (length > 1) {
+#       // find current page in  elements
+#       for (var i=0; i<length; i++) {
+#         if ( widget.data.elements[i].name == pName ) {
+#           next_index = (i+1)%length
+#           prev_index = (i == 0) ? (length-1) : (i-1)
+#         }
+#       }
+#     }
+#   }
+#   if ( (next_index != null) && (prev_index != null) ) {
+#     return { "prev" : widget.data.elements[prev_index], "next": widget.data.elements[next_index] }
+#   } else {
+#     return { }
+#   }
+# }
 
   # 'side-menu': { 'type':'select', 'loadstyle':0, 'val':0, 'cb': "set_menu_type", 'options':['Top Menu', 'Side Menu'] },      
 
@@ -171,7 +239,6 @@ class SitesController < ApplicationController
   def create
   	Site.create! if Site.first.nil?
    	s = Site.last
-
     s.data = params["data"]
    	s.save
    	render :nothing => true, :status => 200

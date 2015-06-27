@@ -5,63 +5,73 @@ function PDG_multi_elements(container, path, data) {
   this.resize_counter = 0;
 
   // obj public properties
+  // for masnrt
   this.msnry = null
   this.masnry_container = null  
-
-  // container.addClass("picndo-inline");
-
-  /* each module declare lists of assets */
-  var assets = {
-    'css' : ['multi-elements.css'],
-    'js'  : [],
-    'html': 'multi-elements.html',
-  }
+  // for froala
+  this.froala = null;
 
   var myobj = this;
 
   $.get('/handlebars_templates/partials/single-element.html', function(ldata) {
     Handlebars.registerPartial('single-element', ldata);
-
-    myobj.load_assets( assets, function(myobj) {
-      
-      // var source   = $("#h-multi-elements").html();
-      // var template = Handlebars.compile(source);
-      // var partial = $("#h-single-element").html();
-      // Handlebars.registerPartial('single-element', partial);
-
-      //var data = myobj.data.data;
-      //var html  = template(data);
-      
-      //myobj.container.find(".multielementscontainer").html(html);
-      
-      myobj.masnry_container = myobj.container.get(0).querySelector('.multielementscontainer');
-
-      myobj.msnry = new Masonry( myobj.masnry_container, {
-        // options
-        // columnWidth: 200,
-        // itemSelector: '.item'
-        "columnWidth" : ".multielement",
-        isInitLayout  : false,
-      });
-      
-      myobj.msnry.bindResize();
-
-      myobj.msnry.on( 'layoutComplete', function() {
-        PDG_multi_elements.onLayout();
-      } );
-
-      myobj.msnry.layout();
-
-    });
-
+    myobj.load();
   });
   
 }
+
+PDG_multi_elements.assets = {
+  'css' : ['multi-elements.css'],
+  'js'  : [],
+  'html': 'multi-elements.html',
+};
+
 
 // See note below
 PDG_multi_elements.prototype = Object.create(BaseWidget.prototype); 
 // Set the "constructor" property to refer to Student
 PDG_multi_elements.prototype.constructor = PDG_multi_elements;
+
+PDG_multi_elements.prototype.load = function() {
+  var myobj = this;
+  myobj.load_assets( PDG_multi_elements.assets, function(myobj) {
+      
+    myobj.masnry_container = myobj.container.get(0).querySelector('.multielementscontainer');
+
+    myobj.msnry = new Masonry( myobj.masnry_container, {
+      // options
+      // columnWidth: 200,
+      // itemSelector: '.item'
+      "columnWidth" : ".multielement",
+      isInitLayout  : false,
+    });
+    
+    myobj.msnry.bindResize();
+
+    myobj.msnry.on( 'layoutComplete', function() {
+      PDG_multi_elements.onLayout();
+    } );
+
+    myobj.msnry.layout();
+
+
+    myobj.container.find(".edit").editable({  
+      inlineMode:     true,
+      alwaysVisible:  true,
+      //language    : 'he',
+      initOnClick:    true,
+    }).on('editable.blur', function (e, editor) {
+      var index = $(e.target).data("index");
+      var lhtml = $(e.target).editable("getHTML", true, true);
+      console.log( 'html = ' + lhtml);
+      myobj.data.data.elements[index]['txt'] = lhtml;
+    }).on('editable.contentChanged', function (e, editor) {
+      console.log('modified');
+      myobj.msnry.layout();
+    });;
+
+  });
+}
 
 PDG_multi_elements.prototype.resize = function(container) {
   
@@ -73,9 +83,47 @@ PDG_multi_elements.prototype.resize = function(container) {
   });
 }
 
-PDG_multi_elements.prototype.set_link = function(page_url, index) {
-  this.data.data.elements[index]['href'] = page_url;
+// PDG_multi_elements.addImg = function(obj) {
+
+// }
+
+// PDG_multi_elements.logoImg = function(lid) { 
+//   console.log("logImg func called with " + lid);
+//   var lobj = BaseWidget.get_class_obj_from_container_id(lid);
+//   lobj.selectLogoImg();
+// }
+
+PDG_multi_elements.prototype.selectLogoImg = function(index) { 
+  imageEditor(this, {
+    'insertImage'     : this.setLogoImg.bind(this),
+    'multippleSelect' : 0,
+    'index'           : index,
+  });
+
+}
+
+PDG_multi_elements.prototype.setLogoImg = function(ev) { 
+  var image = selectedImages()[0];
+  this.set_logo_image(ev.data.opts.index, image);
+  editorClose();
+}
+
+PDG_multi_elements.prototype.set_logo_image = function(index, image) { 
+  this.data.data.elements[index]["photo"] = {};
+  this.data.data.elements[index]["photo"]["url"] = image.thumb; 
   this.reload();
+}
+
+PDG_multi_elements.prototype.set_link = function(page, index) {
+  // this.data.data.elements[index]['href'] = page_url;
+  jQuery.extend(this.data.data.elements[index], page);
+  this.reload();
+}
+
+PDG_multi_elements.prototype.view_link = function(index) {
+  var page_name = this.data.data.elements[index]['name'];
+  // location.href =  page_url;
+  activatePage(page_name);
 }
 
 PDG_multi_elements.prototype.remove_element = function(index) {
@@ -83,9 +131,31 @@ PDG_multi_elements.prototype.remove_element = function(index) {
   this.reload();
 }
 
-PDG_multi_elements.prototype.reload = function() {
-
+PDG_multi_elements.prototype.add_element = function() {
+  var element = { 'h1':'Title', 'txt':'Add some text', 'photo':'' };
+  this.data.data.elements.push(element);
+  this.reload();
 }
+
+PDG_multi_elements.prototype.reload = function() {
+  this.msnry.destroy();
+  this.container.empty();
+
+  this.load();
+}
+
+PDG_multi_elements.prototype.edit_txt = function(container, index) {
+  
+  if (this.froala == null) {
+    
+    this.froala = $(container).editable({  
+      inlineMode: true,
+      alwaysVisible: false,
+      //language    : 'he',
+    });
+  }
+}
+
 
 //PDG_multi_elements.prototype.onLayout = function() {
 PDG_multi_elements.onLayout = function() {
@@ -113,9 +183,16 @@ PDG_multi_elements.set_link = function(obj) {
   var index = $(obj).parents('.multielement').data('index');
 
   var random_name = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 6);
-  var page_url = add_page(random_name, false); // do not add to menu
+  var page = add_page(random_name, false, lobj.data.name); // do not add to menu
 
-  lobj.set_link(page_url, index);
+  lobj.set_link(page, index);
+}
+
+PDG_multi_elements.view_link = function(obj) {
+  var lobj = BaseWidget.get_class_obj_for_event(obj);
+  var index = $(obj).parents('.multielement').data('index');  
+
+  lobj.view_link(index);
 }
 
 PDG_multi_elements.remove_element = function(obj) {
@@ -123,3 +200,31 @@ PDG_multi_elements.remove_element = function(obj) {
   var index = $(obj).parents('.multielement').data('index');
   lobj.remove_element(index);
 }
+
+PDG_multi_elements.add_element = function(obj) {
+  var lobj = BaseWidget.get_class_obj_for_event(obj);
+  lobj.add_element();
+};
+
+PDG_multi_elements.add_element = function(obj) {
+  var lobj = BaseWidget.get_class_obj_for_event(obj);
+  lobj.add_element();
+};
+
+PDG_multi_elements.addImg = function(obj) {
+  var lobj = BaseWidget.get_class_obj_for_event(obj);
+  var index = $(obj).parents('.multielement').data('index');
+  lobj.selectLogoImg(index);
+}
+
+// PDG_multi_elements.edit_txt = function(obj, index) {
+//   var lobj = BaseWidget.get_class_obj_for_event(obj);
+//   var lindex = $(obj).parents('.multielement').data('index');
+//   if (index != lindex) {
+//     alert("We might had an error - index mismatch for multi-elements");
+//     return;
+//   }
+//   lobj.edit_txt(obj, index)
+// }
+
+

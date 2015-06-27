@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  
   $('body').on('click','.fancyble', function() {
   	var els = $(this).parent().find('.fancyble');
   	var index = $(this).data('index');
@@ -19,6 +20,8 @@ $(document).ready(function(){
 
   	return false;	
   });
+
+  load_google_maps();
 
   $(window).scroll(function () {
     if ($(this).scrollTop() > 600) {
@@ -140,4 +143,15 @@ function load_jssor(id) {
     $(window).bind("resize", ScaleSlider);
     $(window).bind("orientationchange", ScaleSlider);    
   }  
+
 }
+
+function load_google_maps() {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  // script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp' + '&signed_in=true&callback=initialize';
+  script.src = "http://maps.google.com/maps/api/js?sensor=false&language=he&callback=google_maps_loaded";
+  document.body.appendChild(script);
+}
+
+
