@@ -2,7 +2,7 @@ function PDG_full_width_gallery(container, path, data) {
   
   this.default_controllers = {
     "root" : {
-      'margin-top': { 'type':'slider', 'val':'20',  'range':[0,300],    'units':'px', "cb":"set_css",                  'el':[ [ '.slickcontainer', 'margin-top'] ], },
+      'margin-top': { 'type':'slider', 'val':'20',  'range':[0,300],    'units':'px', "cb":"set_css",  'el':[ [ '.slider_container', 'margin-top'] ], },
     }
   }
 

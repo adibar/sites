@@ -16,7 +16,7 @@ class ImagesController  < ApplicationController
 
   @@big_size     = 1400
   @@medium_size  = 600
-  @@small_size   = 200
+  @@small_size   = 300
 
 
   def index

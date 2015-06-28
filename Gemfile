@@ -58,3 +58,5 @@ gem 'remotipart'
 gem "jquery-fileupload-rails"
 gem 'mini_magick'
 gem "oj"
+# observejs => for facebook.js.coffee
+# gem "observejs"

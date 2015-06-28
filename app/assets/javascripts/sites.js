@@ -11,6 +11,9 @@
 //= require sites/image-flow/imageflow
 //= require sites/fancybox/source/jquery.fancybox
 
+//XXX= require observejs
+//= require sites/facebook
+
 //= require jssor/jssor.slider.mini
 //= require overflow-navs/bootstrap-overflow-navs
 
@@ -25,6 +28,11 @@
 
 
 $(document).ready(function(){
+
+  // // handle facebook issue with turbolinks
+  // if (typeof (FB) != 'undefined') {
+  //   FB.XFBML.parse();
+  // }
 	
   $('.slickcontainer').slick({
 		dots: false,
