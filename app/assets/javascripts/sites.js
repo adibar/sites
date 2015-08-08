@@ -25,6 +25,9 @@
 
 //= require turbolinks
 
+//= require moment
+//= require bootstrap-datetimepicker
+
 
 
 $(document).ready(function(){
@@ -33,6 +36,11 @@ $(document).ready(function(){
   // if (typeof (FB) != 'undefined') {
   //   FB.XFBML.parse();
   // }
+
+  console.log("init_date_pickers removed !!!");
+  console.log("init_date_pickers removed !!!");
+  console.log("init_date_pickers removed !!!");
+  // init_date_pickers();
 	
   $('.slickcontainer').slick({
 		dots: false,

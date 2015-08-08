@@ -370,10 +370,14 @@ BaseWidget.prototype.set_css = function(attr, val) {
 
 BaseWidget.prototype.set_css_class = function(attr, val) {
   console.log( JSON.stringify( this.controllers.root[attr] ) );
-  els = this.controllers['root'][attr]['el']
+  
+  var els = this.controllers['root'][attr]['el']
+  var negative = this.controllers['root'][attr]['negative'];
+  negative = typeof negative !== 'undefined' ? negative : false;
+
   for (var i=0; i<els.length; i++) {
     objs = this.container.find(els[i][0]);
-    if (val == true) {
+    if ( ( (val == true) && (negative == false) ) ||  ( (val == false) && (negative == true) ) ) {
       objs.addClass(els[i][1]);
     } else {
       objs.removeClass(els[i][1]);

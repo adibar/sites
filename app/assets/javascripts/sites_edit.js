@@ -55,7 +55,17 @@
 
 //XXX= require ../../../lib/assets/froala/js/froala_editor.min.js
 //= require froala/js/froala_editor.min
+//= require froala/js/plugins/font_family.min
+//= require froala/js/plugins/font_size.min
+//= require froala/js/plugins/colors.min
+//= require froala/js/plugins/file_upload.min
+//= require froala/js/plugins/media_manager.min
+
+//= require froala/js/langs/he
+
+
 //= require overflow-navs/bootstrap-overflow-navs
+
 //XXX= require jssor/jssor.slider.mini
 //= require jssor/jssor
 //= require jssor/jssor.slider

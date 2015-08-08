@@ -1,5 +1,18 @@
 function PDG_multi_elements(container, path, data) {
           
+  this.default_controllers = {
+    'root': {
+      // 'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.redactor-editor', },
+      'margin-top': { 'type':'slider', 'val':'50',  'range':[0,300], 'units':'px', "cb":"set_css", 'el':[ [ '.picndo-row-internal', 'margin-top'] ], },
+      // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
+      'width': { 'type':'slider', 'val':'500', 'range':[100,1920], 'units':'px', "cb":"set_css", 'el':[ [ '.editable', 'width'] ], },
+
+      'full-width': { 'type':'checkbox', 'val':false, 'negative':true, 'cb': "set_css_class", 'el':[ ['.picndo-row-internal', 'container'], ], },
+
+      'background-color': { 'type':'color-picker', 'val':'#ffffff', 'units':'', "cb":"set_css", 'el':[ ['.multielement', 'background-color'], ], },
+    }
+  }
+
   // call base contructore
   BaseWidget.call(this, container, path, data);
   this.resize_counter = 0;
@@ -35,7 +48,9 @@ PDG_multi_elements.prototype.constructor = PDG_multi_elements;
 PDG_multi_elements.prototype.load = function() {
   var myobj = this;
   myobj.load_assets( PDG_multi_elements.assets, function(myobj) {
-      
+    
+    myobj.load_style();  
+    
     myobj.masnry_container = myobj.container.get(0).querySelector('.multielementscontainer');
 
     myobj.msnry = new Masonry( myobj.masnry_container, {

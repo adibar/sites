@@ -10,17 +10,12 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *
 
-
- //require_tree .
- //require_tree ../../../lib/assets
+ *= require_tree .
+ *= require_tree ../../../lib/assets
  *= require_self
 
  *= require bootstrap
+ *= require bootstrap-datetimepicker
 
- *= require general
- //require bootstrap-datetimepicker
-
-
-*/
+ */

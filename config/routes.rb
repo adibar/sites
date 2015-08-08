@@ -2,7 +2,7 @@ class DomainConstraint
   def initialize
     # @domains = Domain.select("DISTINCT domain").map(&:domain).uniq
     # byebug    
-    @domains = ['10.0.0.4', '10.0.0.23', 'ldev', 'dev', 'test.dev']
+    @domains = ['31.154.159.63', '10.0.0.4', '10.0.0.23', 'ldev', 'adib', 'dev', 'test.dev', 'base', '', '', 'sidemenu']
   end
 
   def matches?(request)
@@ -76,9 +76,21 @@ Rails.application.routes.draw do
 
   resources :sites
   resources :images
+  resources :rooms do
+    collection do 
+      get   :search
+      post  :search
+    end
+  end
 
   resources :sites do
     resources :images
+    resources :rooms do 
+      collection do 
+        get   :search
+        post  :search
+      end
+    end
   end
 
   constraints(DomainConstraint.new) do

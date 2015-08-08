@@ -1,5 +1,6 @@
 .multielementscontainer {
-  width: 1180px;
+  /*width: 1180px;*/
+  width:100%;
   /*display: table;*/
   
   position: relative;
@@ -20,23 +21,38 @@
   
   /*width: 33.3333%;*/
   position:relative;
-  width:393px;
+  /*width:393px;*/
+  width:33%;
   height: auto;
-  min-height: 320px;
+  /*min-height: 320px;*/
   /*height: 315px;*/
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
-  margin: 0px;
-  padding:30px;
+  
+  padding:10px;
+  /*padding:0px;*/
+  
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  
+  background-clip: content-box;
+  -webkit-background-clip: content-box;
+  -moz-background-clip: content-box;
+
+  /*background-color: #ddd;*/
+
   *display: inline;
   zoom: 1;
+  
   border-top:1px dotted grey;
   border-left:1px  dotted grey;
+  
   /*z-index:2000000;*/
+
+/*  margin:10px;
+  box-shadow:4px 3px grey;*/
 }
 
 .multielement:hover {
@@ -56,12 +72,14 @@
 
 @media only screen and (min-width: 920px) and (max-width: 1180px) {
   .multielementscontainer {
-    width: 900px;
+    /*width: 900px;*/
+    width:100%;
   }
 
   .multielement {
-    width:  300px;
-    height: 240px;
+    /*width:  300px;*/
+    width:  33%;
+    /*height: 240px;*/
   }
 
   .multielementimg {
@@ -71,12 +89,14 @@
 
 @media only screen and (min-width:800px) and (max-width: 919px) {
   .multielementscontainer {
-    width: 786px;
+    /*width: 786px;*/
+    width: 100%;
   }
 
   .multielement {
-    width:  393px;
-    height: 315px;
+    width:  50%;
+    /*width:  393px;*/
+    /*height: 315px;*/
   }
 
   .multielementimg {
@@ -86,29 +106,31 @@
 
 @media only screen and (min-width:401px) and (max-width: 799px) {
   .multielementscontainer {
-    width: 400px;
+    width: 100%;
   }
 
   .multielement {
-    width:  200px;
-    height: 159px;
-    padding: 5px;
+    /*width:  200px;*/
+    width:    50%;
+    /*height:   159px;*/
+    padding:  5px;
   }
 
   .multielementimg {
-    height: 100px;
+    height: 150px;
   } 
 }
 
 @media only screen and (max-width: 400px) {
   .multielementscontainer {
-    max-width:  320px;
+    max-width:  100%;
   }
 
   .multielement {
-    width:  160px;
-    height: 127px;
-    padding: 5px;
+    /*width:  160px;*/
+    width:    50%;
+    /*height:   127px;*/
+    padding:  5px;
   }
 
   .multielementimg {

@@ -1,0 +1,52 @@
+
+<div class="row site-template-row">
+  <% @sites.each do |s| %>
+    <div class="col-md-6 site-template-selector" style="">
+      <div class="template-selector-inner" data-template-id="<%= s.id %>" >
+        <div class="content-centered">
+          <%= s.title %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- <div class="row site-template-row">
+
+  <div class="col-md-6 site-template-selector" style="">
+    <div class="template-selector-inner">
+      <div class="content-centered">
+        Classic (Centerd Site)
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 site-template-selector" style="">
+    <div class="template-selector-inner">
+      <div class="content-centered">
+        Full Width Site
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row site-template-row">
+
+  <div class="col-md-6 site-template-selector" style="">
+    <div class="template-selector-inner">
+      <div class="content-centered">
+        Menu Side
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 site-template-selector" style="">
+    <div class="template-selector-inner">
+      <div class="content-centered">
+        Menu On The Side, Full Width
+      </div>
+    </div>
+  </div>
+
+</div> -->

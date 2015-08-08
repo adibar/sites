@@ -1,5 +1,6 @@
 <div id="dropzone">
 <%= form_for @image, :html => { :class => 'dropzone', :style => '', :multipart => true }, :remote => true do |f| %>
+  <%= f.hidden_field :site_id, :value => @image.site_id%>
 <!--   <div class="field">
     <%= f.label :file %>
     <%= f.file_field :file, multiple: true %>

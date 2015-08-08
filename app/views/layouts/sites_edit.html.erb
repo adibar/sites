@@ -2,14 +2,18 @@
 <html>
 <head>
   <title>Sites</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  
+  <script>
+    var current_site  = <%= current_site %> ;
+    var current_token = "<%= form_authenticity_token %>" ;
+  </script>
+
+  <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= stylesheet_link_tag    'sites', media: 'all', 'data-turbolinks-track' => false %>
   <%= javascript_include_tag "sites_edit" %>
 
   <%= csrf_meta_tags %>
   
-  <script>
-  	var current_site = <%= current_site %>
-  </script>
 </head>
 <body>
 

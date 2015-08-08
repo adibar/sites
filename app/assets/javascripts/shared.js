@@ -52,7 +52,13 @@ $( window ).resize(function() {
 
 function update_overflow() {
   
-  var offset = $('.navbar-header').css('width');
+  var navbar_header = $('.navbar-header');
+  if ( navbar_header.hasClass('navbar-header-center') ) {
+    var offset = 0;
+  } else {
+    var offset = $('.navbar-header').css('width');
+  }
+
 
   $("#horizontal-nav").overflowNavs({
     "more"    : "", 

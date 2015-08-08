@@ -57,7 +57,7 @@ function imageEditor(obj, opts) {
       $("#insert-img").click( { obj: obj, opts:opts }, opts.insertImage);
       $(".obj_delete").click( { obj: obj }, opts.removeImage);
       $("#upload-img").click( function() {
-        jQuery.get( '/images/new', function(data) {
+        jQuery.get( '/images/new?site='+current_site, function(data) {
           lbody.empty();
           lbody.append(data);
           // $("#new_image").dropzone( { url: "/file/post" } );

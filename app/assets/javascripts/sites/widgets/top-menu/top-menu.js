@@ -10,8 +10,9 @@ function PDG_top_menu(path, data) {
     'root': {
       'side-menu': { 'type':'select', 'loadstyle':0, 'val':0, 'cb': "set_menu_type", 'options':['Top Menu', 'Side Menu'] },      
 
-      'brand-center': { 'type':'checkbox', 'val':false, 'cb': "set_css_class", 'el':[ ['.navbar-header', 'navbar-header-center'], ['.navbar-brand-style', 'navbar-brand-style-center'],
-          ['.navbar-nav', 'navbar-nav-center'], ['.navbar-collapse', 'navbar-collapse-center'], ], },
+      'brand-center': { 'type':'checkbox', 'val':false, 'cb': "set_css_class", 'el':[ ['.navbar-header', 'navbar-header-center'], ['.navbar-brand-style', 'navbar-brand-style-center'], ['.navbar-nav', 'navbar-nav-center'], ['.navbar-collapse', 'navbar-collapse-center'], ], },
+      
+      'full-width': { 'type':'checkbox', 'val':false, 'negative':true, 'cb': "set_css_class", 'el':[ ['.picndo-row-internal', 'container'], ], },
       
       'brand-width': { 'type':'slider', 'val':40, 'range':[100,500], 'units':'px', "cb":"set_css", 'el':[ ['.menu-brand-img', 'width'] ], }, 
 
@@ -27,6 +28,30 @@ function PDG_top_menu(path, data) {
       'background-color': { 'type':'color-picker', 'val':'#000000', 'units':'', "cb":"set_css", 'el':[ ['.wrapper-addons', 'background-color'], ['.dropdown-menu > li', 'background-color'] ], },
 
       'font-size': { 'type':'slider', 'range':[8,36], 'val':'10', 'units':'px', "cb":"set_css", 'el':[ ['.sidebar-ul', 'font-size'] ], },
+
+      'font-family': { 'type':'select-hash', 'val':"Georgia, serif", 'units':'', "cb":"set_css", 'el':[ ['header', 'font-family'] ], 
+          'options':{ 
+            "Georgia":                  "Georgia, serif", 
+            "Palatino Linotype":        "'Palatino Linotype', 'Book Antiqua', Palatino, serif", 
+            "Times New Roman":          "'Times New Roman', Times, serif",
+
+            "Ariel":                    "Arial, Helvetica, sans-serif",
+            "Ariel Black":              "'Arial Black', Gadget, sans-serif",
+            "Comic Sans MS":            "'Comic Sans MS', cursive, sans-serif",
+            "Impact":                   "Impact, Charcoal, sans-serif",
+            "Lucida Sans Unicode":      "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+            "Tahoma":                   "Tahoma, Geneva, sans-serif",
+            "Trebuchet MS":             "'Trebuchet MS', Helvetica, sans-serif",
+            "Verdana":                  "Verdana, Geneva, sans-serif",
+
+            "Courier New":              "'Courier New', Courier, monospace",
+            "Lucida Console":           "'Lucida Console', Monaco, monospace",
+
+            "HelveticaNeue Ultralight": "HelveticaNeue-Ultralight"
+          }, 
+      },
+
+      'color': { 'type':'color-picker', 'val':'#000000', 'units':'', "cb":"set_css", 'el':[ ['.nav-link', 'color'], ], },           
     }
   };
   

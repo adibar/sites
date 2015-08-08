@@ -46,17 +46,21 @@ group :development, :test do
 
 end
 
-
 gem 'puma'
 gem "pg"
 gem "squeel"
-gem 'handlebars'	
+gem 'handlebars'
 gem 'haml'
 gem 'jquery-turbolinks'
 gem 'nil_or'
+gem 'yinum'
+gem 'deep_cloneable'
 gem 'remotipart'
 gem "jquery-fileupload-rails"
 gem 'mini_magick'
 gem "oj"
 # observejs => for facebook.js.coffee
 # gem "observejs"
+# For date picker
+gem 'momentjs-rails'
+gem 'bootstrap3-datetimepicker-rails'

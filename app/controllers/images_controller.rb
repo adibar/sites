@@ -1,12 +1,12 @@
 require 'fileutils'
 
-class ImagesController  < ApplicationController	
+class ImagesController  < ApplicationController
 
   helper_method :image_path, :image_url
 
   @@USER_IMAGES_FOLDER_ROOT = 'public/uploads'
   @@USER_IMAGE_URL          = 'public/uploads'
-  
+
   @@images_path = {
     :big              => 'big',
     :medium           => 'scaled',
@@ -14,9 +14,9 @@ class ImagesController  < ApplicationController
   }
 
 
-  @@big_size     = 1400
+  @@big_size     = 1440
   @@medium_size  = 600
-  @@small_size   = 300
+  @@small_size   = 340
 
 
   def index
@@ -68,7 +68,7 @@ class ImagesController  < ApplicationController
     #     {"id":42, "thumb": 'http://127.0.0.1:8000/static/img/media/logos/logo1.png', "image": 'http://127.0.0.1:8000/static/img/media/logos/logo1.png', "txt":'' },
 
     #   ]
-      
+
       images = Site.find(params[:site_id]).images
       render :json => images
   end
@@ -80,11 +80,11 @@ class ImagesController  < ApplicationController
   end
 
   def new
-    @image = Image.new
+    @image = Image.new( :site_id => params[:site] )
   end
 
   def image_path(size, relative_path)
-    File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, @@images_path[size], relative_path)
+    Image.image_path(size, relative_path)
   end
 
   def image_url(relative_path)
@@ -93,54 +93,60 @@ class ImagesController  < ApplicationController
 
   def create
     if remotipart_submitted?
-      
-    end
-    
-    # params[:file].original_filename
-    image = MiniMagick::Image.open(params[:file].tempfile.path)
 
-    if image.width > image.height
-      b = [ @@big_size,    (@@big_size/(image.width.to_f / image.height)) ]
-      m = [ @@medium_size, (@@medium_size/(image.width.to_f / image.height)) ]
-      s = [ @@small_size,  (@@small_size/(image.width.to_f / image.height)) ]
+    end
+
+    # image = MiniMagick::Image.open(params[:file].tempfile.path)
+
+    # if image.width > image.height
+    #   b = [ @@big_size,    (@@big_size/(image.width.to_f / image.height)) ]
+    #   m = [ @@medium_size, (@@medium_size/(image.width.to_f / image.height)) ]
+    #   s = [ @@small_size,  (@@small_size/(image.width.to_f / image.height)) ]
+    # else
+    #   b = [ (@@big_size*(image.width.to_f / image.height)),     @@big_size,     '' ]
+    #   m = [ (@@medium_size*(image.width.to_f / image.height)),  @@medium_size,  '' ]
+    #   s = [ (@@small_size*(image.width.to_f / image.height)),   @@small_size,   '' ]
+    # end
+
+    # sizes = { :big => b, :medium => m, :small =>s }
+
+    # sizes.each_pair do |key, val|
+    #   image.resize "#{val[0]}x#{val[1]}"
+    #   image.format params[:file].content_type.split('/')[1]
+    #   path = image_path(key, params[:file].original_filename.gsub(' ', ''))
+
+    #   path = File.join(File.dirname(path), Time.now.to_i.to_s + File.basename(path)) if File.file? path
+
+    #   val[2] = path
+
+    #   dirname = File.dirname(path)
+    #   unless File.directory?(dirname)
+    #     FileUtils.mkdir_p(dirname)
+    #   end
+    #   image.write path
+    # end
+
+    # image = Image.create(
+    #   :path_big       => sizes[:big][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
+    #   :path_medium    => sizes[:medium][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
+    #   :path_small     => sizes[:small][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
+    #   :width_big      => sizes[:big][0],
+    #   :width_medium   => sizes[:medium][0],
+    #   :width_small    => sizes[:small][0],
+    #   :height_big     => sizes[:big][1],
+    #   :height_medium  => sizes[:medium][1],
+    #   :height_small   => sizes[:small][1],
+    #   :site_id        => params[:image].nil_or[:site_id] || params[:site_id],
+    #   :name           => params[:file].original_filename
+    # )
+
+    image = Image.create( params[:file], (params[:image].nil_or[:site_id] || params[:site_id]) )
+
+    if ( params[:single_link] )
+      render :json => { :link => Image.image_url(image.path_big) }, :status => 200
     else
-      b = [ (@@big_size*(image.width.to_f / image.height)),     @@big_size,     '' ]
-      m = [ (@@medium_size*(image.width.to_f / image.height)),  @@medium_size,  '' ]
-      s = [ (@@small_size*(image.width.to_f / image.height)),   @@small_size,   '' ]
+      render :nothing => true, :status => 200
     end
-
-    sizes = { :big => b, :medium => m, :small =>s }
-
-    sizes.each_pair do |key, val|
-      image.resize "#{val[0]}x#{val[1]}"
-      image.format params[:file].content_type.split('/')[1]
-      path = image_path(key, params[:file].original_filename.gsub(' ', ''))
-    
-      path = File.join(File.dirname(path), Time.now.to_i.to_s + File.basename(path)) if File.file? path
-
-      val[2] = path
-
-      dirname = File.dirname(path)
-      unless File.directory?(dirname)
-        FileUtils.mkdir_p(dirname)
-      end
-      image.write path
-    end
-
-    Image.create( 
-      :path_big       => sizes[:big][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
-      :path_medium    => sizes[:medium][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
-      :path_small     => sizes[:small][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
-      :width_big      => sizes[:big][0],
-      :width_medium   => sizes[:medium][0],
-      :width_small    => sizes[:small][0],
-      :height_big     => sizes[:big][1],
-      :height_medium  => sizes[:medium][1],
-      :height_small   => sizes[:small][1],
-      :site_id        => 1,
-    )
-
-    render :nothing => true, :status => 200
   end
 
   def destroy

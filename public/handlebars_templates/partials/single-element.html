@@ -1,7 +1,7 @@
 {{#if @root.edit_mode }}
-<div class="multielement" data-index="{{@index}}">
+<div class="multielement" style="{{{get_css "multielement" }}}" data-index="{{@index}}" >
 {{else}}
-<div class="multielement" data-index="{{@index}}" onclick="location.href='{{url}}';">
+<div class="multielement" style="{{{get_css "multielement" }}}" data-index="{{@index}}" onclick="location.href='{{url}}';">
 {{/if}}
   {{#if @root.edit_mode }}
   <div class="btn-group" style="position:absolute; left:5px; top:5px;">

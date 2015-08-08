@@ -29,6 +29,11 @@ body {
   margin-right:auto;
 }
 
+.picndo-row-internal {
+    margin-left:auto;
+    margin-right:auto;
+}
+
 .picndo-inline {
   /*display:inline-block;*/
 }

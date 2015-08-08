@@ -3,9 +3,11 @@ function PDG_froala_txt(container, path, data) {
   this.default_controllers = {
     'root': {
       // 'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.redactor-editor', },
-      'margin-top': { 'type':'slider', 'val':'50',  'range':[0,300], 'units':'px', "cb":"set_css", 'el':[ [ '.editable', 'margin-top'] ], },
+      'margin-top': { 'type':'slider', 'val':'50',  'range':[0,300], 'units':'px', "cb":"set_css", 'el':[ [ '.picndo-row-internal', 'margin-top'] ], },
       // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
       'width': { 'type':'slider', 'val':'500', 'range':[100,1920], 'units':'px', "cb":"set_css", 'el':[ [ '.editable', 'width'] ], },
+
+      'full-width': { 'type':'checkbox', 'val':false, 'negative':true, 'cb': "set_css_class", 'el':[ ['.picndo-row-internal', 'container'], ], },
     }
   }
           
@@ -130,8 +132,14 @@ PDG_froala_txt.prototype.edit = function(val) {
     // });
   
     this.froala = this.container.find("#edit").editable({
-      inlineMode  : false,
-      language    : 'he',
+      inlineMode:         false,
+      language:           'he',
+      fileUploadURL:      '/images',
+      fileUploadParams:   { site_id: current_site, },
+      imagesLoadURL:      "/images",
+      imageUploadURL:     "/images",
+      imagesLoadParams:   { site_id: current_site, authenticity_token: current_token, single_link: true,},
+      imageUploadParams:  { site_id: current_site, authenticity_token: current_token, single_link: true,},
     });
 
   }

@@ -38,19 +38,19 @@
           // </p>
 
 
-// var jsonObj = { 
+// var jsonObj = {
 //   "css": {
 
 //   },
 //   "menu":{
 //     "type":"top-menu",
 //     "pages":[
-//       [{"name":"Home", "url":"/index.html"},],  
+//       [{"name":"Home", "url":"/index.html"},],
 //       [{"name":"About", "url":"/about.html"},],
 //       [{"name":"Blog", "url":"/blog.html"},],
-//       [{"name":"Specials", "url":"/specials.html"},],  
-//       [{"name":"Weedings", "url":"/weddings.html"},],  
-//       [{"name":"Contact", "url":"/contact.html"},],                      
+//       [{"name":"Specials", "url":"/specials.html"},],
+//       [{"name":"Weedings", "url":"/weddings.html"},],
+//       [{"name":"Contact", "url":"/contact.html"},],
 //     ],
 //     "view":{
 //       'active': "Home",
@@ -80,11 +80,11 @@
 //             { 'url': '/static/img/media/IMG_1637.jpg' },
 //             { 'url': '/static/img/media/IMG_1641.jpg' },
 //             { 'url': '/static/img/media/IMG_1724.jpg' },
-//             { 'url': '/static/img/media/IMG_1729.jpg' },            
-//             { 'url': '/static/img/media/IMG_1760.jpg' },            
-//             { 'url': '/static/img/media/IMG_1772.jpg' },                                                
+//             { 'url': '/static/img/media/IMG_1729.jpg' },
+//             { 'url': '/static/img/media/IMG_1760.jpg' },
+//             { 'url': '/static/img/media/IMG_1772.jpg' },
 //           ]
-//         }                          
+//         }
 //       },
 //     ],
 //     'Blog': [
@@ -97,14 +97,14 @@
 //           'photos': [
 //             { 'url': '/static/img/media/IMG_1641.jpg' },
 //             { 'url': '/static/img/media/IMG_1724.jpg' },
-//             { 'url': '/static/img/media/IMG_1729.jpg' },            
-//             { 'url': '/static/img/media/IMG_1760.jpg' },            
-//             { 'url': '/static/img/media/IMG_1772.jpg' },       
+//             { 'url': '/static/img/media/IMG_1729.jpg' },
+//             { 'url': '/static/img/media/IMG_1760.jpg' },
+//             { 'url': '/static/img/media/IMG_1772.jpg' },
 //             { 'url': '/static/img/media/1.jpg' },
 //             { 'url': '/static/img/media/2.jpg' },
 //             { 'url': '/static/img/media/3.jpg' },
 //             { 'url': '/static/img/media/5.jpg' },
-//             { 'url': '/static/img/media/6.jpg' },          
+//             { 'url': '/static/img/media/6.jpg' },
 //           ]
 //         }
 //       },
@@ -158,9 +158,9 @@
 //             { 'url': '/static/img/media/IMG_1637.jpg' },
 //             { 'url': '/static/img/media/IMG_1641.jpg' },
 //             { 'url': '/static/img/media/IMG_1724.jpg' },
-//             { 'url': '/static/img/media/IMG_1729.jpg' },            
-//             { 'url': '/static/img/media/IMG_1760.jpg' },            
-//             { 'url': '/static/img/media/IMG_1772.jpg' },       
+//             { 'url': '/static/img/media/IMG_1729.jpg' },
+//             { 'url': '/static/img/media/IMG_1760.jpg' },
+//             { 'url': '/static/img/media/IMG_1772.jpg' },
 //             { 'url': '/static/img/media/1.jpg' },
 //             { 'url': '/static/img/media/2.jpg' },
 //             { 'url': '/static/img/media/3.jpg' },
@@ -172,7 +172,7 @@
 //             { 'url': '/static/img/media/3.jpg' },
 //             { 'url': '/static/img/media/5.jpg' },
 //             { 'url': '/static/img/media/6.jpg' },
-//             { 'url': '/static/img/media/7.jpg' },                  
+//             { 'url': '/static/img/media/7.jpg' },
 //           ]
 //         }
 //       },
@@ -185,14 +185,14 @@
 //           'photos': [
 //             { 'url': '/static/img/media/IMG_1641.jpg' },
 //             { 'url': '/static/img/media/IMG_1724.jpg' },
-//             { 'url': '/static/img/media/IMG_1729.jpg' },            
-//             { 'url': '/static/img/media/IMG_1760.jpg' },            
-//             { 'url': '/static/img/media/IMG_1772.jpg' },       
+//             { 'url': '/static/img/media/IMG_1729.jpg' },
+//             { 'url': '/static/img/media/IMG_1760.jpg' },
+//             { 'url': '/static/img/media/IMG_1772.jpg' },
 //             { 'url': '/static/img/media/1.jpg' },
 //             { 'url': '/static/img/media/2.jpg' },
 //             { 'url': '/static/img/media/3.jpg' },
 //             { 'url': '/static/img/media/5.jpg' },
-//             { 'url': '/static/img/media/6.jpg' },          
+//             { 'url': '/static/img/media/6.jpg' },
 //           ]
 //         }
 //       },
@@ -218,11 +218,11 @@
 //             { 'url': '/static/img/media/IMG_1637.jpg' },
 //             { 'url': '/static/img/media/IMG_1641.jpg' },
 //             { 'url': '/static/img/media/IMG_1724.jpg' },
-//             { 'url': '/static/img/media/IMG_1729.jpg' },            
-//             { 'url': '/static/img/media/IMG_1760.jpg' },            
-//             { 'url': '/static/img/media/IMG_1772.jpg' },                                                
+//             { 'url': '/static/img/media/IMG_1729.jpg' },
+//             { 'url': '/static/img/media/IMG_1760.jpg' },
+//             { 'url': '/static/img/media/IMG_1772.jpg' },
 //           ]
-//         }                          
+//         }
 //       },
 //     ]
 //   }
@@ -239,17 +239,17 @@ var t_controllers;
 
 $(document).ready(function () {
 
-  $(document).on('mouseenter', '.picndo-editable', function() { 
+  $(document).on('mouseenter', '.picndo-editable', function() {
     $(this).css("border", "2px dotted orange");
     $(this).find('.edit_menu').css("visibility", "visible")
   });
-  $(document).on('mouseleave', '.picndo-editable', function() { 
+  $(document).on('mouseleave', '.picndo-editable', function() {
     // $(this).css("border", "none");
     $(this).css("border", "2px dotted transparent")
     $(this).find('.edit_menu').css("visibility", "hidden")
   });
 
-  $(document).on('click', '.site-link', function(ev) { 
+  $(document).on('click', '.site-link', function(ev) {
     var page_name = $(this).data("name");
     activatePage(page_name);
 
@@ -266,7 +266,7 @@ $(document).ready(function () {
   t_controllers = Handlebars.compile(source);
 
   Handlebars.registerPartial("image-manager-img", $("#image-manager-img").html().replace(/[\u200B]/g, '') );
-  Handlebars.registerPartial("image-manager-obj-list", $("#image-manager-obj-list").html().replace(/[\u200B]/g, '') );     
+  Handlebars.registerPartial("image-manager-obj-list", $("#image-manager-obj-list").html().replace(/[\u200B]/g, '') );
   Handlebars.registerHelper("ifCond",function(v1,operator,v2,options) {
     return ifCond(v1,operator,v2,options);
   });
@@ -277,13 +277,13 @@ $(document).ready(function () {
 
   Handlebars.registerHelper("get_class",function(v1,operator,v2,options) {
     return '';
-  });  
+  });
   Handlebars.registerHelper("to_text",function(html) {
     return $(html).text();
-  });    
+  });
 
 
-  
+
   // $('#content').redactor({
   //   lang:           'he',
   //   imageUpload:    '/siteseditor/image_upload',
@@ -291,7 +291,7 @@ $(document).ready(function () {
   //   imageGetJson:   '/siteseditor/images',
   //   plugins:        ['fontcolor','fontsize','fullscreen','custombutton'],
   // });
-  
+
   // $(".floating-menu").draggable( { containment: "#contentcontainer", scroll: false } );
   $(".floating-menu").draggable( { containment: "#draggables-container", scroll: false } );
 
@@ -325,15 +325,15 @@ $(document).ready(function () {
 
   // var pageData = data["pages"][data["menu"]["view"]["active"]];
   var pageData = jsonObj["pages"][jsonObj["menu"]["view"]["active"]];
-  loadMenu( $("#menucontainer"), $("#contentcontainer"),  pageData );  
-  loadPage( $("#contentcontainer"), pageData, jsonObj["widgets"] );  
+  loadMenu( $("#menucontainer"), $("#contentcontainer"),  pageData );
+  loadPage( $("#contentcontainer"), pageData, jsonObj["widgets"] );
 
   // $(".mypopover").popover({ trigger: "hover" });
   $('[data-toggle="popover"]').popover( { /*placement: "auto right"*/ });
 
-  
+
   jsonObj_orig = _.clone(jsonObj, true);
-  start_diff();  
+  start_diff();
 
 
 
@@ -342,7 +342,7 @@ $(document).ready(function () {
 
 function start_diff() {
   window.setInterval( function() {
-    
+
     var current = _.clone(jsonObj, true);
 
     remove_ids(jsonObj_orig);
@@ -355,7 +355,7 @@ function start_diff() {
       // modification happened => alert user
       $("#save-btn").css( "display", "block" );
     }
-  }, 5000);    
+  }, 5000);
 }
 
 function save_diff() {
@@ -363,13 +363,15 @@ function save_diff() {
   jsonObj_orig = _.clone(jsonObj, true);
 
   $.ajax({
-    type: "POST",
-    url: '/sites',
+    type: "PUT",
+    url: '/sites/' + current_site,
     // data: { 'json' : JSON.stringify(jsonObj) },
     data: { "data": JSON.stringify(jsonObj), },
-    success: function() { alert('saved!!!') },
+    success: function() {
+      alert('saved!!!');
+    },
     dataType: 'json'
-  });  
+  });
 
   $("#save-btn").css( "display", "none" );
 }
@@ -379,7 +381,7 @@ function remove_ids(lobj) {
     if (lobj.pages.hasOwnProperty(key)) {
       for (var i=0 ; i<lobj.pages[key].length ; i++) {
         delete lobj.pages[key][i]['id'];
-      }      
+      }
     }
   }
 }
@@ -392,9 +394,9 @@ function activatePage(pName) {
   data["menu"]["view"]["active"] = pName;
   var pageData = data["pages"][data["menu"]["view"]["active"]];
   cleanPage($("#contentcontainer"), $("#contentcontainer"), pName);
-  
+
   loadMenu( $("#menucontainer"), $("#contentcontainer"), pageData );
-  loadPage( $("#contentcontainer"), pageData, jsonObj["widgets"] );    
+  loadPage( $("#contentcontainer"), pageData, jsonObj["widgets"] );
 
   // load next/prev page if needed
   var next_prev = next_prev_page(pName);
@@ -418,7 +420,7 @@ function cleanPage(container, menuContainer, pName) {
 
 var elementsCounter = 0;
 
-// TBD - TODO 
+// TBD - TODO
 function modifyMenuType() {
 
 }
@@ -438,16 +440,16 @@ function loadMenu(container, contentcontainer, pData) {
   jsonObj["menu"]["id"] = elId;
 
   cbObj = {
-    "elId"        : elId, 
+    "elId"        : elId,
     "widget_name" : "menu",
-    // "container"   : ldiv1,          
+    // "container"   : ldiv1,
     "container"   : container,
     "content"     : contentcontainer,
     "data"        : jsonObj["menu"],
     "path"        : "widgets/top-menu/",
   };
- 
-  loadWidgetSctipt("/assets/widgets/top-menu/top-menu.js", cbObj);          
+
+  loadWidgetSctipt("/assets/widgets/top-menu/top-menu.js", cbObj);
 }
 
 function loadPage(container, pData, widgets) {
@@ -455,7 +457,7 @@ function loadPage(container, pData, widgets) {
   // Elements
   var i;
   for (i=0; i<pData["widgets"].length; i++) {
-    
+
     var elId = 'picndo-obj' + elementsCounter;
     var ldiv = jQuery('<div/>', {
       class: 'picndo-row picndo-editable',
@@ -469,7 +471,7 @@ function loadPage(container, pData, widgets) {
 
     cbObj = {
       "widget_name":widget["widget_name"],
-      "container":ldiv,          
+      "container":ldiv,
       "data":widget,
     }
 
@@ -479,42 +481,42 @@ function loadPage(container, pData, widgets) {
         cbObj["path"] = "widgets/galleries/slick-scrolling-gallery/";
         loadWidgetSctipt("widgets/galleries/slick-scrolling-gallery/gallery.js", cbObj);
         break;
-    
+
       case 'masonary-gallery':
         cbObj["path"] = "widgets/galleries/masonary/";
-        loadWidgetSctipt("widgets/galleries/masonary/gallery.js", cbObj);      
-        break;    
-
-      case 'square-gallery':    
-        cbObj["path"] = "widgets/galleries/square/";
-        loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);      
-        break;    
-
-      case 'full-width-gallery':    
-        cbObj["path"] = "widgets/galleries/full-width/";
-        loadWidgetSctipt("widgets/galleries/full-width/gallery.js", cbObj);      
-        break;   
-
-      case 'flow-gallery':    
-        cbObj["path"] = "widgets/galleries/image-flow/";
-        loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);      
-        break;    
-
-      case 'general-txt':
-        cbObj["path"] = "widgets/froala-txt/";        
-        loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);      
+        loadWidgetSctipt("widgets/galleries/masonary/gallery.js", cbObj);
         break;
 
-      case 'multi-elements':        
-        cbObj["path"] = "widgets/multi-elements/";        
-        loadWidgetSctipt("widgets/multi-elements/multi-elements.js", cbObj);      
+      case 'square-gallery':
+        cbObj["path"] = "widgets/galleries/square/";
+        loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);
+        break;
+
+      case 'full-width-gallery':
+        cbObj["path"] = "widgets/galleries/full-width/";
+        loadWidgetSctipt("widgets/galleries/full-width/gallery.js", cbObj);
+        break;
+
+      case 'flow-gallery':
+        cbObj["path"] = "widgets/galleries/image-flow/";
+        loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);
+        break;
+
+      case 'general-txt':
+        cbObj["path"] = "widgets/froala-txt/";
+        loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);
+        break;
+
+      case 'multi-elements':
+        cbObj["path"] = "widgets/multi-elements/";
+        loadWidgetSctipt("widgets/multi-elements/multi-elements.js", cbObj);
         break;
 
       case 'contact':
-        cbObj["path"] = "widgets/contact/";        
-        loadWidgetSctipt("widgets/contact/contact.js", cbObj);        
+        cbObj["path"] = "widgets/contact/";
+        loadWidgetSctipt("widgets/contact/contact.js", cbObj);
         break;
-        
+
       default:
         alert("Unknown widget element");
         break;
@@ -538,16 +540,16 @@ function loadPage(container, pData, widgets) {
 
 //   cbObj = {
 //     "widget_name":pData[i]["widget_name"],
-//     "container":ldiv,          
+//     "container":ldiv,
 //     "path":"widgets/galleries/slick-scrolling-gallery/",
 //     "data":pData[i],
 //   }
-  
+
 //   // $.getScript("widgets/" + data.menu.type + "/" + data.menu.type + ".js", function() {
 //   $.getScript("widgets/" + jsonObj.menu.type + "/" + jsonObj.menu.type + ".js", function() {
 //     //loadmenu($("#contentcontainer"), "widgets/top-menu/", data);
 //     loadmenu(ldiv1, "widgets/top-menu/", jsonObj);
-//   });  
+//   });
 // }
 
 // function loadElement( ) {
@@ -555,16 +557,16 @@ function loadPage(container, pData, widgets) {
 // }
 
 function remove_obj_from_json(lid) {
-  
+
   var lactive = jsonObj["menu"]["view"]["active"];
   //var active_len = jsonObj["pages"][lactive].length;
   var active_len = jsonObj["pages"][lactive].widgets.length;
-  
+
   for (var i = 0; i<active_len; i++) {
     var widget_name = jsonObj["pages"][lactive].widgets[i];
     if (jsonObj.widgets[widget_name].id == lid ) {
-      jsonObj["pages"][lactive].widgets.splice(i,1); // remove widget name from page 
-      delete jsonObj.widgets[widget_name];           // remove from widgets hash 
+      jsonObj["pages"][lactive].widgets.splice(i,1); // remove widget name from page
+      delete jsonObj.widgets[widget_name];           // remove from widgets hash
       return true;
     }
     // if ( jsonObj["pages"][lactive].widgets[i].id == lid ) {
@@ -580,8 +582,8 @@ function remove_obj_from_json(lid) {
 }
 
 // function createWidget(widgetName, container, pData) {
-function createWidget(widgetName, container) {  
-  
+function createWidget(widgetName, container) {
+
   container = typeof container !== 'undefined' ? container : $("#contentcontainer");
 
   var cbObj = {};
@@ -596,101 +598,101 @@ function createWidget(widgetName, container) {
   container.append(ldiv);
 
   var widget_name = random_name();
-  var ljson = { 
+  var ljson = {
     "widget_name":  widgetName,
     "css":          { },
     "data":         { },
-    "id":           elId,  
+    "id":           elId,
     "name":         widget_name,
   };
 
   var lactive = jsonObj["menu"]["view"]["active"];
   // jsonObj["pages"][lactive].push( ljson );
   jsonObj["pages"][lactive]["widgets"].push( widget_name );
-  jsonObj["widgets"][widget_name] = ljson;  
+  jsonObj["widgets"][widget_name] = ljson;
 
   switch (widgetName) {
 
     case 'general-txt':
       // cbObj = {
       //   "widget_name":widgetName,
-      //   "container": ldiv,          
+      //   "container": ldiv,
       //   "path": "widgets/general-txt/",
       //   "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
-      // }    
+      // }
 
-      // loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);      
-      
+      // loadWidgetSctipt("widgets/general-txt/general-txt.js", cbObj);
+
       cbObj = {
         "widget_name":'froala-txt',
-        "container": ldiv,          
+        "container": ldiv,
         "path": "widgets/froala-txt/",
         // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
         "data": ljson,
-      }    
+      }
 
-      loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);       
+      loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);
       break;
-    
+
     case 'square-gallery':
       cbObj = {
         "widget_name":widgetName,
-        "container": ldiv,          
+        "container": ldiv,
         "path": "widgets/galleries/square/",
         // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
         "data": ljson,
-      }    
+      }
 
-      loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);                
+      loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);
       break
 
     case 'full-width-gallery':
       cbObj = {
         "widget_name":widgetName,
-        "container": ldiv,          
+        "container": ldiv,
         "path": "widgets/galleries/full-width/",
         // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
         "data": ljson,
-      }    
+      }
 
-      loadWidgetSctipt("widgets/galleries/full-width/gallery.js", cbObj);                
+      loadWidgetSctipt("widgets/galleries/full-width/gallery.js", cbObj);
       break
 
 
     case 'flow-gallery':
       cbObj = {
         "widget_name":widgetName,
-        "container": ldiv,          
+        "container": ldiv,
         "path": "widgets/galleries/image-flow/",
         // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
         "data": ljson,
-      }    
+      }
 
-      loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);                
+      loadWidgetSctipt("widgets/galleries/image-flow/image-flow.js", cbObj);
       break
 
     case 'contact':
       cbObj = {
         "widget_name":widgetName,
-        "container": ldiv,          
+        "container": ldiv,
         "path": "widgets/contact/",
         // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
         "data": ljson,
-      }    
+      }
 
-      loadWidgetSctipt("widgets/contact/contact.js", cbObj);                
+      loadWidgetSctipt("widgets/contact/contact.js", cbObj);
       break
 
     default:
       alert("Unknown widget element");
-      break;  
-  }  
+      break;
+  }
 
 }
 
 function loadWidgetSctipt(jsURL, wData) {
   // TODO => this is wrong to make masonary gallery.js a must for square gallery => load all from header, no dynamically
-  
+
   // $.getScript( './widgets/galleries/masonary/gallery.js', function( ldata, textStatus, jqxhr ) {
   //   $.ajax({
   //     url: jsURL,
@@ -714,39 +716,39 @@ function loadWidget(wData) {
       break;
     case 'masonary-gallery':
       obj = new PDG_masonary_gallery(wData.container, wData.path, wData.data);
-      break;  
-    case 'square-gallery': 
+      break;
+    case 'square-gallery':
       obj = new PDG_square_gallery(wData.container, wData.path, wData.data);
-      break;  
-    case 'full-width-gallery': 
+      break;
+    case 'full-width-gallery':
       obj = new PDG_full_width_gallery(wData.container, wData.path, wData.data);
-      break;  
+      break;
     case 'flow-gallery':
       obj = new PDG_image_flow_gallery(wData.container, wData.path, wData.data);
-      break;  
+      break;
     // case 'general-txt':
     //   obj = new PDG_general_txt(wData.container, wData.path, wData.data);
     //   break;
     case 'general-txt':
     case 'froala-txt':
       obj = new PDG_froala_txt(wData.container, wData.path, wData.data);
-      break;      
+      break;
     case 'multi-elements':
       obj = new PDG_multi_elements(wData.container, wData.path, wData.data);
       break;
 
     case 'contact':
       obj = new PDG_contact(wData.container, wData.path, wData.data);
-      break;   
+      break;
 
     case 'menu':
       // obj = new PDG_top_menu(wData.container, wData.path, wData.data);
       obj = new PDG_top_menu(wData.path, wData);
-      break;   
+      break;
 
     default:
       alert("loadWidget - Unknown widget element");
-      break;         
+      break;
   }
 
   if (obj != null) {
@@ -755,19 +757,19 @@ function loadWidget(wData) {
 
     // if (wData.data == undefined) {
     //   var default_data = obj.default_data();
-    //   picndoOBJs[wData.container[0].id] = [obj, default_data]; 
+    //   picndoOBJs[wData.container[0].id] = [obj, default_data];
     // } else {
     //   picndoOBJs[wData.container[0].id] = [obj, wData.data];
     // }
 
     if ( ( 'container' in obj ) && ( obj.container != undefined) ) {
       picndoOBJs[obj.container[0].id] = [obj, obj.data];
-    } 
+    }
     else { // sometimes depends on other usync file loading => returns uninitialized
       picndoOBJs[wData.container[0].id] = [obj, obj.data];
     }
-    
-    
+
+
   }
 }
 
@@ -782,7 +784,7 @@ function loadWidget(wData) {
 // }
 
 // function destroy_obj_and_element_for_event(obj) {
-//   var widgetContainer = get_container_for_obj_action(obj);  
+//   var widgetContainer = get_container_for_obj_action(obj);
 
 //   // delete the class obj
 //   delete picndoOBJs[widgetContainer.id];
@@ -798,7 +800,7 @@ function loadWidget(wData) {
 // }
 
 
-// function edit_widget(obj) {  
+// function edit_widget(obj) {
 //   var lwidget = get_class_obj_for_event(obj);
 //   console.log('Editing ' + lwidget.data.widget_name);
 // }
@@ -811,21 +813,21 @@ function storeData(index, data) {
 
 function getData(index) {
   var storage_data = JSON.parse(localStorage.getItem(index.toString()) );
-  
+
   var ldata ;
 
   $.ajax({
     type: "GET",
     async: false,
     // url: '/siteseditor/save_site',
-    url: '/sites/1',
+    url: '/sites/' + current_site,
     // data: { 'json' : JSON.stringify(jsonObj) },
     // data: jsonObj,
-    success: function(data) { 
+    success: function(data) {
       ldata = data;
     },
     dataType: 'text',
-  });  
+  });
 
   var ret = JSON.parse(ldata);
   return ret;
@@ -834,9 +836,9 @@ function getData(index) {
 
 function remove_page(name) {
   console.log('removing page ' + name);
-  
-  // TODO currently do not support multi layer (dropboxed) menus 
-  console.log( 'TODO currently do not support multi layer (dropboxed) menus' ); 
+
+  // TODO currently do not support multi layer (dropboxed) menus
+  console.log( 'TODO currently do not support multi layer (dropboxed) menus' );
 
   // remove from menu
   for (var i=0; i<jsonObj['menu']['pages'].length; i++) {
@@ -845,7 +847,7 @@ function remove_page(name) {
       break;
     }
   }
-  
+
   // remove from pages
   delete delete jsonObj['pages'][name];
 
@@ -870,10 +872,10 @@ function add_page(name, add_to_menu, part_of_list) {
       alert("page named " + name + "already exist")
       return;
     }
-  }  
+  }
 
   var pageUrl = ("/" + name + ".html");
-  
+
   if (add_to_menu == true) {
     jsonObj['menu']['pages'].push( [{ "name":name, "url":pageUrl, },] );
   }
@@ -901,7 +903,7 @@ function next_prev_page(pName) {
   if (page.belongs_to) {
     var widget = jsonObj.widgets[page.belongs_to];
     var length = widget.data.elements.length;
-    
+
     if (length > 1) {
       // find current page in  elements
       for (var i=0; i<length; i++) {
@@ -924,7 +926,7 @@ function random_name() {
 }
 
 var g_query_string_params = function () {
-  // This function is anonymous, is executed immediately and 
+  // This function is anonymous, is executed immediately and
   // the return value is assigned to QueryString!
   var query_string = {};
   var query = window.location.search.substring(1);
@@ -942,7 +944,7 @@ var g_query_string_params = function () {
     } else {
       query_string[pair[0]].push(pair[1]);
     }
-  } 
+  }
     return query_string;
 } ();
 

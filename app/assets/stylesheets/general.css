@@ -110,6 +110,93 @@ body {
 .controller-element {
   border-bottom: #ccc;
 }
+
+.slideout {
+  position: fixed;
+  bottom: 100px;
+  left: 0;
+  -webkit-transition-duration: 1.0s;
+  -moz-transition-duration: 1.0s;
+  -o-transition-duration: 1.0s;
+  transition-duration: 1.0s;
+  z-index:9999;
+}
+
+.slideout > img {
+  position: relative;
+  top:0px;
+}
+
+.slideout_inner {
+  position: fixed;
+  bottom: 100px;
+  left: -280px;
+  width:280px;
+  -webkit-transition-duration: 1.0s;
+  -moz-transition-duration: 1.0s;
+  -o-transition-duration: 1.0s;
+  transition-duration: 1.0s;
+}
+.slideout:hover {
+  left: 280px;
+}
+.slideout:hover .slideout_inner {
+  left: 0;
+}
+
+.site-template-row {
+  margin: 0px;
+}
+
+.site-template-row > .site-template-selector {
+  box-sizing:     border-box;
+  min-height:     250px;
+  position:       relative;
+}
+
+.site-template-row > .site-template-selector > .template-selector-inner {
+  position:         absolute;
+  left: 16px;
+  right: 16px;
+  top:16px;
+  bottom:16px;
+  border:         1px solid black;
+  /*text-align:     center;*/
+}
+
+.content-centered {
+  height:100%;
+  text-align: center;
+  background: #e0e0e0;
+  border: #a0a0a0 solid 1px;
+  /*margin: 20px;*/
+}
+
+.content-centered:hover {
+  background: #c0c0c0;
+}
+
+.content-centered:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em; /* Adjusts for spacing */
+
+  /* For visualization
+  background: #808080; width: 5px;
+  */
+ }
+
+.content-centered > * {
+  display: inline-block;
+  vertical-align: middle;
+  width: 300px;
+  padding: 10px 15px;
+  border: #a0a0a0 solid 1px;
+  background: #f5f5f5;
+ }
+
 /********************************************/
 /*        awesome bootstrap checkbox        */
 /********************************************/
@@ -314,13 +401,13 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
-.uneditable-input:focus {   
+.uneditable-input:focus {
   border:none !important;
   border-color: transparent;
   box-shadow: none;
   outline: 0 none;
-}   
+}
 
 .btn:focus,.btn:active {
    outline: none !important;
-} 
+}

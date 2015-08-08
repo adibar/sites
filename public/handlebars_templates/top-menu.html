@@ -1,11 +1,14 @@
+<!-- <div class="container" style="padding:3px 0px; padding-right:3px;"> -->
+
+<div class="picndo-row-internal {{{get_class ".picndo-row-internal" }}}">
 <header class="wrapper-addons" style="padding-bottom:0px; {{{get_css "wrapper-addons" }}} {{{get_css "header" }}}">
-<nav class="navbar navbar-default navbar-style" role="navigation" >
+<nav class="navbar navbar-default navbar-style" role="navigation" style="border:none;">
             
-    <div class="navbar-header navbar-header-style" style="" >
+    <div class="navbar-header navbar-header-style {{{get_class ".navbar-header" }}}" style="" >
         {{#if @root.edit_mode}}
-        <a class="navbar-brand navbar-brand-style menu-brand-img" style="{{{get_css "menu-brand-img" }}}" href="#">
+        <a class="navbar-brand navbar-brand-style menu-brand-img {{{get_class ".navbar-brand-style" }}}" style="{{{get_css "menu-brand-img" }}}" href="#">
         {{else}}
-        <a class="navbar-brand navbar-brand-style menu-brand-img" style="{{{get_css "menu-brand-img" }}}" href="index.html">
+        <a class="navbar-brand navbar-brand-style menu-brand-img {{{get_class ".navbar-brand-style" }}}" style="{{{get_css "menu-brand-img" }}}" href="index.html">
         {{/if}}    
             <div style="position:relative; width:100%; height:100%">
                 <img src="{{data.logoimage.thumb}}" style="width:100%; position:relative; left:0px; top:0px;"> </img>
@@ -27,9 +30,9 @@
     
     </div>
 
-    <div class="collapse navbar-collapse navbar-collapse-style" style="" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse navbar-collapse-style {{{get_class ".navbar-collapse" }}}" style="" id="bs-example-navbar-collapse-1">
         
-            <ul id="horizontal-nav" class="nav navbar-nav sidebar-ul " style='{{{get_css "sidebar-ul" }}}'>
+            <ul id="horizontal-nav" class="nav navbar-nav sidebar-ul {{{get_class ".navbar-nav" }}}" style='{{{get_css "sidebar-ul" }}}'>
             {{#if @root.edit_mode}}
                 <li id="addpage">
                     <div class="row">
@@ -49,7 +52,7 @@
             {{#each data.pages}}
                 <li id="{{this.0.name}}" class='menutab'> 
                     {{#if @root.edit_mode}}
-                    <a style="display:inline;" href='#'> {{this.0.name}} </a>
+                    <a class="nav-link" style="display:inline;" href='#'> {{this.0.name}} </a>
                     <span class="btn-group" style="margin-top:0px; margin-left:5px;">
                         <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="remove_page( $(this).parent().parent().attr('id') );" title="Remove Page">
                             <span class="glyphicon glyphicon-remove" aria-hidden="true" style="top:0px;"></span>
@@ -59,7 +62,7 @@
                         </button>
                     </span>
                     {{else}}
-                    <a style="display:inline;" href='{{this.0.url}}'> {{this.0.name}} </a>
+                    <a class="nav-link" style="display:inline; {{{get_css "nav-link" }}}" href='{{this.0.url}}'> {{this.0.name}} </a>
                     {{/if}}
                 </li>
             {{/each}}
@@ -71,3 +74,4 @@
 }
 </nav>
 </header>
+</div>
