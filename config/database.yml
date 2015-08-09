@@ -43,8 +43,7 @@ test:
 production:
   adapter: postgresql
   encoding: utf8
-  # database: sites_production
-  database: sites_development
+  database: sites_production
   pool: 5
   username: sites
   password: Bendod1976
