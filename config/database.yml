@@ -45,5 +45,5 @@ production:
   encoding: utf8
   database: sites_production
   pool: 5
-  username: sites
+  username: deploy
   password: Bendod1976
