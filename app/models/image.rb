@@ -28,7 +28,9 @@ require 'fileutils'
 
 class Image < ActiveRecord::Base
 
-  belongs_to :site
+  # belongs_to :site
+  has_and_belongs_to_many :sites, -> { uniq }
+  # has_and_belongs_to_many :sites
 
   @@USER_IMAGES_FOLDER_ROOT = 'public/uploads'
   @@USER_IMAGE_URL          = 'public/uploads'

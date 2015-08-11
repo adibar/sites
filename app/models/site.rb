@@ -23,12 +23,13 @@ class Site < ActiveRecord::Base
   SITE_TYPE = Enum.new(:SITE_TYPE, Site, :base_template => 0, :template => 1, :regular => 2)
   enum_column :site_type, SITE_TYPE, scoped: true
 
+  # has_many :images
+  has_and_belongs_to_many :images, -> { uniq }
+  # has_and_belongs_to_many :images
 
-  has_many :images
-
-  def [](l_attr)
-    data[l_attr.to_s]
-  end
+  # def [](l_attr)
+  #   data[l_attr.to_s]
+  # end
 
   def self.seperate_widgets_from_pages(site_id)
   	d = Site.find(site_id).dup

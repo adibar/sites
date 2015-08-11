@@ -1,0 +1,3 @@
+cap production deploy:initial => initial deploy
+cap production puma:start => puma restart - after server reboot
+cap production deploy => next deploys
