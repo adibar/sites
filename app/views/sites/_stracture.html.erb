@@ -5,12 +5,12 @@
   </div>
 </div> -->
 
-<% if @edit %> 
-<div id="draggables-container"> </div>
-<% end %>
 
-<% if @edit %> 
-<div id="globalconfiguration" class="floating-menu panel-group" style="z-index:2000002; top:0px; left:0px; margin:0px;"> 
+<div id="draggables-container"> </div>
+
+
+<% if @edit %>
+<div id="globalconfiguration" class="floating-menu panel-group" style="z-index:2000002; top:0px; left:0px; margin:0px;">
 	<div class="panel panel-default">
 		<div class="panel-heading" >
 			<span class="panel-title">
@@ -24,26 +24,26 @@
       </button>
 		</div>
 		<div class="panel-collapse collapse in" id="globalconfigurationcollapse" style="margin:0px;">
-			<div class="panel-body">    
-        <p> 
+			<div class="panel-body">
+        <p>
           <!-- <a style="font-size:1.2em; color:#333;" href="?viewas=iphone5-portrait" target="_blank"> -->
           <a style="font-size:1.2em; color:#333;" href="/simulator/index.html?viewas=iphone5-portrait&site=http://ldev:5000" target="_blank">
             <i class="icon-large icon-iphone"></i>
             View mobile site
-          </a> 
+          </a>
         </p>
-        <p> 
+        <p>
           <!-- <a style="font-size:1.2em; color:#333;" href="?viewas=ipad-portrait" target="_blank"> -->
           <a style="font-size:1.2em; color:#333;" href="/simulator/index.html?viewas=ipad-portrait&site=http://ldev:5000" target="_blank">
             <i class="icon-large icon-ipad"></i>
             View tablet site
-          </a> 
+          </a>
         </p>
-        <p> 
+        <p>
           <a style="font-size:1.2em; color:#333;" href="http://ldev:5000" target="_blank">
             <i class="icon-large icon-display"></i>
             View site
-          </a> 
+          </a>
         </p>
 			</div>
 			<div id="newelementconfiguration" class="panel-group" style="margin:0px;">
@@ -66,41 +66,41 @@
               Horizontal Gallery
               <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Horizontal slider" data-content="Horizontal slider image" data-placement="auto right">
               </span>
-            </a> 
+            </a>
             <a href="#" class="list-group-item" onclick="createWidget('masonary-gallery')">
               Mosaic Gallery
               <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Mosaic gallery" data-content="Mosaic gallery image" data-placement="auto right">
               </span>
-            </a> 
+            </a>
             <a href="#" class="list-group-item" onclick="createWidget('full-width-gallery')">
               Full Width Gallery
               <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="full width gallery" data-content="full width gallery image" data-placement="auto right">
               </span>
-            </a>            
+            </a>
             <a href="#" class="list-group-item" onclick="createWidget('square-gallery')">
-              Square Gallery 
+              Square Gallery
               <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Square gallery" data-content="Square gallery" data-placement="auto right">
               </span>
-            </a> 
+            </a>
             <a href="#" class="list-group-item" onclick="createWidget('flow-gallery')">
               Flow Gallery
               <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Flow Gallery" data-content="Flow Gallery image" data-placement="auto right">
               </span>
-            </a>                                        
+            </a>
             <a href="#" class="list-group-item" onclick="createWidget('multi-elements')">
               Multi elements
               <span class="glyphicon glyphicon-question-sign" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Multi elements" data-content="Multi elements image" data-placement="auto right">
               </span>
-            </a>  
+            </a>
             <a href="#" class="list-group-item" onclick="createWidget('contact')">
               Contact Page
               <span class="glyphicon glyphicon-question-sign" aria-hidden="true" style="float:right; margin-top:2px; color: orange;" data-container="body" data-toggle="popover" data-trigger="hover" title="Contact Page" data-content="Contact Page image" data-placement="auto right">
               </span>
-            </a> 
+            </a>
 
-            <!-- <button type="button" class="btn btn-lg btn-danger" data-container="body" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>      -->  
+            <!-- <button type="button" class="btn btn-lg btn-danger" data-container="body" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>      -->
 <!--             <a href="#" class="list-group-item">
-              <span> 
+              <span>
                 View tablet site
                 <span class="popover" data-toggle="popover" data-trigger="hover" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
                   <i class="glyphicon glyphicon-question-sign popover" style="float:right; margin-top:2px; color: orange;"></i>
@@ -115,7 +115,7 @@
 </div>
 
 
-<div id="widgetconfiguration" class="floating-menu panel-group" style="z-index:2000002; max-height:80%; overflow-y:scroll; top:300px; left:0px;"> 
+<div id="widgetconfiguration" class="floating-menu panel-group" style="z-index:2000002; max-height:80%; overflow-y:scroll; top:300px; left:0px;">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<span class="panel-title">
@@ -135,8 +135,8 @@
 </div>
 <% end %>
 
-<% if @edit %> 
-<button type="button" class="btn btn-default btn-lg btn-circle" id="save-btn" style="display:none; position:fixed; z-index:2000003; top:15px; right:15px; background-color:transparent !important;" onclick="save_diff()"> 
+<% if @edit %>
+<button type="button" class="btn btn-default btn-lg btn-circle" id="save-btn" style="display:none; position:fixed; z-index:2000003; top:15px; right:15px; background-color:transparent !important;" onclick="save_diff()">
   <!-- <span class="glyphicon glyphicon-remove" style="background-color:red; top:0px;"></span> -->
    <!-- glyphicon glyphicon-save -->
   <!-- <span class="save-warn" data-container="body" data-toggle="popover" data-trigger="hover" title="Site Changed" data-content="Click the button to save changes" data-placement="left auto"> rrrrr </span> -->
@@ -144,7 +144,7 @@
 </button>
 <% end %>
 
-<% if @edit %> 
+<% if @edit %>
 <div id="main-modal" class="modal fade">
   <div class="modal-dialog" style="width:95%; margin-top:5px; max-height:98%; ">
     <div class="modal-content" style="max-width:100%; max-height:100%;" >
@@ -166,22 +166,22 @@
 
 <a href="#" class="scrollup">Scroll</a>
 
-<% if !@edit %> 
-<div id="wrapper" class="  <%= 'wrapper' if @site["menu"]["type"] == 'Side Menu' %> ">
+<% if !@edit %>
+<div id="wrapper" class="  <%= 'wrapper' if @site[:site]["data"]["menu"]["type"] == 'Side Menu' %> ">
   <%# byebug %>
-  <div id="menucontainer" class=" <%= 'sidebar-wrapper' if @site["menu"]["type"] == 'Side Menu' %> "> 
+  <div id="menucontainer" class=" <%= 'sidebar-wrapper' if @site[:site]["data"]["menu"]["type"] == 'Side Menu' %> ">
     <% if !@edit %>
-      <%= @menu %>   
+      <%= @menu %>
     <% end %>
   </div>
-  
-  <div id="contentcontainer" class=" <%= 'page-content-wrapper' if @site["menu"]["type"] == 'Side Menu' %> "> 
+
+  <div id="contentcontainer" class=" <%= 'page-content-wrapper' if @site[:site]["data"]["menu"]["type"] == 'Side Menu' %> ">
     <% if !@edit %>
       <% @elements.each do |el| %>
         <%= el %>
       <% end %>
     <% end %>
-  </div>  
+  </div>
 
   <div class="slideout">
     <img src="/assets/fb2-left.png" alt="Facebook" style="width:40px;" />
@@ -208,13 +208,13 @@
 
 <% else %>
 <div id="wrapper">
-  <div id="menucontainer"> 
+  <div id="menucontainer">
 
   </div>
-  
-  <div id="contentcontainer"> 
 
-  </div> 
+  <div id="contentcontainer">
+
+  </div>
 <!--   <div id="facebook-page-plugin">
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
@@ -257,34 +257,34 @@ function togglPosition(elid, pos) {
 
 <script id="image-manager" type="x-handlebars-template">​
 
-<div id="image-manager"> 
-  
-  <div id="image-manager-header"> 
-    <button id="upload-img" type="button" class="btn btn-default"> 
-      Upload New Image 
-      <span class="glyphicon glyphicon-upload" aria-hidden="true" style="top:0px;"></span> 
-    </button> 
-    <button id="insert-img" type="button" class="btn btn-default" > 
-      Insert selected 
-      <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" style="top:0px;"></span> 
-    </button> 
-    {{!-- <button id="edit-img" type="button" class="btn btn-default"> 
-      Edit selected 
-      <span class="glyphicon glyphicon-edit" aria-hidden="true" style="top:0px;"></span> 
-    </button> --}}
-  </div> 
+<div id="image-manager">
 
-  <div id="image-manager-image-list-container" style=""> 
-    <ul id="image-manager-image-list" style=""> 
+  <div id="image-manager-header">
+    <button id="upload-img" type="button" class="btn btn-default">
+      Upload New Image
+      <span class="glyphicon glyphicon-upload" aria-hidden="true" style="top:0px;"></span>
+    </button>
+    <button id="insert-img" type="button" class="btn btn-default" >
+      Insert selected
+      <span class="glyphicon glyphicon-ok-sign" aria-hidden="true" style="top:0px;"></span>
+    </button>
+    {{!-- <button id="edit-img" type="button" class="btn btn-default">
+      Edit selected
+      <span class="glyphicon glyphicon-edit" aria-hidden="true" style="top:0px;"></span>
+    </button> --}}
+  </div>
+
+  <div id="image-manager-image-list-container" style="">
+    <ul id="image-manager-image-list" style="">
       {{#each images}}
         {{> image-manager-img cbs=../img_cbs}}
       {{/each}}
     </ul>
-  </div> 
+  </div>
 
 
   {{> image-manager-obj-list}}
-  
+
 
 </div>
 
@@ -295,17 +295,17 @@ function togglPosition(elid, pos) {
   {{#if object_images}}
     <div id="image-manager-obj-list" style="overflow-y:scroll; margin-top:10px; margin-bottom:0px; padding:3px; border:1px dashed #333;">
       <span> Gallery images: Drag images to change order or click (x) to remove from gallery. </span>
-      <ul id="image-manager-image-list" style=""> 
+      <ul id="image-manager-image-list" style="">
         {{#each object_images}}
           {{> image-manager-img cbs=../obj_cbs }}
-        {{/each}}      
+        {{/each}}
     </div>
   {{/if}}
 
 </script>
 
 <script id="image-manager-img" type="x-handlebars-template">​
-  
+
 <li id="{{id}}" style="">
   <div style="position:relative; width:100%; height:100%;" data-id="{{@index}}">
     <button type="button" class="btn btn-default btn-circle {{cbs.delete_class}} " style="right:3px;" title="Delete Image">
@@ -313,11 +313,11 @@ function togglPosition(elid, pos) {
     </button>
     <button type="button" class="btn btn-default btn-circle {{cbs.edit_class}}" style="right:25px;"   title="Edit Image">
       <span class="glyphicon glyphicon-pencil" style="top:0px;"></span>
-    </button>    
+    </button>
     {{#if cbs.select_class}}
       <button type="button" class="btn btn-default btn-circle {{cbs.select_class}}" style="right:47px;" title="Select Image" onclick="select_img(this);">
         <span class="glyphicon glyphicon-ok" style="top:0px;"></span>
-      </button>        
+      </button>
     {{/if}}
     <img draggable='false' src="{{thumb}}" rel="{{image}}" title="{{txt}}" style="" />
   </div>
@@ -333,7 +333,6 @@ function select_img(elem) {
   var lid = parent.data("id");
   var lspan = $(elem).find('span');
 
-  
   if ( lspan.hasClass('glyphicon-ok') ) {
     $(elem).parent().parent().css("border", "2px solid green");
     lspan.removeClass('glyphicon-ok');
@@ -369,9 +368,9 @@ function unselect_all() {
 <script id="t_controllers" type="x-handlebars-template">​
 
 <div class='list-group'>
-{{!-- => we want only the currently supported ones not the  historical #each controllers.root --}} 
-{{!-- #each default_controllers.root --}} 
-{{#each controllers.root}} 
+{{!-- => we want only the currently supported ones not the  historical #each controllers.root --}}
+{{!-- #each default_controllers.root --}}
+{{#each controllers.root}}
   <div class='list-group-item'>
     {{#ifCond this.type '==' 'slider' }}
       <span> {{@key}} </span>
@@ -382,7 +381,7 @@ function unselect_all() {
       <select id='{{@key}}select' data-name='{{@key}}' data-cid='{{../../container.[0].id}}' class='form-control'>
         {{#each ../options}}
           <option>{{this}}</option>
-        {{/each}}          
+        {{/each}}
       </select>
     {{/ifCond}}
 
@@ -391,7 +390,7 @@ function unselect_all() {
       <select id='{{@key}}select' data-name='{{@key}}' data-cid='{{../../container.[0].id}}' class='form-control'>
         {{#each ../options}}
           <option value='{{this}}'>{{@key}}</option>
-        {{/each}}          
+        {{/each}}
       </select>
     {{/ifCond}}
 

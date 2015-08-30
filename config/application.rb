@@ -22,5 +22,23 @@ module Sites
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # adi baron
+    # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += %W(#{config.root}/lib)
+    # config.autoload_paths += %W(#{config.root}/lib/general)
+
+    # config.autoload_paths += Dir["#{Rails.root}/lib/general/*"]
+    # config.autoload_paths << Rails.root.join('lib/general')
+    # config.autoload_paths << Rails.root.join('lib')
+    # puts '55555'
+    # puts %W(#{config.root}/lib)
+    # config.autoload_paths += %W(#{config.root}/lib)
+    # config.autoload_paths += %W(#{config.root}/lib/general)
+    # config.autoload_paths += %W(#{Rails.root}/lib)
+    # config.autoload_paths += %W(#{Rails.root}/lib/general)
+    # config.autoload_paths << Rails.root.join('lib/general')
+    # config.eager_load_paths += %W( #{Rails.root}/lib/general )
+
   end
 end

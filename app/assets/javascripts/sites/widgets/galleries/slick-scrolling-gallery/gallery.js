@@ -71,7 +71,8 @@ PDG_slick_gallery.prototype.loadImagesAndInit = function() {
       });
 
       var limg = jQuery('<img/>', {
-        src: myobj.data["data"]["photos"][i]["image"]
+        // src: myobj.data["data"]["photos"][i]["image"]
+        src: site_images[ myobj.data["data"]["photos"][i]["image-id"] ]["image"],
       });
 
       limg.one("load", function(i) {

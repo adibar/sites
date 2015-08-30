@@ -2,18 +2,18 @@
 function BaseWidget(container, path, data, opts) {
 
   BaseWidget.widgets_count++;
-  
+
   opts = typeof opts !== 'undefined' ? opts : { };
 
   this.container = container
   this.path = path;
-  
+
   if ( !(this.default_controllers) ) {
     this.default_controllers = {
-      "root" : { 
+      "root" : {
         'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.slickcontainer', },
         'margin-top': { 'val':'20', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer', },
-        // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
+        // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right
       }
     }
   }
@@ -27,13 +27,13 @@ function BaseWidget(container, path, data, opts) {
   if ( _.isEqual( data.css, { } ) || ( !data.css ) ) {
     this.data["css"] = def_data.css;
   }
-  this.data["css"]["root"] = BaseWidget.extend( this.data["css"]["root"], this.default_controllers["root"] ); // allowing upgrading controllers with new ones 
+  this.data["css"]["root"] = BaseWidget.extend( this.data["css"]["root"], this.default_controllers["root"] ); // allowing upgrading controllers with new ones
 
   this.controllers = this.data["css"];
 
   // BaseWidget.load_edit_menu(this.container, opts);
   this.load_edit_menu(this.container, opts);
-} 
+}
 
 // static var
 BaseWidget.widgets_count = 0;
@@ -60,15 +60,15 @@ BaseWidget.extend = function(target, source) {
       if ( !(property in target) ) {           // if doesnt exist
         target[property] = source[property];   // => copy it
       }
-      // else { // in target but ... 
+      // else { // in target but ...
       //   for ( var lkey in source[property] ) {
       //     if ( !(lkey in target[property])  ) {// ... added key
-      //       target[property][lkey] = source[property][lkey]; // we add the new key     
+      //       target[property][lkey] = source[property][lkey]; // we add the new key
       //     }
       //     else { // exists => overload all except value
 
       //     }
-      //   }  
+      //   }
       // }
       else { // overwrite all except val
         for ( var lkey in source[property] ) {
@@ -123,12 +123,12 @@ BaseWidget.get_class_obj_from_container_id = function(id) {
 }
 
 BaseWidget.destroy_obj_and_element_for_event = function(obj) {
-  var widgetContainer = BaseWidget.get_container_for_obj_action(obj);  
+  var widgetContainer = BaseWidget.get_container_for_obj_action(obj);
 
   // delete the dom element
   widgetContainer.remove();
 
-  // remove from json 
+  // remove from json
   remove_obj_from_json(widgetContainer.id);
 
   // delete the class obj
@@ -159,7 +159,7 @@ BaseWidget.prototype.default_data = function() {
 BaseWidget.prototype.load_assets = function(assets, cb) {
 
   var obj = this;
-  
+
   // for (var i=0; i<assets.css.length; i++) {
   //   var href = obj.path + assets.css[i] + '?'+Math.random()*Math.random();
   //   $.ajax({
@@ -167,18 +167,18 @@ BaseWidget.prototype.load_assets = function(assets, cb) {
   //     dataType: 'text',
   //     async: false,
   //     success: function(data) {
-  //         $('<style type="text/css">\n' + data + '</style>').appendTo("head");                    
-  //     }                  
-  //   });  
-  // } 
-  
+  //         $('<style type="text/css">\n' + data + '</style>').appendTo("head");
+  //     }
+  //   });
+  // }
+
   this.load_js_and_html(assets,cb);
 }
 
 BaseWidget.prototype.load_js_and_html = function(assets, cb) {
   var obj = this;
   var loaded = 0 ;
-  
+
   // // if no js file to load just load the html
   // if (assets.js.length == 0) {
   //   obj.load_html(assets,cb);
@@ -186,7 +186,7 @@ BaseWidget.prototype.load_js_and_html = function(assets, cb) {
 
   // for (var i=0; i<assets.js.length; i++) {
   //   $.getScript( obj.path + assets.js[i], function( data, textStatus, jqxhr ) {
-  //     console.log("loaded " + obj.path + "..." ); 
+  //     console.log("loaded " + obj.path + "..." );
   //     loaded++;
   //     console.log("***************************");
   //     console.log("loaded=" + loaded + " length=" + assets.js.length);
@@ -200,11 +200,12 @@ BaseWidget.prototype.load_js_and_html = function(assets, cb) {
   //   });
   // }
 
-  obj.load_html(assets,cb);  
+  obj.load_html(assets,cb);
 }
 
 BaseWidget.prototype.load_html = function(assets, cb) {
   var obj = this;
+  var l_assets = assets; // why it is not save on the get callback context ???
 
   // $.get(obj.path + assets.html + '?'+Math.random()*Math.random(), function (ldata) {
   //   obj.container.append(ldata);
@@ -212,14 +213,19 @@ BaseWidget.prototype.load_html = function(assets, cb) {
   // });
 
   $.get('/handlebars_templates/' + assets.html, function (ldata) {
-    obj['edit_mode'] = !g_query_string_params.view 
+    obj['edit_mode'] = !g_query_string_params.view
     var l_template = Handlebars.compile(ldata);
     var l_html = l_template(obj);
+
+    if (l_assets.manipulate) {
+    // if (false) {
+      l_html = obj.manipulate_html(l_html);
+    }
 
     obj.container.append(l_html);
     cb(obj);
   });
-  
+
 }
 
 
@@ -229,7 +235,7 @@ BaseWidget.prototype.resize = function(container) {
 }
 
 BaseWidget.prototype.reload = function() {
-  alert('Class did not implement reload function'); 
+  alert('Class did not implement reload function');
 }
 
 // function loads widget edit bar into the widget edit area
@@ -243,7 +249,7 @@ BaseWidget.prototype.edit = function() {
   var data = this;
   console.log( "c-id = " + this.container[0].id);
 
-  var html  = t_controllers(data);  
+  var html  = t_controllers(data);
   $("#" + BaseWidget.widgeteditor_id).html(html);
 
   $('#'+BaseWidget.widgeteditor_id).find('.color-picker').each( function() {
@@ -267,28 +273,28 @@ BaseWidget.prototype.edit = function() {
     });
   });
 
-  
+
   $('#'+BaseWidget.widgeteditor_id).find(':checkbox').each( function() {
     var val = $(this).val();
     if (val == "true") {
       $(this).prop('checked', true);
     }
     else {
-      $(this).prop('checked', false); 
+      $(this).prop('checked', false);
     }
   });
 
   $('.slider').change(function(ev) {
     widgetid = $(this).data('cid');
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
-    var lattr = $(this).data('name');  
+    var lattr = $(this).data('name');
     var val = this.value;
     var reload = lwidget.controllers.root[lattr].reload;
 
     // var lwidget = BaseWidget.get_class_obj_for_event($(this));
     console.log('slider changed');
     lwidget.set_css(lattr, val);
-    
+
     if (reload == 'true') {
       lwidget.reload();
     }
@@ -298,7 +304,7 @@ BaseWidget.prototype.edit = function() {
     widgetid = $(this).data('cid');
     console.log('checkbox changed for ' + widgetid);
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
-    var lattr = $(this).data('name');  
+    var lattr = $(this).data('name');
     var val = $(this).is(':checked');
     lwidget.set_css_class(lattr, val);
   });
@@ -308,8 +314,8 @@ BaseWidget.prototype.edit = function() {
     console.log('select changed for ' + widgetid);
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
     var lattr = $(this).data('name');
-    var val = $(this).val();  
-    
+    var val = $(this).val();
+
     var cb = lwidget.controllers.root[lattr]['cb'];
     lwidget[cb](lattr, val);
     //lwidget.set_css(lattr, val);
@@ -317,12 +323,12 @@ BaseWidget.prototype.edit = function() {
 
   $('#'+BaseWidget.widgeteditor_id).find('.color-picker').change(function(ev) {
     widgetid = $(this).data('cid');
-    console.log('color-picker changed for ' + widgetid);    
+    console.log('color-picker changed for ' + widgetid);
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
     var lattr = $(this).data('name');
-    //var val = $(this).spectrum("get").toHexString()    
+    //var val = $(this).spectrum("get").toHexString()
     var val = $(this).spectrum("get").toRgbString();
-    console.log('color-picker val=' + val);        
+    console.log('color-picker val=' + val);
     lwidget.set_css(lattr, val);
   });
 
@@ -330,11 +336,11 @@ BaseWidget.prototype.edit = function() {
 
   // $('.c_slider').each( function() {
   //   $(this).slider({
-      
+
   //     stop: function( event, ui ) {
   //       widgetid = $(this).data('cid');
   //       var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
-  //       var lattr = $(this).data('name');  
+  //       var lattr = $(this).data('name');
   //       // var val = this.value;
   //       var val = ui.value;
   //       var reload = lwidget.controllers.root[lattr].reload;
@@ -342,28 +348,28 @@ BaseWidget.prototype.edit = function() {
   //       // var lwidget = BaseWidget.get_class_obj_for_event($(this));
   //       console.log('slider changed');
   //       lwidget.set_data(lattr, val);
-        
+
   //       if (reload == 'true') {
   //         lwidget.reload();
-  //       }        
+  //       }
   //     }
   //   });
   // });
-  
+
 
   $("#" + BaseWidget.widgeteditor_id).collapse('show');
 }
 
 BaseWidget.prototype.set_css = function(attr, val) {
   console.log("set_css");
-  
+
   for (var i=0; i<this.controllers.root[attr]["el"].length; i++) {
     var selector = this.controllers.root[attr]["el"][i][0];
     var elements = this.container.find(selector);
     //elements.css( this.controllers.root[attr].el[0][1], val+this.controllers.root[attr]["units"]  );
     var style_attr = this.controllers.root[attr].el[i][1];
     var style_val  = val+this.controllers.root[attr]["units"];
-    
+
     for (var j=0; j<elements.length; j++) {
       elements[j].style[style_attr] = style_val;
     }
@@ -377,7 +383,7 @@ BaseWidget.prototype.set_css = function(attr, val) {
 
 BaseWidget.prototype.set_css_class = function(attr, val) {
   console.log( JSON.stringify( this.controllers.root[attr] ) );
-  
+
   var els = this.controllers['root'][attr]['el']
   var negative = this.controllers['root'][attr]['negative'];
   negative = typeof negative !== 'undefined' ? negative : false;

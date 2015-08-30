@@ -24,7 +24,7 @@
     </button>
   </div>
   {{/if}}
-  <div class="multielementimg" style='background-image: url("{{photo.url}}")'>
+  <div class="multielementimg" data-img-id="{{photo.image-id}}" style='background-image: url("{{photo.url}}")'>
   	{{#if @root.edit_mode }}
 	  <div class="btn-group" style="position:absolute; right:5px; bottom:5px;">
 	    <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_multi_elements.addImg(this)" title="Change logo">

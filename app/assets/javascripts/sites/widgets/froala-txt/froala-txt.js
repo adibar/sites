@@ -4,13 +4,16 @@ function PDG_froala_txt(container, path, data) {
     'root': {
       // 'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.redactor-editor', },
       'margin-top': { 'type':'slider', 'val':'50',  'range':[0,300], 'units':'px', "cb":"set_css", 'el':[ [ '.picndo-row-internal', 'margin-top'] ], },
-      // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
+      // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right
       'width': { 'type':'slider', 'val':'500', 'range':[100,1920], 'units':'px', "cb":"set_css", 'el':[ [ '.editable', 'width'] ], },
 
       'full-width': { 'type':'checkbox', 'val':false, 'negative':true, 'cb': "set_css_class", 'el':[ ['.picndo-row-internal', 'container'], ], },
+
+      /*adi baron background*/
+      'background-color': { 'type':'color-picker', 'val':'rgba(255,255,255,0.0)', 'units':'', "cb":"set_css", 'el':[ ['.picndo-row-internal', 'background-color'], ], },
     }
   }
-          
+
   // call base contructore
   BaseWidget.call(this, container, path, data);
 
@@ -21,16 +24,17 @@ function PDG_froala_txt(container, path, data) {
 
   /* each module declare lists of assets */
   var assets = {
-    'css' : ['froala-txt.css', ],
-    'js'  : [ ],
-    'html': 'froala-txt.html',
+    'css' :       ['froala-txt.css', ],
+    'js'  :       [ ],
+    'html':       'froala-txt.html',
+    'manipulate': true,
   }
 
   var myobj = this;
-  
+
   this.load_assets( assets, function(myobj) {
-    myobj.container.find("#edit").html(myobj.data.data);
-      
+    // myobj.container.find("#edit").html(myobj.data.data);
+
     myobj.container.find("#edit").on('click', function() {
       myobj.edit(1);
     });
@@ -51,7 +55,7 @@ function PDG_froala_txt(container, path, data) {
       if (x1 // if the target of the click isn't the container...
         // && container.has(e.target).length === 0) // ... nor a descendant of the container
         && (x2 === 0) // ... nor a descendant of the container
-          && (x3 === 0) 
+          && (x3 === 0)
             && (x4 === 0)
               && x5 )
       {
@@ -59,7 +63,7 @@ function PDG_froala_txt(container, path, data) {
           console.log('***************************');
           console.log('getting txt value & closing');
           console.log('***************************');
-          
+
           var lhtml = myobj.container.find("#edit").editable("getHTML", true, true);
           myobj.data.data = lhtml;
           BaseWidget.save_obj(myobj);
@@ -77,7 +81,7 @@ function PDG_froala_txt(container, path, data) {
         }
       }
 
-    });    
+    });
 
     myobj.load_style();
     myobj.resize( myobj.container.find("#edit") );
@@ -85,16 +89,30 @@ function PDG_froala_txt(container, path, data) {
 }
 
 // See note below
-PDG_froala_txt.prototype = Object.create(BaseWidget.prototype); 
+PDG_froala_txt.prototype = Object.create(BaseWidget.prototype);
 // Set the "constructor" property to refer to Student
 PDG_froala_txt.prototype.constructor = PDG_froala_txt;
 
+PDG_froala_txt.prototype.manipulate_html = function(html_str) {
+  var html_dom_el = $(html_str);
+
+  var imgs = html_dom_el.find('img');
+  $.each( imgs, function() {
+    var img_id = $(this).data('img-id');
+    $(this).attr('src', url_from_image_id(img_id, 'image') );
+  });
+
+  return html_dom_el;
+}
+
 PDG_froala_txt.prototype.edit = function(val) {
-  
+
+  var last_selected_image_id;
+
   if (this.froala == null) {
-    
+
     console.log('editting froala-view');
-    
+
     var lhtml = this.container.find("#edit").html();
 
     console.log( lhtml );
@@ -108,7 +126,7 @@ PDG_froala_txt.prototype.edit = function(val) {
     var myobj = this;
 
     // this.redactor = this.container.find(".redactor-editor").redactor({
-    //   iframekey:      true, 
+    //   iframekey:      true,
     //   lang:           'he',
     //   imageUpload:    '/siteseditor/image_upload',
     //   imageManagerJson:   '/siteseditor/images',
@@ -121,16 +139,16 @@ PDG_froala_txt.prototype.edit = function(val) {
     //   },
     //   initCallback: function()
     //   {
-    //     this.selection.restore();      
+    //     this.selection.restore();
     //   },
     //   startCallback: function()
     //   {
     //     var marker = this.selection.getMarker();
     //     this.insert.node(marker);
-    //   },      
+    //   },
 
     // });
-  
+
     this.froala = this.container.find("#edit").editable({
       inlineMode:         false,
       language:           'he',
@@ -142,12 +160,22 @@ PDG_froala_txt.prototype.edit = function(val) {
       imageUploadParams:  { site_id: current_site, authenticity_token: current_token, single_link: true,},
     });
 
+    $('#edit').on('editable.afterImageUpload', function (e, editor, response) {
+      last_selected_image_id = JSON.parse(response).id;
+      return true;
+    });
+
+    $("#edit").on('editable.imageInserted', function (e, editor, img) {
+      // add image id to img in froala html
+      img.attr('data-img-id', last_selected_image_id);
+    });
+
   }
 }
 
 PDG_froala_txt.prototype.default_data = function() {
-  
-  var data =  
+
+  var data =
   {
     "widget_name": 'general-txt',
     "css": {
@@ -159,6 +187,6 @@ PDG_froala_txt.prototype.default_data = function() {
 }
 
 PDG_froala_txt.prototype.resize = function(container) {
-  
+
 }
 

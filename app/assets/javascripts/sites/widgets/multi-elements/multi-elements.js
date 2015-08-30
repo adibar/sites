@@ -1,10 +1,10 @@
 function PDG_multi_elements(container, path, data) {
-          
+
   this.default_controllers = {
     'root': {
       // 'height': { 'val':'400', 'type':'slider', 'range':[100,2000], 'reload':'true', 'el':'.redactor-editor', },
       'margin-top': { 'type':'slider', 'val':'50',  'range':[0,300], 'units':'px', "cb":"set_css", 'el':[ [ '.picndo-row-internal', 'margin-top'] ], },
-      // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right  
+      // 'margin': { 'val':'0', 'type':'slider', 'range':[0,200], 'el':'.slickcontainer .datacontainer', }, // left & right
       'width': { 'type':'slider', 'val':'500', 'range':[100,1920], 'units':'px', "cb":"set_css", 'el':[ [ '.editable', 'width'] ], },
 
       'full-width': { 'type':'checkbox', 'val':false, 'negative':true, 'cb': "set_css_class", 'el':[ ['.picndo-row-internal', 'container'], ], },
@@ -20,7 +20,7 @@ function PDG_multi_elements(container, path, data) {
   // obj public properties
   // for masnrt
   this.msnry = null
-  this.masnry_container = null  
+  this.masnry_container = null
   // for froala
   this.froala = null;
 
@@ -30,27 +30,41 @@ function PDG_multi_elements(container, path, data) {
     Handlebars.registerPartial('single-element', ldata);
     myobj.load();
   });
-  
+
 }
 
 PDG_multi_elements.assets = {
-  'css' : ['multi-elements.css'],
-  'js'  : [],
-  'html': 'multi-elements.html',
+  'css' :       ['multi-elements.css'],
+  'js'  :       [],
+  'html':       'multi-elements.html',
+  'manipulate': true,
 };
 
-
 // See note below
-PDG_multi_elements.prototype = Object.create(BaseWidget.prototype); 
+PDG_multi_elements.prototype = Object.create(BaseWidget.prototype);
 // Set the "constructor" property to refer to Student
 PDG_multi_elements.prototype.constructor = PDG_multi_elements;
+
+PDG_multi_elements.prototype.manipulate_html = function(html_str) {
+  var html_dom_el = $(html_str);
+
+  var ldivs = html_dom_el.find('.multielementimg');
+  $.each( ldivs, function() {
+    var img_id = $(this).data('img-id');
+    // $(this).attr('src', url_from_image_id(img_id, 'image') );
+    var lurl = 'url("' + url_from_image_id(img_id, 'image') + '")';
+    $(this).css('background-image', lurl );
+  });
+
+  return html_dom_el;
+}
 
 PDG_multi_elements.prototype.load = function() {
   var myobj = this;
   myobj.load_assets( PDG_multi_elements.assets, function(myobj) {
-    
-    myobj.load_style();  
-    
+
+    myobj.load_style();
+
     myobj.masnry_container = myobj.container.get(0).querySelector('.multielementscontainer');
 
     myobj.msnry = new Masonry( myobj.masnry_container, {
@@ -60,7 +74,7 @@ PDG_multi_elements.prototype.load = function() {
       "columnWidth" : ".multielement",
       isInitLayout  : false,
     });
-    
+
     myobj.msnry.bindResize();
 
     myobj.msnry.on( 'layoutComplete', function() {
@@ -70,7 +84,7 @@ PDG_multi_elements.prototype.load = function() {
     myobj.msnry.layout();
 
 
-    myobj.container.find(".edit").editable({  
+    myobj.container.find(".edit").editable({
       inlineMode:     true,
       alwaysVisible:  true,
       //language    : 'he',
@@ -89,26 +103,16 @@ PDG_multi_elements.prototype.load = function() {
 }
 
 PDG_multi_elements.prototype.resize = function(container) {
-  
+
   container.resizable({
     stop: function( event, ui ) {
 
       console.log('resized PDG_multi_elements');
-    }   
+    }
   });
 }
 
-// PDG_multi_elements.addImg = function(obj) {
-
-// }
-
-// PDG_multi_elements.logoImg = function(lid) { 
-//   console.log("logImg func called with " + lid);
-//   var lobj = BaseWidget.get_class_obj_from_container_id(lid);
-//   lobj.selectLogoImg();
-// }
-
-PDG_multi_elements.prototype.selectLogoImg = function(index) { 
+PDG_multi_elements.prototype.selectLogoImg = function(index) {
   imageEditor(this, {
     'insertImage'     : this.setLogoImg.bind(this),
     'multippleSelect' : 0,
@@ -117,15 +121,16 @@ PDG_multi_elements.prototype.selectLogoImg = function(index) {
 
 }
 
-PDG_multi_elements.prototype.setLogoImg = function(ev) { 
+PDG_multi_elements.prototype.setLogoImg = function(ev) {
   var image = selectedImages()[0];
   this.set_logo_image(ev.data.opts.index, image);
   editorClose();
 }
 
-PDG_multi_elements.prototype.set_logo_image = function(index, image) { 
+PDG_multi_elements.prototype.set_logo_image = function(index, image) {
   this.data.data.elements[index]["photo"] = {};
-  this.data.data.elements[index]["photo"]["url"] = image.thumb; 
+  this.data.data.elements[index]["photo"]["url"] = image.thumb;
+  this.data.data.elements[index]["photo"]["image-id"] = image["image-id"];
   this.reload();
 }
 
@@ -160,10 +165,10 @@ PDG_multi_elements.prototype.reload = function() {
 }
 
 PDG_multi_elements.prototype.edit_txt = function(container, index) {
-  
+
   if (this.froala == null) {
-    
-    this.froala = $(container).editable({  
+
+    this.froala = $(container).editable({
       inlineMode: true,
       alwaysVisible: false,
       //language    : 'he',
@@ -179,17 +184,17 @@ PDG_multi_elements.onLayout = function() {
   elements.each( function() {
     $(this).css("border-top", "1px dotted grey");
     $(this).css("border-left", "1px dotted grey");
-    
-    var left = $(this).css('left'); 
+
+    var left = $(this).css('left');
     var top =  $(this).css('top');
 
     if (left == "0px") {
       $(this).css("border-left", "none");
     }
     if (top == "0px") {
-      $(this).css("border-top", "none"); 
+      $(this).css("border-top", "none");
     }
-  }) 
+  })
   return true;
 }
 
@@ -205,7 +210,7 @@ PDG_multi_elements.set_link = function(obj) {
 
 PDG_multi_elements.view_link = function(obj) {
   var lobj = BaseWidget.get_class_obj_for_event(obj);
-  var index = $(obj).parents('.multielement').data('index');  
+  var index = $(obj).parents('.multielement').data('index');
 
   lobj.view_link(index);
 }

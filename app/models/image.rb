@@ -32,6 +32,9 @@ class Image < ActiveRecord::Base
   has_and_belongs_to_many :sites, -> { uniq }
   # has_and_belongs_to_many :sites
 
+  before_destroy { sites.clear }
+  before_destroy :delete_files
+
   @@USER_IMAGES_FOLDER_ROOT = 'public/uploads'
   @@USER_IMAGE_URL          = 'public/uploads'
 
@@ -44,6 +47,13 @@ class Image < ActiveRecord::Base
   @@big_size     = 1440
   @@medium_size  = 600
   @@small_size   = 340
+
+  def delete_files
+    @@images_path.keys.each do |k|
+      path = get_path(k)[:absolute]
+      FileUtils.remove_file(path, force = true)
+    end
+  end
 
   # def self.image_path(size, relative_path)
   #   File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, @@images_path[size], relative_path)
@@ -94,10 +104,13 @@ class Image < ActiveRecord::Base
   end
 
   def as_json options={}
-  	{
-  		:id 	=> id,
-  		:thumb 	=> self.class.image_url(path_small),
-  		:image  => self.class.image_url(path_big),
+  	# byebug
+    {
+  		:id     => id,
+  		:thumb  => path_small.nil? ? nil : self.class.image_url(path_small),
+      # :thumb  => "/uploads/big/1440682444167409_MG_1382.jpg",
+  		:image  => path_big.nil? ? nil : self.class.image_url(path_big),
+      # :image  => "/uploads/big/1440682444167409_MG_1382.jpg",
   		:txt    => text ? text : '',
   		:title  => title ? title : '',
   	}
@@ -151,4 +164,27 @@ class Image < ActiveRecord::Base
     image
 
   end
+
+  # timestemp in micro sec => 54 bit => currenly only 51 bit in use with current DateTime
+  # 12 bit => 10 lsb from time stamp + random between 0-3
+  # 8 bit shard (future use) => up to 256 shards
+  # 44 msb bit from time stamp timestamp
+  def self.generate_id(shard=0)
+    current_time = DateTime.current
+
+    timestamp_in_micro_sec = current_time.strftime("%s%6N").to_i # 51 bit for time in micro sec till 2039 => then 52 bits => upto 54 bit usage
+
+    #we use upto 54 bits for future usage => currently only 51 bit accupied
+
+    sec_and_millisec_part = (timestamp_in_micro_sec & 0x3ff) # lsb 10 bits
+    microsec_part         = ( (timestamp_in_micro_sec & 0x3ffffffffffc00) >> 10 ) #msb 42 bits
+
+    l_id =
+      (microsec_part << 20) +
+      (shard << 12) +
+      (sec_and_millisec_part << 2) + rand(0..3)  
+
+    l_id
+  end
+
 end

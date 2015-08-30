@@ -3,16 +3,17 @@
 <div class="picndo-row-internal {{{get_class ".picndo-row-internal" }}}">
 <header class="wrapper-addons" style="padding-bottom:0px; {{{get_css "wrapper-addons" }}} {{{get_css "header" }}}">
 <nav class="navbar navbar-default navbar-style" role="navigation" style="border:none;">
-            
+
     <div class="navbar-header navbar-header-style {{{get_class ".navbar-header" }}}" style="" >
         {{#if @root.edit_mode}}
         <a class="navbar-brand navbar-brand-style menu-brand-img {{{get_class ".navbar-brand-style" }}}" style="{{{get_css "menu-brand-img" }}}" href="#">
         {{else}}
         <a class="navbar-brand navbar-brand-style menu-brand-img {{{get_class ".navbar-brand-style" }}}" style="{{{get_css "menu-brand-img" }}}" href="index.html">
-        {{/if}}    
+        {{/if}}
             <div style="position:relative; width:100%; height:100%">
-                <img src="{{data.logoimage.thumb}}" style="width:100%; position:relative; left:0px; top:0px;"> </img>
-                {{#if @root.edit_mode}}    
+                <!--img src="{{data.logoimage.thumb}}" style="width:100%; position:relative; left:0px; top:0px;"> </img-->
+                <img src="{{urlFromImageObj data.logoimage 'thumb'}}" style="width:100%; position:relative; left:0px; top:0px;"> </img>
+                {{#if @root.edit_mode}}
                 <div class="btn-group" style="position:absolute; right:10px; bottom:10px;">
                     <button type="button" class="btn btn-default btn-micro" aria-label="Left Align" onclick="PDG_top_menu.logoImg('{{containerId}}');" title="Change logo">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="top:0px;"></span>
@@ -26,12 +27,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-        </button>       
-    
+        </button>
+
     </div>
 
     <div class="collapse navbar-collapse navbar-collapse-style {{{get_class ".navbar-collapse" }}}" style="" id="bs-example-navbar-collapse-1">
-        
+
             <ul id="horizontal-nav" class="nav navbar-nav sidebar-ul {{{get_class ".navbar-nav" }}}" style='{{{get_css "sidebar-ul" }}}'>
             {{#if @root.edit_mode}}
                 <li id="addpage">
@@ -50,7 +51,7 @@
                 </li>
             {{/if}}
             {{#each data.pages}}
-                <li id="{{this.0.name}}" class='menutab'> 
+                <li id="{{this.0.name}}" class='menutab'>
                     {{#if @root.edit_mode}}
                     <a class="nav-link" style="display:inline;" href='#'> {{this.0.name}} </a>
                     <span class="btn-group" style="margin-top:0px; margin-left:5px;">
@@ -67,7 +68,7 @@
                 </li>
             {{/each}}
             </ul>
-        
+
     </div>
     <div class="clear" style="clear: both; height: 1px; overflow: hidden; font-size:0pt; margin-top: -1px;"> </dic>
 

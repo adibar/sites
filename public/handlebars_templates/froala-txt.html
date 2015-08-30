@@ -1,21 +1,11 @@
-{{!-- 
-{{#unless @root.edit_mode}}
-<div class="picndo-row container">
-{{/unless}}
-  <section id="editor">
-    <div id="edit">
-     {{{this.data}}}
-    </div >
-  </section>
-{{#unless @root.edit_mode}}
-</div>
-{{/unless}}
---}}
-
 <div class="picndo-row-internal {{{get_class ".picndo-row-internal" }}}" style="{{{get_css "picndo-row-internal" }}}">
   <section id="editor">
     <div id="edit">
-     {{{this.data}}}
+     {{#if @root.edit_mode}}
+      {{{this.data.data}}}
+     {{else}}
+      {{{this.data}}}
+     {{/if}}
     </div >
   </section>
 </div>

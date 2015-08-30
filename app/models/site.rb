@@ -16,6 +16,7 @@
 #  index_sites_on_site_type  (site_type)
 #
 
+
 class Site < ActiveRecord::Base
 
 
@@ -63,6 +64,25 @@ class Site < ActiveRecord::Base
     new_site.site_type = SITE_TYPE::template
     new_site.save
     return new_site.id
+  end
+
+  def as_json(options={})
+    site_json = {
+      :site   => super,
+      :images => hashed_images
+    }
+
+    site_json
+  end
+
+  def hashed_images
+    Hash[ images.as_json.map{ |i| [ i[:id], i.except(:id) ] } ]
+  end
+
+  def export_as_seed(site_id)
+    site =    Site.find(site_id)
+    images =  site.images
+
   end
 
 end

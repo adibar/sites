@@ -1,25 +1,25 @@
-// PDG_masonary_gallery.prototype = new BaseWidget();                // Here's where the inheritance occurs 
-// PDG_masonary_gallery.prototype.constructor = PDG_masonary_gallery; // Otherwise instances of Cat would have a constructor of Mammal 
+// PDG_masonary_gallery.prototype = new BaseWidget();                // Here's where the inheritance occurs
+// PDG_masonary_gallery.prototype.constructor = PDG_masonary_gallery; // Otherwise instances of Cat would have a constructor of Mammal
 
 
 
 function PDG_masonary_gallery(container, path, data, assetsLoad) {
-  
+
   assetsLoad = typeof assetsLoad !== 'undefined' ? assetsLoad : true;
 
   this.default_controllers = typeof this.default_controllers !== 'undefined' ? this.default_controllers : {
-    "root" : { 
+    "root" : {
       'margin-top': { 'type':'slider', 'val':'20',  'range':[0,300],   'units':'px', "cb":"set_css", 'el':[ [ '.masonary-container', 'margin-top'] ], },
       'padding':    { 'type':'slider', 'val':'0',   'range':[0,20],    'units':'px', "cb":"set_css", 'el':[ [ '.datacontainer', 'padding'] ], },
     }
   }
 
   // call base contructore
-  BaseWidget.call(this, container, path, data, { 
-    'btn1':'glyphicon glyphicon-picture', 
+  BaseWidget.call(this, container, path, data, {
+    'btn1':'glyphicon glyphicon-picture',
     // 'btn1CB': $.proxy(this.addImage, this),
   });
-  
+
   // obj public properties
   this.msnry = null
   this.masnry_container = null
@@ -33,12 +33,12 @@ function PDG_masonary_gallery(container, path, data, assetsLoad) {
   }
 
   var myobj = this;
-  
+
   if ( assetsLoad == true ) {
     this.load_assets(assets, function(myobj) {
-      
+
       myobj.masnry_container = myobj.container.get(0).querySelector('.masonary-container');
-      
+
       myobj.msnry = new Masonry( myobj.masnry_container, {
         // options
         // columnWidth: 200,
@@ -58,14 +58,14 @@ function PDG_masonary_gallery(container, path, data, assetsLoad) {
       };
 
       myobj.load_style();
-      
+
     });
   }
 
 }
 
 // See note below
-PDG_masonary_gallery.prototype = Object.create(BaseWidget.prototype); 
+PDG_masonary_gallery.prototype = Object.create(BaseWidget.prototype);
 // Set the "constructor" property to refer to Student
 PDG_masonary_gallery.prototype.constructor = PDG_masonary_gallery;
 
@@ -82,10 +82,10 @@ PDG_masonary_gallery.prototype.constructor = PDG_masonary_gallery;
 //       var template = Handlebars.compile(source);
 //       Handlebars.registerPartial("image-manager-img", $("#image-manager-img").html().replace(/[\u200B]/g, '') );
 //       console.log('setting');
-//       // var html  = template( { "images": data, "insert":$.proxy(this.imagemanager.insert, this), } );  
-//       var html  = template( { "images": data, "insert":"alert('inserted');", } );  
+//       // var html  = template( { "images": data, "insert":$.proxy(this.imagemanager.insert, this), } );
+//       var html  = template( { "images": data, "insert":"alert('inserted');", } );
 
-//       // $modal.append( html); 
+//       // $modal.append( html);
 //       $(".modal-body").empty();
 //       $(".modal-body").append( html );
 
@@ -100,7 +100,7 @@ PDG_masonary_gallery.prototype.constructor = PDG_masonary_gallery;
 //       //   placeholder: '> li',
 //       //   connectWith: '#image-manager-image-list',
 //       //   dropOnEmpty: true,
-        
+
 //       //   update: function( event, ui ) {
 //       //     var arr = $("#image-manager-image-list").sortable( "toArray" );
 //       //   },
@@ -122,7 +122,7 @@ PDG_masonary_gallery.prototype.constructor = PDG_masonary_gallery;
 // }
 
 PDG_masonary_gallery.prototype.removed = function(index) {
- 
+
   // reload
   // this.data["data"]["photos"] = [];
   // this.reload();
@@ -155,8 +155,11 @@ PDG_masonary_gallery.prototype.load_image = function(obj, img, index) {
   ldiv.data('image', img.image);
   ldiv.data('index', index);
 
+  var lsrc;
+  img["image-id"]? lsrc=site_images[ img["image-id"] ].image : lsrc="";
+
   var limg = jQuery('<img/>', {
-    src: img.image,
+    src: lsrc,
   });
 
   var ldiv_in = jQuery('<div/>', {
@@ -168,14 +171,14 @@ PDG_masonary_gallery.prototype.load_image = function(obj, img, index) {
 
   // $(obj.masnry_container).append(ldiv);
 
-  limg.one("load", function() { 
+  limg.one("load", function() {
     // console.log('loaded');
     $(obj.masnry_container).append(ldiv);
     obj.msnry.appended(ldiv);
     obj.msnry.layout();
 
     // TODO call the 'global' load_style on every inage load - this is not efficiant load_style should be called once
-    obj.load_style(); 
+    obj.load_style();
   });
 }
 

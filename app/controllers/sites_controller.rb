@@ -1,3 +1,4 @@
+require 'v8'
 require 'handlebars'
 
 class SitesController < ApplicationController
@@ -24,19 +25,16 @@ class SitesController < ApplicationController
 
   # /sites/:id display a specific site
   def show
-  	# byebug
+
   	respond_to do |format|
 
-      # @site = Site.last.data
-      # @site = Site.find(params[:id]).data
-      @site = params[:id] ? Site.find(params[:id]).data : Site.find_by_name(request.domain()).data
-
+      # @site = params[:id] ? Site.find(params[:id]).data : Site.find_by_name(request.domain()).data
+      @site = params[:id] ? Site.find(params[:id]) : Site.find_by_name(request.domain())
 
       format.js do
-  	  	render :json => @site
+        render :json => @site
   	  end
 
-    	# format.html 	{ render :nothing => true, :status => 200 }
     	format.html do
 
     	  @edit = false
@@ -67,28 +65,35 @@ class SitesController < ApplicationController
           html.gsub(/<\/?[^>]*>/, '').gsub(/\n\n+/, "\n").gsub(/^\n|\n$/, '')
         end
 
-        rebase_css( @site["menu"]["css"] )
+        handlebars.register_helper(:urlFromImageObj) do |context, img, size|
+          @site[:images][ img["image-id"].to_i ][size.to_sym]
+        end
 
-        if (@site["menu"]["type"] == "Top Menu")
+
+        @site = @site.as_json
+
+        # rebase_css( @site["menu"]["css"] )
+        rebase_css( @site[:site]["data"]["menu"]["css"] )
+
+        if (@site[:site]["data"]["menu"]["type"] == "Top Menu")
     		  side_menu_template = File.read(Rails.public_path.to_s + '/handlebars_templates/top-menu.html')
         else
           side_menu_template = File.read(Rails.public_path.to_s + '/handlebars_templates/side-menu.html')
         end
 
     		template = handlebars.compile(side_menu_template)
-    		@menu = template.call(:edit => @edit, :data => @site["menu"]).html_safe
+    		@menu = template.call(:edit => @edit, :data => @site[:site]["data"]["menu"]).html_safe
 
-        #byebug
         index = params[:route] ?
-                  @site["pages"].keys.map(&:strip).map(&:downcase).find_index( params[:route].nil_or.downcase.nil_or.strip ) : 0
+                  @site[:site]["data"]["pages"].keys.map(&:strip).map(&:downcase).find_index( params[:route].nil_or.downcase.nil_or.strip ) : 0
 
     		(render :file => 'public/404.html', :status => :not_found, :layout => false and return) unless index
 
-        @page_name = params[:route] ? @site["pages"].keys[index] : @site["menu"]["pages"][index][0]["name"]
+        @page_name = params[:route] ? @site[:site]["data"]["pages"].keys[index] : @site[:site]["data"]["menu"]["pages"][index][0]["name"]
 
         # @page = params[:route] ? @site["pages"][ @site["pages"].keys[index] ] :
         #                            @site["pages"][@site["menu"]["pages"][index][0]["name"]]
-        @page = @site["pages"][@page_name]
+        @page = @site[:site]["data"]["pages"][@page_name]
 
         @elements = []
 
@@ -96,12 +101,13 @@ class SitesController < ApplicationController
         # @rooms = render_to_string "rooms/_search", :layout => false
         # @elements << @rooms
 
-    		@page["widgets"].each do |el_name|
-          # byebug
-          el = @site["widgets"][el_name]
+
+        @page["widgets"].each do |el_name|
+        # if (false)
+
+          el = @site[:site]["data"]["widgets"][el_name]
 
           rebase_css( el["css"] )
-          # byebug
 
           case el['widget_name']
     		  when 'general-txt'
@@ -148,7 +154,8 @@ class SitesController < ApplicationController
           end
     		end
 
-        if ( next_prev = next_prev_page(@page_name) )
+        # if ( next_prev = next_prev_page(@page_name) )
+        if (false)
           np_template = File.read(Rails.public_path.to_s + '/handlebars_templates/next_prev.html')
           template = handlebars.compile(np_template)
           @elements << (template.call( { :next => next_prev["next"], :prev => next_prev["prev"] } ).html_safe)

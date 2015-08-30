@@ -1,5 +1,5 @@
 function PDG_full_width_gallery(container, path, data) {
-  
+
   this.default_controllers = {
     "root" : {
       'margin-top': { 'type':'slider', 'val':'20',  'range':[0,300],    'units':'px', "cb":"set_css",  'el':[ [ '.slider_container', 'margin-top'] ], },
@@ -7,11 +7,11 @@ function PDG_full_width_gallery(container, path, data) {
   }
 
   // call base contructore
-  BaseWidget.call(this, container, path, data, { 
-    'btn1':'glyphicon glyphicon-picture', 
+  BaseWidget.call(this, container, path, data, {
+    'btn1':'glyphicon glyphicon-picture',
   });
-  
-  this.resize_counter = 0; 
+
+  this.resize_counter = 0;
 
   // // container.addClass("picndo-inline");
 
@@ -23,15 +23,15 @@ function PDG_full_width_gallery(container, path, data) {
   }
 
   var myobj = this;
-  
+
   this.load_assets( assets, function(myobj) {
-    myobj.loadImagesAndInit();  
-    myobj.load_style();  
+    myobj.loadImagesAndInit();
+    myobj.load_style();
   } );
 }
 
 // See note below
-PDG_full_width_gallery.prototype = Object.create(BaseWidget.prototype); 
+PDG_full_width_gallery.prototype = Object.create(BaseWidget.prototype);
 // Set the "constructor" property to refer to Student
 PDG_full_width_gallery.prototype.constructor = PDG_full_width_gallery;
 
@@ -50,22 +50,22 @@ PDG_full_width_gallery.prototype.added = function() {
 }
 
 PDG_full_width_gallery.prototype.resize = function(container) {
-  
+
   container.resizable({
     stop: function( event, ui ) {
       c_obj = BaseWidget.get_class_obj_for_event(ui.element[0]);
-      c_obj.reload();        
-    }   
+      c_obj.reload();
+    }
   });
 };
 
 PDG_full_width_gallery.prototype.reload = function() {
 
   this.container.find("#slider1_container").remove();
-  
+
   this.load_assets( assets, function(myobj) {
-    myobj.loadImagesAndInit();  
-    myobj.load_style();  
+    myobj.loadImagesAndInit();
+    myobj.load_style();
   } );
 
   // this.loadImagesAndInit();

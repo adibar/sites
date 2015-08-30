@@ -69,7 +69,7 @@ class ImagesController  < ApplicationController
 
     #   ]
 
-      images = Site.find(params[:site_id]).images
+      images = Site.find(params[:site_id]).images.order('created_at ASC')
       render :json => images
   end
 
@@ -140,19 +140,28 @@ class ImagesController  < ApplicationController
     #   :name           => params[:file].original_filename
     # )
 
-    image = Image.create( params[:file], (params[:image].nil_or[:site_id] || params[:site_id]) )
+    site_id = ( params[:image].nil_or[:site_id] || params[:site_id] )
+    image = Image.create( params[:file], site_id )
+    l_site = Site.find(site_id)
+    l_site.images << image
 
     if ( params[:single_link] )
-      render :json => { :link => Image.image_url(image.path_big) }, :status => 200
+      render :json => { :id => image.id, :link => Image.image_url(image.path_big) }, :status => 200
     else
       render :nothing => true, :status => 200
     end
   end
 
   def destroy
-  	puts '*******  '
-  	puts ' destroy '
-  	puts '*******  '
+    site = Site.find( params[:site_id] )
+    image = Image.find( params[:id] )
+
+    # Remove from the joinded table
+    site.images.destroy(image)
+    # Destroy the image record if no other site use it
+    image.destroy if ImagesSite.where{ image_id == my{params[:id]} }.empty?
+
+    render :nothing => true, :status => 200
   end
 
 end
