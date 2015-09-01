@@ -1,6 +1,6 @@
 
-class Array
-  def to_yaml_style
-    :inline
-  end
-end
+#class Array
+#  def to_yaml_style
+#    :inline
+#  end
+#end
