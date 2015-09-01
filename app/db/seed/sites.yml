@@ -1,0 +1,12 @@
+---
+:sites:
+  :adi:
+    :site:
+      :title: "Adi's site"
+      :data: "rookoo:koooo"
+    :images: [1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6,1,2,3,4,5,6]
+  :baron:
+    :site:
+      :title: Baron's site
+      :data: "Rookoo:Koooo"
+    :images: [7,8,9,10,11,12,7,8,9,10,11,12,7,8,9,10,11,12,7,8,9,10,11,12]
