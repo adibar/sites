@@ -79,10 +79,28 @@ class Site < ActiveRecord::Base
     Hash[ images.as_json.map{ |i| [ i[:id], i.except(:id) ] } ]
   end
 
-  def export_as_seed(site_id)
-    site =    Site.find(site_id)
-    images =  site.images
+  def self.seeds_data
+    data = { :sites => {} }
+    sites = Site.where{ (site_type == Site::SITE_TYPE.base_template) | (site_type == Site::SITE_TYPE.template) }
+    sites.each do |s|
+      d = s.seed_data
+      byebug    
+      data[:sites][d.keys.first] = d.values.first
+    end
+    data
+  end
 
+  def seed_data
+    data = { name => {
+        :site => {
+          :title  => self.title,
+          :data   => self.data.to_s,
+          :type   => self.site_type,
+        },
+        :images => images.map(&:id)
+      } 
+    }
+    data  
   end
 
 end
