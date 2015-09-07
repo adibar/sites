@@ -1,10 +1,4 @@
 class CreateSitesImages < ActiveRecord::Migration
-  # def change
-  #   create_join_table :sites, :images, column_options: {null: false} do |t|
-  #     t.index [:site_id, :image_id]
-  #     t.index [:image_id, :site_id]
-  #   end
-  # end
 
   def self.up
     create_table :images_sites, :id => false do |t|
@@ -31,12 +25,4 @@ class CreateSitesImages < ActiveRecord::Migration
 
 end
 
-# class CreateJoinTablePersonCommunity < ActiveRecord::Migration
-#   def change
-#     create_join_table :people, :communities, column_options: {null: true} do |t|
-#       # t.index [:person_id, :community_id]
-#       # t.index [:community_id, :person_id]
-#     end
-#   end
-# end
 

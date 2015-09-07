@@ -69,7 +69,7 @@ class ImagesController  < ApplicationController
 
     #   ]
 
-      images = Site.find(params[:site_id]).images.order('created_at ASC')
+      images = Site.find(params[:site_id]).images.order('created_at DESC')
       render :json => images
   end
 
@@ -95,50 +95,6 @@ class ImagesController  < ApplicationController
     if remotipart_submitted?
 
     end
-
-    # image = MiniMagick::Image.open(params[:file].tempfile.path)
-
-    # if image.width > image.height
-    #   b = [ @@big_size,    (@@big_size/(image.width.to_f / image.height)) ]
-    #   m = [ @@medium_size, (@@medium_size/(image.width.to_f / image.height)) ]
-    #   s = [ @@small_size,  (@@small_size/(image.width.to_f / image.height)) ]
-    # else
-    #   b = [ (@@big_size*(image.width.to_f / image.height)),     @@big_size,     '' ]
-    #   m = [ (@@medium_size*(image.width.to_f / image.height)),  @@medium_size,  '' ]
-    #   s = [ (@@small_size*(image.width.to_f / image.height)),   @@small_size,   '' ]
-    # end
-
-    # sizes = { :big => b, :medium => m, :small =>s }
-
-    # sizes.each_pair do |key, val|
-    #   image.resize "#{val[0]}x#{val[1]}"
-    #   image.format params[:file].content_type.split('/')[1]
-    #   path = image_path(key, params[:file].original_filename.gsub(' ', ''))
-
-    #   path = File.join(File.dirname(path), Time.now.to_i.to_s + File.basename(path)) if File.file? path
-
-    #   val[2] = path
-
-    #   dirname = File.dirname(path)
-    #   unless File.directory?(dirname)
-    #     FileUtils.mkdir_p(dirname)
-    #   end
-    #   image.write path
-    # end
-
-    # image = Image.create(
-    #   :path_big       => sizes[:big][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
-    #   :path_medium    => sizes[:medium][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
-    #   :path_small     => sizes[:small][2].gsub(File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, '/'), ''),
-    #   :width_big      => sizes[:big][0],
-    #   :width_medium   => sizes[:medium][0],
-    #   :width_small    => sizes[:small][0],
-    #   :height_big     => sizes[:big][1],
-    #   :height_medium  => sizes[:medium][1],
-    #   :height_small   => sizes[:small][1],
-    #   :site_id        => params[:image].nil_or[:site_id] || params[:site_id],
-    #   :name           => params[:file].original_filename
-    # )
 
     site_id = ( params[:image].nil_or[:site_id] || params[:site_id] )
     image = Image.create( params[:file], site_id )

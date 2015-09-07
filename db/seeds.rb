@@ -6,9 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+require 'yaml'
+require 'fileutils'
 
-def seed_sites
-	puts 'seed sites'
-end
+load "#{Rails.root}/db/seeds_helper.rb"
 
-# seed_sites
+# Seeding ...
+seed_templates
+
+

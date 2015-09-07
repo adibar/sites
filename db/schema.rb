@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150810111717) do
+ActiveRecord::Schema.define(version: 20150903180733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "images", force: :cascade do |t|
+  create_table "images", id: :bigserial, force: :cascade do |t|
     t.string   "title"
     t.string   "text"
     t.string   "path_big"
@@ -37,8 +37,8 @@ ActiveRecord::Schema.define(version: 20150810111717) do
   add_index "images", ["site_id"], name: "index_images_on_site_id", using: :btree
 
   create_table "images_sites", id: false, force: :cascade do |t|
-    t.integer "site_id",  null: false
-    t.integer "image_id", null: false
+    t.integer "site_id",            null: false
+    t.integer "image_id", limit: 8, null: false
   end
 
   add_index "images_sites", ["image_id", "site_id"], name: "index_images_sites_on_image_id_and_site_id", unique: true, using: :btree

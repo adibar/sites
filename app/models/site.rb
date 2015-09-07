@@ -84,23 +84,29 @@ class Site < ActiveRecord::Base
     sites = Site.where{ (site_type == Site::SITE_TYPE.base_template) | (site_type == Site::SITE_TYPE.template) }
     sites.each do |s|
       d = s.seed_data
-      byebug    
       data[:sites][d.keys.first] = d.values.first
     end
     data
   end
 
   def seed_data
+    site_data = self.data ? self.data : {}
     data = { name => {
         :site => {
           :title  => self.title,
-          :data   => self.data.to_s,
+          :data   => JSON.generate( site_data ),
           :type   => self.site_type,
         },
-        :images => images.map(&:id)
+        # :images => images.map(&:id)
+        :images => images.map{ |i| { :id => i.id, :name => i.name ? i.name : File.basename(i.get_path(:big)[:absolute]) } }
       } 
     }
     data  
+  end
+
+  def self.seed_create_sites_yml
+    load "#{Rails.root}/db/seeds_helper.rb"
+    super # calls function as in seeds.rb
   end
 
 end

@@ -48,9 +48,13 @@ class Image < ActiveRecord::Base
   @@medium_size  = 600
   @@small_size   = 340
 
+  def self.images_path
+    @@images_path
+  end
+
   def delete_files
-    @@images_path.keys.each do |k|
-      path = get_path(k)[:absolute]
+    self.class.images_path.keys.each do |k|
+      path = get_path(k).nil_or[:absolute]
       FileUtils.remove_file(path, force = true)
     end
   end
@@ -79,7 +83,7 @@ class Image < ActiveRecord::Base
     relative = self.send("path_" + size.to_s)
     {
       :relative => relative,
-      :absolute => File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, relative)
+      :absolute => relative ? File.join(Rails.root, @@USER_IMAGES_FOLDER_ROOT, relative) : nil
     }
   end
 
@@ -104,9 +108,8 @@ class Image < ActiveRecord::Base
   end
 
   def as_json options={}
-  	# byebug
     {
-  		:id     => id,
+  		:id     => id.to_s, # to_s => javascript max int size is 53 bits thus truncate 64 bits optional value of id
   		:thumb  => path_small.nil? ? nil : self.class.image_url(path_small),
       # :thumb  => "/uploads/big/1440682444167409_MG_1382.jpg",
   		:image  => path_big.nil? ? nil : self.class.image_url(path_big),
@@ -147,7 +150,8 @@ class Image < ActiveRecord::Base
       image.write path[:absolute]
     end
 
-    image = super(
+    # image = super(
+    image = new(
       :path_big       => sizes[:big][2][:relative],
       :path_medium    => sizes[:medium][2][:relative],
       :path_small     => sizes[:small][2][:relative],
@@ -161,8 +165,10 @@ class Image < ActiveRecord::Base
       :name           => file.original_filename
     )
 
-    image
+    image.id = generate_id()
+    image.save
 
+    image
   end
 
   # timestemp in micro sec => 54 bit => currenly only 51 bit in use with current DateTime
@@ -182,7 +188,7 @@ class Image < ActiveRecord::Base
     l_id =
       (microsec_part << 20) +
       (shard << 12) +
-      (sec_and_millisec_part << 2) + rand(0..3)  
+      (sec_and_millisec_part << 2) + rand(0..3)
 
     l_id
   end

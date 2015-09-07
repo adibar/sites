@@ -66,7 +66,7 @@ class SitesController < ApplicationController
         end
 
         handlebars.register_helper(:urlFromImageObj) do |context, img, size|
-          @site[:images][ img["image-id"].to_i ][size.to_sym]
+          @site[:images][ img["image-id"].to_i ].nil_or[size.to_sym]
         end
 
 
