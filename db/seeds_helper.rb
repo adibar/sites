@@ -94,7 +94,7 @@ def seed_templates
 			img_id 		= i[:id]
 			img_name 	= i[:name]
 
-			img = Image.find(img_id)
+			img = Image.find_by_id(img_id)
 
 			unless img # Create if do not exist
 				img_path = image_path(key, img_name)
