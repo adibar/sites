@@ -4,7 +4,10 @@ def image_folder(site_name)
 end
 
 def image_path(site_name, image_name)
-	File.join( image_folder(site_name), image_name ).to_s
+	puts "before returning"
+	ret = File.join( image_folder(site_name), image_name ).to_s
+	puts "returning #{ret}"
+	ret
 end
 
 
@@ -98,8 +101,10 @@ def seed_templates
 
 			unless img # Create if do not exist
 				img_path = image_path(key, img_name)
-				f = File.new(image_path)
-				img = Image.create(f, site.id)
+				f = File.new(img_path)
+				puts "before create"
+				img = Image.create(f, site.id, img_id)
+				puts "after create"
 			end
 
 			site.images << img if site.images.where{ id == img.id }.empty? # Add to site if do not hold it allready

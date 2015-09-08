@@ -184,7 +184,9 @@
   </div>
 
   <div class="slideout">
-    <img src="/assets/fb2-left.png" alt="Facebook" style="width:40px;" />
+    <!-- <img src="/assets/fb2-left.png" alt="Facebook" style="width:40px;" /> -->
+    <!-- <img src="#{image_path('fb2-left.png')}'" alt="Facebook" style="width:40px;" />  -->
+    <%= image_tag 'fb2-left.png', alt: 'Facebook', :style => "width:40px;" %>
     <div id="facebook-page-plugin" class="slideout_inner">
       <div class="fb-page" data-href="https://www.facebook.com/picndo" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true" height="470">
         <div class="fb-xfbml-parse-ignore">

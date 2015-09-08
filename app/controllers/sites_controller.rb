@@ -66,7 +66,7 @@ class SitesController < ApplicationController
         end
 
         handlebars.register_helper(:urlFromImageObj) do |context, img, size|
-          @site[:images][ img["image-id"].to_i ].nil_or[size.to_sym]
+          @site[:images][ img["image-id"] ].nil_or[size.to_sym]
         end
 
 
@@ -161,8 +161,6 @@ class SitesController < ApplicationController
           @elements << (template.call( { :next => next_prev["next"], :prev => next_prev["prev"] } ).html_safe)
         end
 
-  		  #render :text => @menu, :status => 200
-  		  # byebug
   		  render layout: "sites"
     	end
   	end
@@ -284,10 +282,6 @@ class SitesController < ApplicationController
 
   # GET	/sites/:id/edit	sites#edit	return an HTML form for editing a site
   def edit
-  	puts '*'*50
-  	puts 'edit'
-  	puts '*'*50
-
     @edit = true
     render layout: "sites_edit"
   end

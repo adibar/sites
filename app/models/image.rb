@@ -119,9 +119,18 @@ class Image < ActiveRecord::Base
   	}
   end
 
-  def self.create(file, site_id)
+  def self.create(file, site_id, image_id = nil)
+    puts 'start Image create'
 
-    image = MiniMagick::Image.open(file.tempfile.path)
+    if file.is_a?(File)
+      orig_path = file.path
+      orig_name = File.basename(file.path)
+    else
+      orig_path = file.tempfile.path
+      orig_name = file.original_filename
+    end
+
+    image = MiniMagick::Image.open(orig_path)
 
     if image.width > image.height
       b = [ @@big_size,    (@@big_size/(image.width.to_f / image.height)) ]
@@ -137,9 +146,10 @@ class Image < ActiveRecord::Base
 
     sizes.each_pair do |key, val|
       image.resize "#{val[0]}x#{val[1]}"
-      image.format file.content_type.split('/')[1]
+      # TODO - adi baron => do we need setting the format ???
+      # image.format file.content_type.split('/')[1]
 
-      path = set_path(key, file.original_filename)
+      path = set_path(key, orig_name)
 
       val[2] = path
 
@@ -162,10 +172,10 @@ class Image < ActiveRecord::Base
       :height_medium  => sizes[:medium][1],
       :height_small   => sizes[:small][1],
       :site_id        => site_id,
-      :name           => file.original_filename
+      :name           => orig_name,
     )
 
-    image.id = generate_id()
+    image.id = image_id ? image_id : generate_id()
     image.save
 
     image
