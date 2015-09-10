@@ -1,5 +1,3 @@
-<!-- <div class="container" style="padding:3px 0px; padding-right:3px;"> -->
-
 <div class="picndo-row-internal {{{get_class ".picndo-row-internal" }}}">
 <header class="wrapper-addons" style="padding-bottom:0px; {{{get_css "wrapper-addons" }}} {{{get_css "header" }}}">
 <nav class="navbar navbar-default navbar-style" role="navigation" style="border:none;">
@@ -11,7 +9,6 @@
         <a class="navbar-brand navbar-brand-style menu-brand-img {{{get_class ".navbar-brand-style" }}}" style="{{{get_css "menu-brand-img" }}}" href="index.html">
         {{/if}}
             <div style="position:relative; width:100%; height:100%">
-                <!--img src="{{data.logoimage.thumb}}" style="width:100%; position:relative; left:0px; top:0px;"> </img-->
                 <img src="{{urlFromImageObj data.logoimage 'thumb'}}" style="width:100%; position:relative; left:0px; top:0px;"> </img>
                 {{#if @root.edit_mode}}
                 <div class="btn-group" style="position:absolute; right:10px; bottom:10px;">
@@ -71,8 +68,6 @@
 
     </div>
     <div class="clear" style="clear: both; height: 1px; overflow: hidden; font-size:0pt; margin-top: -1px;"> </dic>
-
-}
 </nav>
 </header>
 </div>

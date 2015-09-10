@@ -62,6 +62,7 @@ gem 'puma'
 gem "pg"
 gem "squeel"
 gem 'handlebars'
+gem 'flavour_saver'
 gem 'haml'
 gem 'jquery-turbolinks'
 gem 'nil_or'

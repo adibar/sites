@@ -39,35 +39,35 @@ class SitesController < ApplicationController
 
     	  @edit = false
 
-        handlebars = Handlebars::Context.new
+        # handlebars = Handlebars::Context.new
 
-        handlebars.register_helper(:get_css) do |context, selectors|
-          str = ''
+        # handlebars.register_helper(:get_css) do |context, selectors|
+        #   str = ''
 
-          @el_css[:css][selectors].nil_or.each do |val|
-            str += val[0] + ':' + val[1] + ';'
-          end
-          puts str + ' for ' + selectors
-          str
-        end
+        #   @el_css[:css][selectors].nil_or.each do |val|
+        #     str += val[0] + ':' + val[1] + ';'
+        #   end
+        #   puts str + ' for ' + selectors
+        #   str
+        # end
 
-        handlebars.register_helper(:get_class) do |context, selectors|
-          str = ''
+        # handlebars.register_helper(:get_class) do |context, selectors|
+        #   str = ''
 
-          @el_css[:classes][selectors].nil_or.each do |val|
-            str += val + ' '
-          end
-          puts str + ' for ' + selectors
-          str
-        end
+        #   @el_css[:classes][selectors].nil_or.each do |val|
+        #     str += val + ' '
+        #   end
+        #   puts str + ' for ' + selectors
+        #   str
+        # end
 
-        handlebars.register_helper(:to_text) do |context, html|
-          html.gsub(/<\/?[^>]*>/, '').gsub(/\n\n+/, "\n").gsub(/^\n|\n$/, '')
-        end
+        # handlebars.register_helper(:to_text) do |context, html|
+        #   html.gsub(/<\/?[^>]*>/, '').gsub(/\n\n+/, "\n").gsub(/^\n|\n$/, '')
+        # end
 
-        handlebars.register_helper(:urlFromImageObj) do |context, img, size|
-          @site[:images][ img["image-id"] ].nil_or[size.to_sym]
-        end
+        # handlebars.register_helper(:urlFromImageObj) do |context, img, size|
+        #   @site[:images][ img["image-id"] ].nil_or[size.to_sym]
+        # end
 
 
         @site = @site.as_json
@@ -76,13 +76,19 @@ class SitesController < ApplicationController
         rebase_css( @site[:site]["data"]["menu"]["css"] )
 
         if (@site[:site]["data"]["menu"]["type"] == "Top Menu")
-    		  side_menu_template = File.read(Rails.public_path.to_s + '/handlebars_templates/top-menu.html')
+    		  # template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/top-menu.html')
+          template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/xxx.html')
         else
-          side_menu_template = File.read(Rails.public_path.to_s + '/handlebars_templates/side-menu.html')
+          template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/side-menu.html')
         end
+        # byebug
+    		# template = handlebars.compile(side_menu_template)
+    		template = Tilt['handlebars'].new { template_str }
+        # @menu = template.call(:edit => @edit, :data => @site[:site]["data"]["menu"]).html_safe
 
-    		template = handlebars.compile(side_menu_template)
-    		@menu = template.call(:edit => @edit, :data => @site[:site]["data"]["menu"]).html_safe
+        # data = OpenStruct.new edit: @edit, data: @site[:site]["data"]["menu"]
+        data = OpenStruct.new edit: @edit, data: [1,2,3]
+        @menu = (template.render data).html_safe
 
         index = params[:route] ?
                   @site[:site]["data"]["pages"].keys.map(&:strip).map(&:downcase).find_index( params[:route].nil_or.downcase.nil_or.strip ) : 0
@@ -102,8 +108,8 @@ class SitesController < ApplicationController
         # @elements << @rooms
 
 
-        @page["widgets"].each do |el_name|
-        # if (false)
+        # @page["widgets"].each do |el_name|
+        if (false)
 
           el = @site[:site]["data"]["widgets"][el_name]
 
