@@ -45,7 +45,18 @@ function url_from_image_element(el, size) {
 
 function url_from_image_id(img_id, size) {
   var lurl;
-  img_id ? lurl=site_images[ img_id ][size] : lurl="";
+  if (img_id) {
+    var img = site_images[ img_id ];
+    if (img) {
+      lurl=img[size] ;
+    }
+    else {
+      lurl="";  
+    }
+  }
+  else {
+    lurl="";
+  }
   return lurl
   // return "http://www.hdwallpapersimages.com/wp-content/uploads/2014/01/Winter-Tiger-Wild-Cat-Images.jpg";
 }

@@ -13,19 +13,9 @@
         height: 500px; overflow: hidden;">
         {{#each this.data.data.photos}}
             <div>
-                <!--img u="image" class="jssor-slides" src="{{this.image}}" > </img-->
                 <img u="image" class="jssor-slides" src="{{{urlFromImageObj this 'image'}}}" > </img>
             </div>
         {{/each}}
-<!--         <div>
-            <img u="image" src="../img/1920/red.jpg" />
-        </div>
-        <div>
-            <img u="image" src="../img/1920/purple.jpg" />
-        </div>
-        <div>
-            <img u="image" src="../img/1920/blue.jpg" />
-        </div> -->
     </div>
 
     <!-- bullet navigator container -->

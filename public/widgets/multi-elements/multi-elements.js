@@ -1,12 +1,12 @@
 function PDG_multi_elements(container, path, data) {
-          
+
   // call base contructore
   BaseWidget.call(this, container, path, data);
   this.resize_counter = 0;
 
   // obj public properties
   this.msnry = null
-  this.masnry_container = null  
+  this.masnry_container = null
 
   // container.addClass("picndo-inline");
 
@@ -18,9 +18,9 @@ function PDG_multi_elements(container, path, data) {
   }
 
   var myobj = this;
-  
+
   this.load_assets( assets, function(myobj) {
-    
+
     var source   = $("#h-multi-elements").html();
     var template = Handlebars.compile(source);
     var partial = $("#h-single-element").html();
@@ -28,9 +28,9 @@ function PDG_multi_elements(container, path, data) {
 
     var data = myobj.data.data;
     var html  = template(data);
-    
+
     myobj.container.find(".multielementscontainer").html(html);
-    
+
     myobj.masnry_container = myobj.container.get(0).querySelector('.multielementscontainer');
 
     myobj.msnry = new Masonry( myobj.masnry_container, {
@@ -40,7 +40,7 @@ function PDG_multi_elements(container, path, data) {
       "columnWidth" : ".multielement",
       isInitLayout  : false,
     });
-    
+
     myobj.msnry.bindResize();
 
     myobj.msnry.on( 'layoutComplete', function() {
@@ -53,17 +53,17 @@ function PDG_multi_elements(container, path, data) {
 }
 
 // See note below
-PDG_multi_elements.prototype = Object.create(BaseWidget.prototype); 
+PDG_multi_elements.prototype = Object.create(BaseWidget.prototype);
 // Set the "constructor" property to refer to Student
 PDG_multi_elements.prototype.constructor = PDG_multi_elements;
 
 PDG_multi_elements.prototype.resize = function(container) {
-  
+
   container.resizable({
     stop: function( event, ui ) {
 
       console.log('resized PDG_multi_elements');
-    }   
+    }
   });
 }
 
@@ -74,18 +74,18 @@ PDG_multi_elements.prototype.onLayout = function() {
   elements.each( function() {
     $(this).css("border-top", "1px dotted grey");
     $(this).css("border-left", "1px dotted grey");
-    
-    var left = $(this).css('left'); 
+
+    var left = $(this).css('left');
     var top =  $(this).css('top');
 
     if (left == "0px") {
       $(this).css("border-left", "none");
     }
     if (top == "0px") {
-      $(this).css("border-top", "none"); 
+      $(this).css("border-top", "none");
     }
 
     console.log("in loop");
-  }) 
+  })
   return true;
 }

@@ -102,7 +102,7 @@ class ImagesController  < ApplicationController
     l_site.images << image
 
     if ( params[:single_link] )
-      render :json => { :id => image.id, :link => Image.image_url(image.path_big) }, :status => 200
+      render :json => { :id => (image.id).to_s, :link => Image.image_url(image.path_big) }, :status => 200
     else
       render :nothing => true, :status => 200
     end

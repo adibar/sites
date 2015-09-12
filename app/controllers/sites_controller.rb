@@ -1,11 +1,50 @@
-require 'v8'
-require 'handlebars'
+# require 'v8'
+# require 'handlebars'
 
 class SitesController < ApplicationController
 
   before_filter :allow_iframe_requests, only: [:show]
 
   helper_method :current_site
+
+  # menus
+  @@top_menu_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/top-menu.html')
+  @@side_menu_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/side-menu.html')
+  @@top_menu_remplate = Tilt['handlebars'].new { @@top_menu_file_str }
+  @@side_menu_remplate = Tilt['handlebars'].new { @@side_menu_file_str }
+
+  # contact
+  @@contact_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/contact.html')
+  @@contact_template = Tilt['handlebars'].new { @@contact_file_str }
+
+  # rich text
+  @@txt_element_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/froala-txt.html')
+  @@txt_element_template = Tilt['handlebars'].new { @@txt_element_file_str }
+
+  # multi elements
+  @@single_element_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/partials/single-element.html')
+  # @@single_element_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/partials/xxx.html')
+  # FS.register_partial(:single_element, @@single_element_file_str)
+  @@multi_elements_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/multi-elements.html')
+  @@multi_elements_template = Tilt['handlebars'].new { @@multi_elements_file_str }
+
+  # galleries
+  # Full width gallery
+  @@full_width_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/full-width-gallery.html')
+  @@full_width_template = Tilt['handlebars'].new { @@full_width_file_str }
+  # masonary-gallery
+  @@masonry_gallery_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/masonry-gallery.html')
+  @@masonry_gallery_template = Tilt['handlebars'].new { @@masonry_gallery_file_str }
+  # square-galler
+  @@square_gallery_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/square-gallery.html')
+  @@square_gallery_template = Tilt['handlebars'].new { @@square_gallery_file_str }
+  # slick gallery
+  @@slick_gallery_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/slick-gallery.html')
+  @@slick_gallery_template = Tilt['handlebars'].new { @@slick_gallery_file_str }
+  # flow gallery
+  @@flow_gallery_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/image-flow-gallery.html')
+  @@flow_gallery_template = Tilt['handlebars'].new { @@flow_gallery_file_str }
+
 
   def current_site
     params[:id]
@@ -21,6 +60,53 @@ class SitesController < ApplicationController
   def new
     @sites = Site.template
     render layout: "application"
+  end
+
+  def urlFromImageObj(img, size)
+    # @site[:images][ img["image-id"] ].nil_or[size.to_sym]
+    urlFromImageId(img["image-id"], size)
+  end
+
+  def urlFromImageId(img_id, size)
+    @site[:images][img_id].nil_or[size.to_sym]
+  end
+
+  def get_css(selectors)
+    str = ''
+
+    @el_css[:css][selectors].nil_or.each do |val|
+      str += val[0] + ':' + val[1] + ';'
+    end
+    # puts str + ' for ' + selectors
+    str
+  end
+
+  def get_class(selectors)
+    str = ''
+
+    @el_css[:classes][selectors].nil_or.each do |val|
+      str += val + ' '
+    end
+    # puts str + ' for ' + selectors
+    str
+  end
+
+  def manipulate_images_from_html(html_str)
+    # For each match of img tag
+    html_str.gsub(/<img[^>]*>/) do |f|
+
+      # 1) find image id
+      img_id = ( ( ( /data-img-id=\"[^\"]*\"/.match(f).to_s ).split("=")[1] ).gsub("\"", "") )
+      # 2) find image from id
+      img_url = urlFromImageId(img_id, :image)
+
+      # 3) find current src from html txt
+      img_src = ( ( /src=\"[^\"]*\"/.match(f).to_s ).split("=")[1] ).gsub("\"", "")
+
+      # 4) replace img src from txt with on from db
+      html_str.gsub!(img_src, img_url)
+    end
+    html_str
   end
 
   # /sites/:id display a specific site
@@ -77,17 +163,41 @@ class SitesController < ApplicationController
 
         if (@site[:site]["data"]["menu"]["type"] == "Top Menu")
     		  # template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/top-menu.html')
-          template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/xxx.html')
+          # template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/xxx.html')
+          template = @@top_menu_remplate
         else
-          template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/side-menu.html')
+          # template_str = File.read(Rails.public_path.to_s + '/handlebars_templates/side-menu.html')
+          template = @@side_menu_remplate
+        end
+
+        FS.register_helper(:index_of) do |arr, index_str|
+          arr[index_str.to_i]
+          # yield.contents arr[index]
+          # people.each do |person|
+          #   yield.contents person
+          # end
         end
         # byebug
+        FS.register_helper( method(:urlFromImageObj) )
+        FS.register_helper( method(:get_css) )
+        FS.register_helper( method(:get_class) )
+        # FS.register_helper(:urlFromImageObj) do |img, size|
+        #   byebug
+        #   @site[:images][ img["image-id"] ].nil_or[size.to_sym]
+        # end
+
+        # byebug
     		# template = handlebars.compile(side_menu_template)
-    		template = Tilt['handlebars'].new { template_str }
+    		# template = Tilt['handlebars'].new { template_str }
         # @menu = template.call(:edit => @edit, :data => @site[:site]["data"]["menu"]).html_safe
 
+
+        # x = { :pages => [1,2,34] }
         # data = OpenStruct.new edit: @edit, data: @site[:site]["data"]["menu"]
-        data = OpenStruct.new edit: @edit, data: [1,2,3]
+        data = RecursiveOpenStruct.new( { edit: @edit, data: @site[:site]["data"]["menu"] }, :recurse_over_arrays => true )
+        # data = OpenStruct.new edit: @edit, data: x
+        # byebug
+        # data = OpenStruct.new edit: @edit, data: [1,2,3]
         @menu = (template.render data).html_safe
 
         index = params[:route] ?
@@ -108,8 +218,8 @@ class SitesController < ApplicationController
         # @elements << @rooms
 
 
-        # @page["widgets"].each do |el_name|
-        if (false)
+        @page["widgets"].each do |el_name|
+        # if (false)
 
           el = @site[:site]["data"]["widgets"][el_name]
 
@@ -117,45 +227,74 @@ class SitesController < ApplicationController
 
           case el['widget_name']
     		  when 'general-txt'
-    			  side_menu_template = File.read(Rails.public_path.to_s + '/handlebars_templates/froala-txt.html')
-            template = handlebars.compile(side_menu_template)
-            @elements << (template.call(:data => el["data"]).html_safe)
+    			  # side_menu_template = File.read(Rails.public_path.to_s + '/handlebars_templates/froala-txt.html')
+            # template = handlebars.compile(side_menu_template)
+            # @elements << (template.call(:data => el["data"]).html_safe)
+            data = RecursiveOpenStruct.new( { data: el["data"], }, :recurse_over_arrays => true )
+            template = @@txt_element_template
+            html_data = (template.render data).html_safe
+            @elements << manipulate_images_from_html(html_data).html_safe
     		  when 'multi-elements'
-            slick_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/multi-elements.html')
+            # slick_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/multi-elements.html')
 
-            # *** PARTIAL ***
-            # TODO - read the handlebars github to load only once (with missing partials??? else ??? maybe during rails initialization ???)
-            handlebars.register_partial('single-element', File.read(Rails.public_path.to_s + '/handlebars_templates/partials/single-element.html') )
+            # # *** PARTIAL ***
+            # # TODO - read the handlebars github to load only once (with missing partials??? else ??? maybe during rails initialization ???)
+            # handlebars.register_partial('single-element', File.read(Rails.public_path.to_s + '/handlebars_templates/partials/single-element.html') )
 
-            template = handlebars.compile(slick_gallery_template)
+            # template = handlebars.compile(slick_gallery_template)
 
-            @elements << (template.call(:data => el).html_safe)
+            # @elements << (template.call(:data => el).html_safe)
+
+            # TODO register partials
+            data = RecursiveOpenStruct.new( { data: el, }, :recurse_over_arrays => true )
+            template = @@multi_elements_template
+            FlavourSaver.register_partial(:single_element, @@single_element_file_str)
+
+            res = template.render data
+            @elements << (res.html_safe)
           when 'slick-gallery'
-    		  	slick_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/slick-gallery.html')
-    		  	template = handlebars.compile(slick_gallery_template)
-    		  	@elements << (template.call(:data => el["data"]).html_safe)
+    		  	# slick_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/slick-gallery.html')
+    		  	# template = handlebars.compile(slick_gallery_template)
+    		  	# @elements << (template.call(:data => el["data"]).html_safe)
+            data = RecursiveOpenStruct.new( { data: el["data"], }, :recurse_over_arrays => true )
+            template = @@slick_gallery_template
+            @elements << (template.render data).html_safe
     		  when 'flow-gallery'
-    		  	image_flow_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/image-flow-gallery.html')
-    		  	template = handlebars.compile(image_flow_gallery_template)
-    		  	@elements << (template.call(:data => el["data"]).html_safe)
+    		  	# image_flow_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/image-flow-gallery.html')
+    		  	# template = handlebars.compile(image_flow_gallery_template)
+    		  	# @elements << (template.call(:data => el["data"]).html_safe)
+            data = RecursiveOpenStruct.new( { data: el["data"], }, :recurse_over_arrays => true )
+            template = @@flow_gallery_template
+            @elements << (template.render data).html_safe
           when 'full-width-gallery'
-            image_flow_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/full-width-gallery.html')
-            template = handlebars.compile(image_flow_gallery_template)
-            @elements << (template.call(:data => el).html_safe)
+            # image_flow_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/full-width-gallery.html')
+            # template = handlebars.compile(image_flow_gallery_template)
+            # @elements << (template.call(:data => el).html_safe)
+            data = RecursiveOpenStruct.new( { data: el, }, :recurse_over_arrays => true )
+            template = @@full_width_template
+            @elements << (template.render data).html_safe
           when 'masonary-gallery'
-            masonry_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/masonry-gallery.html')
-            template = handlebars.compile(masonry_gallery_template)
-            @elements << (template.call(:data => el["data"]).html_safe)
+            # masonry_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/masonry-gallery.html')
+            # template = handlebars.compile(masonry_gallery_template)
+            # @elements << (template.call(:data => el["data"]).html_safe)
+            data = RecursiveOpenStruct.new( { data: el["data"], }, :recurse_over_arrays => true )
+            template = @@masonry_gallery_template
+            @elements << (template.render data).html_safe
     		  when 'square-gallery'
-            square_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/square-gallery.html')
-            template = handlebars.compile(square_gallery_template)
-            @elements << (template.call(:data => el["data"]).html_safe)
+            # square_gallery_template = File.read(Rails.public_path.to_s + '/handlebars_templates/square-gallery.html')
+            # template = handlebars.compile(square_gallery_template)
+            # @elements << (template.call(:data => el["data"]).html_safe)
+            data = RecursiveOpenStruct.new( { data: el["data"], }, :recurse_over_arrays => true )
+            template = @@square_gallery_template
+            @elements << (template.render data).html_safe
           when 'contact'
-            contact_template = File.read(Rails.public_path.to_s + '/handlebars_templates/contact.html')
-            template = handlebars.compile(contact_template)
+            # contact_template = File.read(Rails.public_path.to_s + '/handlebars_templates/contact.html')
+            data = RecursiveOpenStruct.new( { data: el, }, :recurse_over_arrays => true )
+            template = @@contact_template
             # byebug
             # @elements << (template.call(:data => el["data"], :css => el["css"]).html_safe)
-            @elements << (template.call( :data => el ).html_safe)
+            # @elements << (template.call( :data => el ).html_safe)
+            @elements << (template.render data).html_safe
             # byebug
           end
     		end
@@ -256,9 +395,9 @@ class SitesController < ApplicationController
       if (value['cb'] == 'set_css')
         value['el'].each do |el|
           # byebug
-          puts 'found css rule ' + el[1] + ' for ' + el[0]
+          # puts 'found css rule ' + el[1] + ' for ' + el[0]
           @el_css[:css][el[0].strip.sub('.', '')] ? @el_css[:css][el[0].strip.sub('.', '')] << [ el[1], (value['val'].to_s + value['units']) ] : @el_css[:css][el[0].strip.sub('.', '')] = [ [ el[1], (value['val'].to_s + value['units']) ] ]
-          puts "#{@el_css[:css][el[0].strip.sub('.', '')]}"
+          # puts "#{@el_css[:css][el[0].strip.sub('.', '')]}"
         end
       end
     end
@@ -308,3 +447,11 @@ class SitesController < ApplicationController
   end
 
 end
+
+# class RecursiveOpenStruct
+#   def render(param)
+#     byebug
+#   end
+# end
+
+

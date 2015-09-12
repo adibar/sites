@@ -62,7 +62,7 @@ gem 'puma'
 gem "pg"
 gem "squeel"
 gem 'handlebars'
-gem 'flavour_saver'
+gem 'flavour_saver', :git => 'https://github.com/adibar/FlavourSaver.git'
 gem 'haml'
 gem 'jquery-turbolinks'
 gem 'nil_or'
@@ -72,6 +72,7 @@ gem 'remotipart'
 gem "jquery-fileupload-rails"
 gem 'mini_magick'
 gem "oj"
+gem 'recursive-open-struct'
 # observejs => for facebook.js.coffee
 # gem "observejs"
 # For date picker

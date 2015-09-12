@@ -45,6 +45,12 @@ $(document).ready(function () {
     return ifCond(v1,operator,v2,options);
   });
 
+  Handlebars.registerHelper("index_of",function(arr, index_str, options) {
+    // return arr[index_str]
+    return options.fn( arr[index_str] );
+    // return 7
+  });
+
   Handlebars.registerHelper("urlFromImageObj",function(img,size) {
     return url_from_image_element(img,size);
   });
@@ -59,6 +65,16 @@ $(document).ready(function () {
 
   Handlebars.registerHelper("to_text",function(html) {
     return $(html).text();
+  });
+
+  Handlebars.registerHelper('include', function(options) {
+    var context = {},
+        mergeContext = function(obj) {
+            for(var k in obj)context[k]=obj[k];
+        };
+    mergeContext(this);
+    mergeContext(options.hash);
+    return options.fn(context);
   });
 
 
@@ -94,7 +110,7 @@ $(document).ready(function () {
   // jsonObj = getData(1);
   site_data = getData(1);
   jsonObj = site_data.site.data;
-  site_images = site_data.images; 
+  site_images = site_data.images;
 
   // var ldiv1 = jQuery('<div/>', {
   //   class: 'row .picndo-editable'
@@ -302,7 +318,7 @@ function loadPage(container, pData, widgets) {
         break;
 
       default:
-        alert("Unknown widget element");
+        alert("loadPage Unknown widget element");
         break;
     }
   }
@@ -418,16 +434,48 @@ function createWidget(widgetName, container) {
       loadWidgetSctipt("widgets/froala-txt/froala-txt.js", cbObj);
       break;
 
+    case 'multi-elements':
+      cbObj = {
+        "widget_name":widgetName,
+        "container": ldiv,
+        "path": "widgets/multi-elements/",
+        "data": ljson,
+      }
+
+      loadWidgetSctipt("widgets/multi-elements/fmulti-elements.js", cbObj);
+      break;
+
+    case 'masonary-gallery':
+      cbObj = {
+        "widget_name":widgetName,
+        "container": ldiv,
+        "path": "widgets/galleries/masonary/",
+        "data": ljson,
+      }
+
+      loadWidgetSctipt("widgets/galleries/masonary/gallery.js", cbObj);
+      break
+
     case 'square-gallery':
       cbObj = {
         "widget_name":widgetName,
         "container": ldiv,
         "path": "widgets/galleries/square/",
-        // "data":jsonObj["pages"][lactive][ jsonObj["pages"][lactive].length-1 ]
         "data": ljson,
       }
 
       loadWidgetSctipt("widgets/galleries/square/gallery.js", cbObj);
+      break
+
+    case 'slick-gallery':
+      cbObj = {
+        "widget_name":widgetName,
+        "container": ldiv,
+        "path": "widgets/galleries/slick-scrolling-gallery/",
+        "data": ljson,
+      }
+
+      loadWidgetSctipt("widgets/galleries/slick-scrolling-gallery/gallery.js", cbObj);
       break
 
     case 'full-width-gallery':
@@ -468,7 +516,7 @@ function createWidget(widgetName, container) {
       break
 
     default:
-      alert("Unknown widget element");
+      alert("createWidget Unknown widget element: " + widgetName);
       break;
   }
 
@@ -531,7 +579,7 @@ function loadWidget(wData) {
       break;
 
     default:
-      alert("loadWidget - Unknown widget element");
+      alert("loadWidget - Unknown widget element: " + wData["widget_name"]);
       break;
   }
 

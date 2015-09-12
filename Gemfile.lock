@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/adibar/FlavourSaver.git
+  revision: 8ce9aa1cad56dad725b54abfa05e8824b7043260
+  specs:
+    flavour_saver (0.3.6)
+      rltk (~> 2.2.0)
+      tilt
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,9 +86,6 @@ GEM
     erubis (2.7.0)
     execjs (2.5.2)
     ffi (1.9.10)
-    flavour_saver (0.3.6)
-      rltk (~> 2.2.0)
-      tilt
     generate_method (1.0.0)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
@@ -159,6 +164,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    recursive-open-struct (0.6.5)
     ref (1.0.5)
     remotipart (1.2.0)
     rltk (2.2.1)
@@ -224,7 +230,7 @@ DEPENDENCIES
   capistrano3-puma
   coffee-rails (~> 4.1.0)
   deep_cloneable
-  flavour_saver
+  flavour_saver!
   haml
   handlebars
   jbuilder (~> 2.0)
@@ -238,6 +244,7 @@ DEPENDENCIES
   pg
   puma
   rails (= 4.2.1)
+  recursive-open-struct
   remotipart
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

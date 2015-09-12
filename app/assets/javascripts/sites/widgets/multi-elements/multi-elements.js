@@ -27,7 +27,7 @@ function PDG_multi_elements(container, path, data) {
   var myobj = this;
 
   $.get('/handlebars_templates/partials/single-element.html', function(ldata) {
-    Handlebars.registerPartial('single-element', ldata);
+    Handlebars.registerPartial('single_element', ldata);
     myobj.load();
   });
 
@@ -246,5 +246,17 @@ PDG_multi_elements.addImg = function(obj) {
 //   }
 //   lobj.edit_txt(obj, index)
 // }
+
+PDG_multi_elements.prototype.default_data = function() {
+  var lobj =  {
+    "css": { "root": { } },
+    "data": {
+      "elements": [
+
+      ],
+    },
+  };
+  return lobj;
+}
 
 

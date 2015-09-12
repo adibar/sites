@@ -152,5 +152,16 @@ PDG_slick_gallery.prototype.reload = function() {
       this.container.find(".slickcontainer").empty();
 
       this.loadImagesAndInit();
+}
 
+PDG_slick_gallery.prototype.default_data = function() {
+  var lobj =  {
+    "css": { "root": { } },
+    "data": {
+      "photos": [
+
+      ],
+    },
+  };
+  return lobj;
 }
