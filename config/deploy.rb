@@ -1,10 +1,11 @@
 # Change these
-server 'picndosites.cloudapp.net', port: 1976, roles: [:web, :app, :db], primary: true
+# server 'picndosites.cloudapp.net', port: 1976, roles: [:web, :app, :db], primary: true
+server '10.211.55.3', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'https://github.com/adibar/sites.git'
 set :application,     'sites'
 set :user,            'deploy'
-set :puma_threads,    [4, 16]
+set :puma_threads,    [4, 4]
 set :puma_workers,    2
 
 # Don't change these unless you know what you're doing

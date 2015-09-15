@@ -145,7 +145,8 @@ class Image < ActiveRecord::Base
     sizes = { :big => b, :medium => m, :small =>s }
 
     sizes.each_pair do |key, val|
-      image.resize "#{val[0]}x#{val[1]}"
+      # image.resize "#{val[0]}x#{val[1]}"
+
       # TODO - adi baron => do we need setting the format ???
       # image.format file.content_type.split('/')[1]
 
@@ -157,7 +158,14 @@ class Image < ActiveRecord::Base
       unless File.directory?(dirname)
         FileUtils.mkdir_p(dirname)
       end
-      image.write path[:absolute]
+
+      image.combine_options do |c|
+        c.auto_orient
+        c.resize "#{val[0]}x#{val[1]}"
+        c.quality 80
+      end
+
+      image.write( path[:absolute] )
     end
 
     # image = super(

@@ -57,7 +57,7 @@ function PDG_masonary_gallery(container, path, data, assetsLoad) {
         myobj.msnry.layout();
       };
 
-      myobj.load_style();
+      // myobj.load_style();
 
     });
   }
@@ -126,24 +126,30 @@ PDG_masonary_gallery.prototype.removed = function(index) {
   // reload
   // this.data["data"]["photos"] = [];
   // this.reload();
-
-  this.modified = true
+  console.log("PDG_masonary_gallery removed");
+  this.modified = true;
 
 }
 
 PDG_masonary_gallery.prototype.added = function() {
-  var len = this.data["data"]["photos"].length;
-  this.load_image( this, this.data["data"]["photos"][len-1], len-1 );
+  // var len = this.data["data"]["photos"].length;
+  // this.load_image( this, this.data["data"]["photos"][len-1], len-1 );
   //or just whould also work =>
-  //this.modified = true
+  this.modified = true;
 }
 
 PDG_masonary_gallery.prototype.load_images = function() {
   console.log('PDG_masonary_gallery load ' + this.data["data"]["photos"].length + ' images' );
   for (var i=0; i<this.data["data"]["photos"].length; i++) {
-    // this.load_image(this, this.data["data"]["photos"][i]["image"]);
-    this.load_image( this, this.data["data"]["photos"][i], i );
+
+    var img_id = this.data["data"]["photos"][0]["image-id"];
+    if ( site_images[ img_id ] ) {  // load the image only if exists
+      this.load_image( this, this.data["data"]["photos"][i], i );
+    }
+
   }
+
+  this.load_style();
 }
 
 PDG_masonary_gallery.prototype.load_image = function(obj, img, index) {
@@ -173,13 +179,21 @@ PDG_masonary_gallery.prototype.load_image = function(obj, img, index) {
 
   limg.one("load", function() {
     // console.log('loaded');
-    $(obj.masnry_container).append(ldiv);
-    obj.msnry.appended(ldiv);
-    obj.msnry.layout();
+    // $(obj.masnry_container).append(ldiv);
+    // obj.msnry.appended(ldiv);
+    // obj.msnry.layout();
 
     // TODO call the 'global' load_style on every inage load - this is not efficiant load_style should be called once
-    obj.load_style();
+    // => moved to load images
+    // obj.load_style();
   });
+  $(obj.masnry_container).append(ldiv);
+  obj.msnry.appended(ldiv);
+  obj.msnry.layout();
+}
+
+PDG_masonary_gallery.prototype.image_containers = function() {
+  return $(this.masnry_container).find('.datacontainer');
 }
 
 PDG_masonary_gallery.prototype.reload = function() {
@@ -188,7 +202,8 @@ PDG_masonary_gallery.prototype.reload = function() {
   if ( this.modified == true ) {
 
     // remove all
-    $(this.masnry_container).find('.datacontainer').each( function() {
+    var containers = lobj.image_containers();
+    containers.each( function() {
       lobj.msnry.remove( this );
     });
 

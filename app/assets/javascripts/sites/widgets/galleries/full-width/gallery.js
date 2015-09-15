@@ -16,7 +16,7 @@ function PDG_full_width_gallery(container, path, data) {
   // // container.addClass("picndo-inline");
 
   /* each module declare lists of assets */
-  var assets = {
+  this.assets = {
     'css' : ['image-flow.css'],
     'js'  : [],
     'html': 'full-width-gallery.html',
@@ -24,7 +24,7 @@ function PDG_full_width_gallery(container, path, data) {
 
   var myobj = this;
 
-  this.load_assets( assets, function(myobj) {
+  this.load_assets( this.assets, function(myobj) {
     myobj.loadImagesAndInit();
     myobj.load_style();
   } );
@@ -42,7 +42,7 @@ PDG_full_width_gallery.prototype.loadImagesAndInit = function() {
 
 PDG_full_width_gallery.prototype.removed = function(index) {
   // reload
-  this.reload();
+  //this.reload();
 }
 
 PDG_full_width_gallery.prototype.added = function() {
@@ -63,7 +63,7 @@ PDG_full_width_gallery.prototype.reload = function() {
 
   this.container.find("#slider1_container").remove();
 
-  this.load_assets( assets, function(myobj) {
+  this.load_assets( this.assets, function(myobj) {
     myobj.loadImagesAndInit();
     myobj.load_style();
   } );

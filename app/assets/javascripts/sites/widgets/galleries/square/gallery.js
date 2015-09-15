@@ -3,7 +3,7 @@ function PDG_square_gallery(container, path, data) {
   this.default_controllers = {
     "root" : {
       'margin-top': { 'type':'slider', 'val':'20',  'range':[0,300],   'units':'px', "cb":"set_css", 'el':[ [ '.masonary-container', 'margin-top'] ], },
-      'padding':    { 'type':'slider', 'val':'0',   'range':[0,15],    'units':'px', "cb":"set_css", 'el':[ [ '.squaredatacontainer .in', 'padding'] ], },
+      'padding':    { 'type':'slider', 'val':'0',   'range':[0,30],    'units':'px', "cb":"set_css", 'el':[ [ '.squaredatacontainer .in', 'padding'] ], },
     }
   };
 
@@ -60,12 +60,16 @@ function PDG_square_gallery(container, path, data) {
   PDG_square_gallery.prototype.constructor = PDG_square_gallery;
 // });
 
-PDG_square_gallery.prototype.load_images = function() {
-  console.log('PDG_masonary_gallery load ' + this.data["data"]["photos"].length + ' images' );
-  for (var i=0; i<this.data["data"]["photos"].length; i++) {
-    // this.load_image(this, this.data["data"]["photos"][i]["image"]);
-    this.load_image( this, this.data["data"]["photos"][i], i );
-  }
+// PDG_square_gallery.prototype.load_images = function() {
+//   console.log('PDG_masonary_gallery load ' + this.data["data"]["photos"].length + ' images' );
+//   for (var i=0; i<this.data["data"]["photos"].length; i++) {
+//     // this.load_image(this, this.data["data"]["photos"][i]["image"]);
+//     this.load_image( this, this.data["data"]["photos"][i], i );
+//   }
+// }
+
+PDG_square_gallery.prototype.image_containers = function() {
+  return $(this.masnry_container).find('.squaredatacontainer');
 }
 
 PDG_square_gallery.prototype.load_image = function(obj, img, index) {

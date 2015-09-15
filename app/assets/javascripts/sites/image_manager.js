@@ -197,10 +197,12 @@ function insertImage(ev) {
 }
 
 function removeImage(ev) {
-
+  var obj = ev.data.obj;
   var lindex = $(this).parent().data('id');
   console.log('removing index ' + lindex + ' from gallery');
   ev.data.obj.data.data.photos.splice(lindex, 1);
+  obj.removed();
+  obj.reload();
 
   // var lobj = {  "object_images":ev.data.obj.data.data.photos,
   //               "obj_cbs":{
@@ -230,7 +232,11 @@ function reloadEditor(obj) {
 
   var lhtml = Handlebars.partials["image-manager-obj-list"](lobj);
   // $("#image-manager-obj-list").replaceWith(lhtml);
-  $("image-manager").find("#image-manager-obj-list").replaceWith(lhtml);
+
+  // $("image-manager").find("#image-manager-obj-list").replaceWith(lhtml);
+  $("#image-manager").find("#image-manager-obj-list").remove();
+  // $("image-manager").find("#image-manager-obj-list").append(lhtml);
+  $("#image-manager").append(lhtml);
 
   sortable();
 

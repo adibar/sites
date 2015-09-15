@@ -121,15 +121,12 @@
 
 .dropdown-menu {
     margin-top: 15px !important;
-    /*background-color: inherit !important;*/
-    /*background-color: rgba(255,255,255,.99);*/
     color: inherit !important;
+    background-color: white;
 }
 
 .dropdown-menu > li {
     padding-top: 10px;
-    /*background-color: inherit !important;*/
-    /*background-color: green;*/
     color: inherit !important;
 }
 

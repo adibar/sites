@@ -25,7 +25,8 @@ function PDG_top_menu(path, data) {
 
       'border-color': { 'type':'color-picker', 'val':'#000000', 'units':'', "cb":"set_css", 'el':[ ['header', 'border-bottom-color'] ], },
 
-      'background-color': { 'type':'color-picker', 'val':'#000000', 'units':'', "cb":"set_css", 'el':[ ['.wrapper-addons', 'background-color'], ['.dropdown-menu > li', 'background-color'] ], },
+      // 'background-color': { 'type':'color-picker', 'val':'#000000', 'units':'', "cb":"set_background_color", 'el':[ ['.wrapper-addons', 'background-color'], ['.dropdown-menu > li', 'background-color'] ], },
+      'background-color': { 'type':'color-picker', 'val':'#000000', 'units':'', "cb":"set_background_color", },
 
       'font-size': { 'type':'slider', 'range':[8,36], 'val':'10', 'units':'px', "cb":"set_css", 'el':[ ['.sidebar-ul', 'font-size'] ], },
 
@@ -150,6 +151,18 @@ PDG_top_menu.prototype.set_menu_type = function(attr, val) {
   //this.controllers['root'][attr]['val'] = val;
   this.data['type'] = val;
   this.loadMenu(val);
+}
+
+PDG_top_menu.prototype.set_background_color = function(attr, rgba_str) {
+  var dropdown_background_color = rgba_to_rgb(rgba_str);
+
+  this.container.find('.wrapper-addons')[0].style['background-color'] = rgba_str;
+  // $.each(this.container.find('.dropdown-menu > li'), function() {
+  $.each(this.container.find('.dropdown-menu'), function() {
+    this.style['background-color'] = dropdown_background_color;
+  });
+
+  this.controllers.root[attr]["val"] = rgba_str;
 }
 
 PDG_top_menu.prototype.set_logo_image = function(attrs) {

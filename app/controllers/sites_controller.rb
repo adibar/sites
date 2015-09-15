@@ -104,7 +104,7 @@ class SitesController < ApplicationController
       img_src = ( ( /src=\"[^\"]*\"/.match(f).to_s ).split("=")[1] ).gsub("\"", "")
 
       # 4) replace img src from txt with on from db
-      html_str.gsub!(img_src, img_url)
+      html_str.gsub!(img_src, img_url.to_s) # img_url.to_s => to avoid craching for nil
     end
     html_str
   end
@@ -115,7 +115,7 @@ class SitesController < ApplicationController
   	respond_to do |format|
 
       # @site = params[:id] ? Site.find(params[:id]).data : Site.find_by_name(request.domain()).data
-      @site = params[:id] ? Site.find(params[:id]) : Site.find_by_name(request.domain())
+      @site = params[:id] ? Site.find(params[:id]) :  ( Site.find_by_name(request.domain()) || Site.find_by_name(request.subdomain()) )
 
       format.js do
         render :json => @site

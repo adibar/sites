@@ -284,7 +284,8 @@ BaseWidget.prototype.edit = function() {
     }
   });
 
-  $('.slider').change(function(ev) {
+  // $('.slider').change(function(ev) {
+  $('#'+BaseWidget.widgeteditor_id).find('.slider').change(function(ev) {
     widgetid = $(this).data('cid');
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
     var lattr = $(this).data('name');
@@ -293,7 +294,9 @@ BaseWidget.prototype.edit = function() {
 
     // var lwidget = BaseWidget.get_class_obj_for_event($(this));
     console.log('slider changed');
-    lwidget.set_css(lattr, val);
+    var cb = lwidget.controllers.root[lattr]['cb'];
+    // lwidget.set_css(lattr, val);
+    lwidget[cb](lattr, val);
 
     if (reload == 'true') {
       lwidget.reload();
@@ -306,7 +309,9 @@ BaseWidget.prototype.edit = function() {
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
     var lattr = $(this).data('name');
     var val = $(this).is(':checked');
-    lwidget.set_css_class(lattr, val);
+    var cb = lwidget.controllers.root[lattr]['cb'];
+    // lwidget.set_css_class(lattr, val);
+    lwidget[cb](lattr, val);
   });
 
   $('#'+BaseWidget.widgeteditor_id).find('select').change(function(ev) {
@@ -326,10 +331,14 @@ BaseWidget.prototype.edit = function() {
     console.log('color-picker changed for ' + widgetid);
     var lwidget = BaseWidget.get_class_obj_from_container_id(widgetid);
     var lattr = $(this).data('name');
-    //var val = $(this).spectrum("get").toHexString()
+
     var val = $(this).spectrum("get").toRgbString();
+    // var val = $(this).spectrum("get").toHexString()
+
+    var cb = lwidget.controllers.root[lattr]['cb'];
     console.log('color-picker val=' + val);
-    lwidget.set_css(lattr, val);
+    // lwidget.set_css(lattr, val);
+    lwidget[cb](lattr, val);
   });
 
 
