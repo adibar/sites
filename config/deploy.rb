@@ -65,6 +65,9 @@ namespace :deploy do
       before 'deploy:restart', 'puma:start'
       invoke 'deploy'
     end
+    on roles(:db) do
+      puts "Creating database\n"*10
+    end
   end
 
   desc 'Restart application'
