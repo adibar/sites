@@ -81,6 +81,7 @@ class ImagesController  < ApplicationController
 
   def new
     @image = Image.new( :site_id => params[:site] )
+    render layout: false
   end
 
   def image_path(size, relative_path)
