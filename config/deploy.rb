@@ -1,6 +1,6 @@
 # Change these
-# server 'picndosites.cloudapp.net', port: 1976, roles: [:web, :app, :db], primary: true
-server '10.211.55.3', port: 22, roles: [:web, :app, :db], primary: true
+server 'picndosites.cloudapp.net', port: 1976, roles: [:web, :app, :db], primary: true
+# server '10.211.55.3', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'https://github.com/adibar/sites.git'
 set :application,     'sites'
