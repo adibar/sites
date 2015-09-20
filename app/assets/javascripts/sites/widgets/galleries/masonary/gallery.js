@@ -181,7 +181,7 @@ PDG_masonary_gallery.prototype.load_image = function(obj, img, index) {
     // console.log('loaded');
     // $(obj.masnry_container).append(ldiv);
     // obj.msnry.appended(ldiv);
-    // obj.msnry.layout();
+    obj.msnry.layout();
 
     // TODO call the 'global' load_style on every inage load - this is not efficiant load_style should be called once
     // => moved to load images

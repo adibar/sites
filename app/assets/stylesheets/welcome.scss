@@ -1,0 +1,42 @@
+
+.welcome-background-container {
+	background: image-url('fotolia_89567178.jpg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+	position:relative;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	height:100%;
+}
+
+.site-menu {
+	padding-top:10px;
+	background: rgba(255,255,255,0.02);
+	border:none;
+}
+
+.site-menu a {
+	color:#ddd !important;
+	font-size: 18px;
+}
+
+.site-menu .navbar-right {
+	margin-right: 20px;
+}
+
+.site-menu .navbar-brand {
+	margin-left:20px !important;
+}
+
+.site-menu .navbar-toggle {
+	border: none;
+}
+
+.site-menu .icon-bar {
+	background-color:white !important;
+}

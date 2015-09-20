@@ -58,10 +58,14 @@ group :development, :test do
 
 end
 
+gem 'devise'
+
 gem 'puma'
 gem "pg"
 gem "squeel"
 gem 'handlebars'
+
+# Adi Baron => from my git a fixed version to allow rendering directly and not only via the rails flow.
 gem 'flavour_saver', :git => 'https://github.com/adibar/FlavourSaver.git'
 gem 'haml'
 gem 'jquery-turbolinks'

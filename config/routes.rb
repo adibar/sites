@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'welcome#index'
   # root 'sites#show'
 
   # get 'edit' => 'welcome#index'
@@ -94,7 +94,7 @@ Rails.application.routes.draw do
 
   constraints(DomainConstraint.new) do
       # get '*route', :constraints => { :route => /.*/ }, to: 'sites#show'
-      root 'sites#show'
+      # root 'sites#show'
       get '*route', to: 'sites#show'
   end
 

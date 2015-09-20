@@ -160,6 +160,7 @@ class Image < ActiveRecord::Base
       end
 
       image.combine_options do |c|
+        c.interlace 'plane' # or use c.interlace 'line'
         c.auto_orient
         c.resize "#{val[0]}x#{val[1]}"
         c.quality 80

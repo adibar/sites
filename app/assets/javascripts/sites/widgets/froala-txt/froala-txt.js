@@ -162,6 +162,7 @@ PDG_froala_txt.prototype.edit = function(val) {
 
     $('#edit').on('editable.afterImageUpload', function (e, editor, response) {
       last_selected_image_id = JSON.parse(response).id;
+      alert("TODO after image upload => update sites images");
       return true;
     });
 

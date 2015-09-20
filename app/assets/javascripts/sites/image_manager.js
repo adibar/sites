@@ -64,6 +64,9 @@ function imageEditor(obj, opts) {
           var myDropzone = new Dropzone("#new_image", {
             maxFilesize:4,
           });
+          myDropzone.on("success", function(attr1, res) {
+            alert("TODO after image upload => update sites images");
+          });
         });
       });
 
