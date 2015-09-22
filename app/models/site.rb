@@ -9,13 +9,14 @@
 #  name       :string
 #  site_type  :integer          default(2)
 #  title      :string
+#  user_id    :integer
 #
 # Indexes
 #
 #  index_sites_on_name       (name) UNIQUE
 #  index_sites_on_site_type  (site_type)
+#  index_sites_on_user_id    (user_id)
 #
-
 
 class Site < ActiveRecord::Base
 
@@ -26,6 +27,7 @@ class Site < ActiveRecord::Base
 
   # has_many :images
   has_and_belongs_to_many :images, -> { uniq }
+  belongs_to :user
   # has_and_belongs_to_many :images
 
   # def [](l_attr)

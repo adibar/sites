@@ -2,6 +2,9 @@
 # require 'handlebars'
 
 class SitesController < ApplicationController
+  # before_action :authenticate_user!
+  before_action :loged_in?, :only => [:new, :create]
+  before_action :can_edit?, :except => [:new, :create]
 
   before_filter :allow_iframe_requests, only: [:show]
 
@@ -45,6 +48,25 @@ class SitesController < ApplicationController
   @@flow_gallery_file_str = File.read(Rails.public_path.to_s + '/handlebars_templates/image-flow-gallery.html')
   @@flow_gallery_template = Tilt['handlebars'].new { @@flow_gallery_file_str }
 
+
+  def loged_in?
+    redirect_to root_path, notice: 'Your have to log in' unless current_user
+  end
+
+  def can_edit?
+    can_edit = current_user && (Site.find_by_id(params[:id]).nil_or.user == current_user )
+
+    if !can_edit
+      # if (request.format == Mime::HTML)
+      #   redirect_to root_path, notice: 'Your have to log in'
+      # else
+      #   render :json => {:redirect_url => root_path }, :status => 401
+      # end
+      if (request.format != Mime::HTML)
+        render :json => {:redirect_url => root_path }, :status => 401
+      end
+    end
+  end
 
   def current_site
     params[:id]

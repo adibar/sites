@@ -658,6 +658,10 @@ function getData(index) {
     success: function(data) {
       ldata = data;
     },
+    error: function (xhr, ajaxOptions, thrownError) {
+      var lurl = JSON.parse(xhr.responseText).redirect_url;
+      window.location.href = lurl;
+    },
     dataType: 'text',
   });
 
