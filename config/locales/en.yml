@@ -21,3 +21,13 @@
 
 en:
   hello: "Hello world"
+  again: "Hello to you 2"
+  welcome:
+    index:
+      easy_site: easy site
+      about: about
+      plans: plans
+      hi: hi
+      login: Log In
+    site_name_selection:
+      subdomain_tooltip: "Site name can contain letter a-z 0-9 and -. Also all white spaces are removed"

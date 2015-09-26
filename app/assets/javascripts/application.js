@@ -18,3 +18,5 @@
 //= require sites/bootstrap
 
 //= require application/template_selector
+//= require application/languages
+//= require application/users

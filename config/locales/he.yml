@@ -1,0 +1,12 @@
+he:
+  hello: "שלום עולם"
+  again: "שלום גם לך"
+  welcome:
+    index:
+      easy_site: אתר בקלות
+      about: עלינו
+      plans: תוכניות
+      hi: הי
+      login: כניסה
+    site_name_selection:
+      subdomain_tooltip: "שם האתר יכול את האותיות a-z 0-9 ו -. מרווחים יוסרו משם האתר"

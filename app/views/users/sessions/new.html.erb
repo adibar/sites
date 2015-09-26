@@ -1,10 +1,12 @@
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <div class="error_box" style="color:red; font-size:18px;"> </div>
   <div class="form-group">
-    <%= f.email_field :email, class: "form-control", autofocus: true, placeholder: "User / Email" %>
+    <%= f.email_field :email, class: "form-control", autofocus: true, placeholder: t('devise.sessions.new.login_with').titleize %>
   </div>
 
   <div class="form-group">
-    <%= f.password_field :password, class: "form-control", autocomplete: "off", placeholder: "Password" %>
+    <%= f.password_field :password, class: "form-control", autocomplete: "off", placeholder: t('devise.sessions.new.password').titleize %>
   </div>
 
   <% if devise_mapping.rememberable? -%>

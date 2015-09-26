@@ -1,6 +1,5 @@
 class AddDataToSites < ActiveRecord::Migration
   def change
-  	add_column :sites, :user_id, :integer
-    add_index :sites, :user_id
+  	add_column :sites, :data, :jsonb
   end
 end

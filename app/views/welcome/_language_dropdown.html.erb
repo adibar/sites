@@ -1,0 +1,14 @@
+<div class="dropdown" style="float:right; height:100%; margin:0px; line-height:25px;">
+	<a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="color:white;">
+		<span class="lang-sm" style="margin-top:5px;" lang="<%= current_language %>" >  </span> &nbsp;
+		<span> <%= current_language %> </span>
+		<span class="caret"></span>
+	</a>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+  	<% languages_dic.each do |key, val| %>
+  		<li>
+  			<%= link_to val, '#', :data => { :language => key, }, :onclick => "set_language(this);" %>
+  		</li>
+  	<% end %>
+  </ul>
+</div>

@@ -1,6 +1,13 @@
+.form-control::-webkit-input-placeholder { color: #bbb; font-size:15px; }
+.form-control:-moz-placeholder { color: #bbb; font-size:15px; }
+.form-control::-moz-placeholder { color: #bbb; font-size:15px; }
+.form-control:-ms-input-placeholder { color: #bbb; font-size:15px; }
+
 
 .welcome-background-container {
 	background: image-url('fotolia_89567178.jpg') no-repeat center center fixed;
+	//background: image-url('fotolia_89874224.jpg') no-repeat center center fixed;
+	//background:url('http://demos.themelize.me/appStrap2.5.4/theme/img/patterns/white_wall_hash.png');
 	-webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -14,7 +21,13 @@
 	height:100%;
 }
 
+.site-header {
+	z-index:101;
+	background: rgba(0,0,0,0.25);
+}
+
 .site-menu {
+	z-index:100;
 	font-family: Source Sans Pro;
 	padding-top:10px;
 	background: rgba(0,0,0,0.25);
@@ -27,13 +40,15 @@
   //top: -60px;
 
   //background-color: rgba(244, 179, 80, 1);
-  background-color: rgba(236, 240, 241, 1);
+  //background-color: rgba(236, 240, 241, 1);
+  //background-color: rgba(85, 167, 154, 1);
   //background-color: rgba(238, 242, 243, 1);
   //background-color: rgba(240, 244, 245, 1);
   //background-color: rgba(244, 248, 249, 1);
   //background-color: rgba(246, 250, 251, 1);
   //background-color: rgba(250, 252, 252, 1);
   //background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(245, 245, 245, 1);
 
 	-moz-transition:    all 1000ms ease;
   -webkit-transition: all 1000ms ease;

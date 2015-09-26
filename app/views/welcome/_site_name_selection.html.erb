@@ -1,0 +1,26 @@
+<div class="container" style="padding-top:30px;">
+  <div class="row">
+    <%= form_tag '/none-this-is-not-realy-being-sent', {:id => 'site-name-form', :class => 'form-inline', :role => 'form'} do %>
+
+      <div class="form-group form-group-lg">
+        <div class="input-group ">
+          <div class="input-group-addon"><span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" title='<%= t(".subdomain_tooltip") %>' ></span></div>
+          <input type="text" name="site-name" class="form-control input-large" style="font-size:16px;" id="site-name" placeholder="Choose your site name">
+          <div class="input-group-addon">.photobaron.info</div>
+        </div>
+
+      </div>
+
+      <!-- <div class="form-group">
+        .photobaron.info
+      </div> -->
+      <!-- &nbsp; -->
+      &nbsp;
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg" id="submit" name="submit"/>Create My Site</button>
+      </div>
+
+    <% end %>
+  </div>
+</div>
