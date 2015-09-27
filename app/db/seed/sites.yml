@@ -26,3 +26,29 @@
     :images:
     - :id: 1476208533874674605
       :name: picndo_city.png
+  classic-centered:
+    :site:
+      :title: Classic (Centered Site)
+      :data: '{"css":{},"menu":{"id":"picndo-obj0","css":{"root":{"color":{"cb":"set_css","el":[[".nav-link","color"]],"val":"rgb(68,
+        68, 68)","type":"color-picker","units":""},"font-size":{"cb":"set_css","el":[[".sidebar-ul","font-size"]],"val":"17","type":"slider","range":[8,36],"units":"px"},"side-menu":{"cb":"set_menu_type","val":"Side
+        Menu","type":"select","onload":0,"options":["Top Menu","Side Menu"],"loadstyle":0},"full-width":{"cb":"set_css_class","el":[[".picndo-row-internal","container"]],"val":true,"type":"checkbox","negative":true},"brand-width":{"cb":"set_css","el":[[".menu-brand-img","width"]],"val":"202","type":"slider","range":[100,500],"units":"px"},"font-family":{"cb":"set_css","el":[["header","font-family"]],"val":"''Lucida
+        Console'', Monaco, monospace","type":"select-hash","units":"","options":{"Ariel":"Arial,
+        Helvetica, sans-serif","Impact":"Impact, Charcoal, sans-serif","Tahoma":"Tahoma,
+        Geneva, sans-serif","Georgia":"Georgia, serif","Verdana":"Verdana, Geneva,
+        sans-serif","Ariel Black":"''Arial Black'', Gadget, sans-serif","Courier New":"''Courier
+        New'', Courier, monospace","Trebuchet MS":"''Trebuchet MS'', Helvetica, sans-serif","Comic
+        Sans MS":"''Comic Sans MS'', cursive, sans-serif","Lucida Console":"''Lucida
+        Console'', Monaco, monospace","Times New Roman":"''Times New Roman'', Times,
+        serif","Palatino Linotype":"''Palatino Linotype'', ''Book Antiqua'', Palatino,
+        serif","Lucida Sans Unicode":"''Lucida Sans Unicode'', ''Lucida Grande'',
+        sans-serif","HelveticaNeue Ultralight":"HelveticaNeue-Ultralight"}},"border-color":{"cb":"set_css","el":[["header","border-bottom-color"]],"val":"rgba(153,
+        153, 153, 0.17)","type":"color-picker","units":""},"border-style":{"cb":"set_css","el":[["header","border-bottom-style"]],"val":"dashed","type":"select","units":"","options":["solid","dotted","dashed","double","groove","ridge","inset","outset"]},"border-width":{"cb":"set_css","el":[["header","border-bottom-width"]],"val":"0","type":"slider","range":[0,20],"units":"px"},"brand-center":{"cb":"set_css_class","el":[[".navbar-header","navbar-header-center"],[".navbar-brand-style","navbar-brand-style-center"],[".navbar-nav","navbar-nav-center"],[".navbar-collapse","navbar-collapse-center"]],"val":true,"type":"checkbox"},"brand-width-2":{"cb":"set_css","el":[["#xxxx","width"]],"val":"341","type":"slider","range":[100,500],"units":"px"},"menu-margin-top":{"cb":"set_css","el":[[".sidebar-ul","margin-top"]],"val":"31","type":"slider","range":[0,200],"units":"px"},"background-color":{"cb":"set_css","el":[[".wrapper-addons","background-color"],[".dropdown-menu
+        > li","background-color"]],"val":"rgba(255, 255, 255, 0)","type":"color-picker","units":""}}},"type":"Top
+        Menu","view":{"active":"Home"},"pages":[[{"url":"/Home.html","name":"Home"}],[{"url":"/חדרים.html","name":"חדרים"}],[{"url":"/contact.html","name":"Contact"}]],"logoimage":{"id":0,"txt":"","image":"/uploads/big/1441609896075677picndo_city.png","thumb":"/uploads/thub/1441609896360914picndo_city.png","image-id":"1476208533874674605"}},"pages":{"Home":{"css":{},"widgets":[]},"Contact":{"css":{},"widgets":["soelrs"]},"חדרים":{"css":{},"widgets":[],"belongs_to":false}},"widgets":{"soelrs":{"id":"picndo-obj4","css":{"root":{"form-color":{"cb":"set_css","el":[[".form-header","background-color"],[".form-body","background-color"],[".form-button","background-color"]],"val":"rgb(69,
+        129, 142)","type":"color-picker","units":""},"menu-margin-top":{"cb":"set_css","el":[[".PDG_contact","margin-top"]],"val":"45","type":"slider","range":[0,200],"units":"px"}}},"data":{"header":"<p
+        class=\"fr-tag\"> Click here to with your contact us message (editable...)</p>","address":"מאפו
+        23 תל אביב ישראל"},"name":"soelrs","widget_name":"contact"}}}'
+      :type: 1
+    :images:
+    - :id: 1476208533874674605
+      :name: picndo_city.png

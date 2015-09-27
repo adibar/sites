@@ -50,7 +50,16 @@ class SitesController < ApplicationController
 
 
   def loged_in?
-    redirect_to root_path, notice: 'Your have to log in' unless current_user
+    unless current_user
+      respond_to do |format|
+        format.html {
+          redirect_to root_path, notice: 'Your have to log in'
+        }
+        format.js {
+          render :json => {:error => "not logged in" }, :status => 401
+        }
+      end
+    end
   end
 
   def can_edit?

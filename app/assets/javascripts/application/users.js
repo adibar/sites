@@ -36,9 +36,14 @@ $( document ).ready( function() {
 
     // if ( /^[A-Za-z0-9][A-Za-z0-9\-]{0,61}[A-Za-z0-9]?/.test(subd) ) {
     if ( /^[a-zA-Z0-9][a-zA-Z0-9.-]+[a-zA-Z0-9]$/.test(subd) ) {
-      alert(subd + " match");
+      setCookie("site-name", subd, 365);
+      $('#template-selector').css("display", "block");
+      // $('body').scrollTo('#template-selector');
+      $('html, body').animate({
+        scrollTop: $("#template-selector").offset().top
+      }, 1500);
     } else {
-      alert(subd + " does not match");
+      alert(subd + " is not a leagal site name click the ? buttton to learn about leagal names");
     }
 
 

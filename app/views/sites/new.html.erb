@@ -1,6 +1,7 @@
-
+<h2 style="text-align: center;"> Pick a template to start with </h2> 
+<h3 style="text-align: center;"> Your site design can be changed at any point in time </h3>
 <div class="row site-template-row">
-  <% @sites.each do |s| %>
+  <% sites_templates.each do |s| %>
     <div class="col-md-6 site-template-selector" style="">
       <div class="template-selector-inner" data-template-id="<%= s.id %>" >
         <div class="content-centered">
@@ -10,43 +11,3 @@
     </div>
   <% end %>
 </div>
-
-<!-- <div class="row site-template-row">
-
-  <div class="col-md-6 site-template-selector" style="">
-    <div class="template-selector-inner">
-      <div class="content-centered">
-        Classic (Centerd Site)
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6 site-template-selector" style="">
-    <div class="template-selector-inner">
-      <div class="content-centered">
-        Full Width Site
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="row site-template-row">
-
-  <div class="col-md-6 site-template-selector" style="">
-    <div class="template-selector-inner">
-      <div class="content-centered">
-        Menu Side
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6 site-template-selector" style="">
-    <div class="template-selector-inner">
-      <div class="content-centered">
-        Menu On The Side, Full Width
-      </div>
-    </div>
-  </div>
-
-</div> -->
