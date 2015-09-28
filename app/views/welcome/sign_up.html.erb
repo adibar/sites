@@ -1,0 +1,13 @@
+<%= render :file => "/welcome/_sign_header", :locals => {:header => "Sign Up to start editing your site"} %>
+<br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6" style="border-right: 2px solid #929292;">
+      <%= render "users/registrations/new" %>
+    </div>
+    <div class="col-sm-6">
+      <%= render "users/registrations/social_sign" %>
+    </div>
+  </div>
+</div>
+<br><br>

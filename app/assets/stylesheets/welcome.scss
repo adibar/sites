@@ -3,6 +3,16 @@
 .form-control::-moz-placeholder { color: #bbb; font-size:15px; }
 .form-control:-ms-input-placeholder { color: #bbb; font-size:15px; }
 
+.modal-backdrop.in {
+  opacity: 0.2;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 720px;
+    margin-top: 80px;
+  }
+}
 
 .welcome-background-container {
 	background: image-url('fotolia_89567178.jpg') no-repeat center center fixed;

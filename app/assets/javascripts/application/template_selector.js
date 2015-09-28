@@ -11,11 +11,13 @@ $(document).ready(function(){
         win.focus();
       }
       else if (code == 401) {
+        $("#general-modal").data("url", "/users/sign_up")
         $("#general-modal").modal('show');
       }
 
     });
   })
+
 });
 
 function create_site(template_id, site_name, cb) {

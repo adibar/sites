@@ -17,11 +17,13 @@
  //require_tree ../../../lib/assets
  *= require_self
 
+ *= require font-awesome.min
  *= require bootstrap
 
  *= require general
  *= require welcome
  *= require languages
+ *= require bootstrap-social
  //require bootstrap-datetimepicker
 
 

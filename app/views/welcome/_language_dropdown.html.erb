@@ -7,13 +7,10 @@
   </button> 
   
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-  <!-- <div class="dropdown-menu"> -->
-    <!-- <ul> -->
-    	<% languages_dic.each do |key, val| %>
-    		<li>
-    			<%= link_to val, '#', :data => { :language => key, }, :onclick => "set_language(this);" %>
-    		</li>
-    	<% end %>
-    </ul>
-  <!-- </div> -->
+  	<% languages_dic.each do |key, val| %>
+  		<li>
+  			<%= link_to val, '#', :data => { :language => key, }, :onclick => "set_language(this);" %>
+  		</li>
+  	<% end %>
+  </ul>
 </div>

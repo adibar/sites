@@ -10,9 +10,10 @@ $( document ).ready( function() {
     ev.preventDefault();
     var data = $(this).serialize();
     $.ajax({
-      url:    $(this).attr('action'),
-      method: $(this).attr('method'),
-      data:   $(this).serialize(),
+      url:      $(this).attr('action'),
+      method:   $(this).attr('method'),
+      dataType: 'json',
+      data:     $(this).serialize(),
     })
     .done(function (data, textStatus, jqXHR) {
       // Do something with the response
@@ -23,7 +24,29 @@ $( document ).ready( function() {
       $("#error_explanation").remove();
       $(".error_box").html(err);
     });
+  });
 
+  $(document).on("submit", "#create_user", function(ev) {
+
+    ev.preventDefault();
+    var data = $(this).serialize();
+    $.ajax({
+      url:      $(this).attr('action'),
+      method:   $(this).attr('method'),
+      dataType: 'json',
+      data:     $(this).serialize(),
+    })
+    .done(function (data, textStatus, jqXHR) {
+      // Do something with the response
+      location.reload();
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+      // Whoops; show an error.
+      var err = JSON.parse(jqXHR.responseText).errors;
+      $.each( err, function( key, value ) {
+        $('#create_user #error-msg').empty();
+        $('#create_user #error-msg').append("<div>" + key + ": " + value + "</div>");
+      });
+    });
   });
 
   $(document).on("submit", "#site-name-form", function(ev) {
@@ -41,7 +64,7 @@ $( document ).ready( function() {
       // $('body').scrollTo('#template-selector');
       $('html, body').animate({
         scrollTop: $("#template-selector").offset().top
-      }, 1500);
+      }, 1000);
     } else {
       alert(subd + " is not a leagal site name click the ? buttton to learn about leagal names");
     }

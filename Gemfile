@@ -82,3 +82,4 @@ gem 'recursive-open-struct'
 # For date picker
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails'
+gem 'bootstrap-social-rails'
