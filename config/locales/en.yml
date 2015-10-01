@@ -20,14 +20,19 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-  again: "Hello to you 2"
-  welcome:
-    index:
+  common: &common
+    navbar:
+      hi: hi
+      login: Log In
+    navbar_list:
       easy_site: easy site
       about: about
       plans: plans
-      hi: hi
-      login: Log In
     site_name_selection:
       subdomain_tooltip: "Site name can contain letter a-z 0-9 and -. Also all white spaces are removed"
+  shared:
+    << : *common
+  welcome:
+    << : *common
+  accounts:
+    << : *common

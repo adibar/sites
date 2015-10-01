@@ -6,6 +6,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_filter :configure_sign_up_params, only: [:create]
   # before_filter :configure_account_update_params, only: [:update]
 
+  def sign_up_params
+    devise_parameter_sanitizer.sanitize(:sign_up)
+    params.require(:user).permit(:email, :password, :password_confirmation,
+                                  profile_attributes: [:first_name, :family_name],
+                                  sites_attributes:   [:name, :template_id]
+                                  )
+  end
+
   # GET /resource/sign_up
   def new
      super
@@ -13,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    ret = super 
+    ret = super
     ret
   end
 

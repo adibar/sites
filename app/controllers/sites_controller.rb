@@ -50,16 +50,7 @@ class SitesController < ApplicationController
 
 
   def loged_in?
-    unless current_user
-      respond_to do |format|
-        format.html {
-          redirect_to root_path, notice: 'Your have to log in'
-        }
-        format.js {
-          render :json => {:error => "not logged in" }, :status => 401
-        }
-      end
-    end
+    redirect_to root_path, notice: 'Your have to log in' unless current_user
   end
 
   def can_edit?
@@ -451,9 +442,7 @@ class SitesController < ApplicationController
   # /sites
   # display a list of all sites
   def index
-  	puts '*'*50
-  	puts 'index'
-  	puts '*'*50
+
   end
 
   # GET	/sites/:id/edit	sites#edit	return an HTML form for editing a site

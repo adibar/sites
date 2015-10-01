@@ -11,7 +11,11 @@ $(document).ready(function(){
         win.focus();
       }
       else if (code == 401) {
-        $("#general-modal").data("url", "/users/sign_up")
+        $("#general-modal").data("url", "/users/sign_up");
+        $("#general-modal").data("template_id", template_id);
+        $("#general-modal").data("site_name", site_name);
+
+        // $("#general-modal").data('cb', "create_site(" + template_id + "," + "'" + site_name + "'" + ")" );
         $("#general-modal").modal('show');
       }
 
@@ -31,13 +35,19 @@ function create_site(template_id, site_name, cb) {
     },
     complete: function(xmlHttp) {
       if (xmlHttp.status == 200) {
-        // if (xmlHttp.responseJSON) {
-        //   location.href = xmlHttp.responseJSON.redirect;
-        // }
-        cb(200, xmlHttp.responseJSON.redirect);
+        var lurl = JSON.parse(xmlHttp.responseText).redirect;
+        if (cb) {
+          cb(200, lurl);
+        }
+        else {
+          if (xmlHttp.responseText) {
+            var win = window.open(lurl, '_blank');
+            win.focus();
+          }
+        }
       }
       else if (xmlHttp.status == 401) {
-        cb(401);
+        if (cb) { cb(401); };
       }
     }
   });

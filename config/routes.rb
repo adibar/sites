@@ -2,25 +2,47 @@ class DomainConstraint
   def initialize
     # @domains = Domain.select("DISTINCT domain").map(&:domain).uniq
     # byebug
-    @domains = ['31.154.159.63', '10.0.0.4', '10.0.0.23', 'ldev', 'adib', 'dev', 'test.dev', 'base', '', '', 'sidemenu']
+    # @domains = ['31.154.159.63', '10.0.0.4', '10.0.0.23', 'ldev', 'adib', 'dev', 'test.dev', 'base', '', '', 'sidemenu']
+
+    # @domains = []
   end
 
   def matches?(request)
-    (@domains.include?(request.host)) || (@domains.include?(request.subdomain)) || (@domains.include?(request.domain))
+    # (@domains.include?(request.host)) || (@domains.include?(request.subdomain)) || (@domains.include?(request.domain))
+
+    # Site.find_by_name(request.subdomain) || Site.find_by_domain(request.domain)
+    Site.find_by_name(request.subdomain)
   end
 end
 
 
 Rails.application.routes.draw do
+
+  if Rails.env.production?
+    Rails.application.routes.default_url_options[:host]= 'photobaron.info'
+  else
+    Rails.application.routes.default_url_options[:host]= 'adibaron.com:5000'
+  end
+
+  constraints(DomainConstraint.new) do
+    # get '*route', :constraints => { :route => /.*/ }, to: 'sites#show'
+    # root 'sites#show'
+    get '*route', to: 'sites#show' # handle all routes
+    get '', to: 'sites#show' # handle root of subdomain
+  end
+
   devise_for :users,
     :controllers => { :registrations => "users/registrations",
                       :sessions => "users/sessions",
     }
+
+  resources :accounts, controller: 'accounts'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  # root 'welcome#index'
   # root 'sites#show'
 
   # get 'edit' => 'welcome#index'
@@ -96,11 +118,13 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints(DomainConstraint.new) do
-      # get '*route', :constraints => { :route => /.*/ }, to: 'sites#show'
-      # root 'sites#show'
-      get '*route', to: 'sites#show'
-  end
+  # constraints(DomainConstraint.new) do
+  #   # get '*route', :constraints => { :route => /.*/ }, to: 'sites#show'
+  #   # root 'sites#show'
+  #   get '*route', to: 'sites#show'
+  # end
+  resources :welcome
+  root 'welcome#index', constraints: { subdomain: /^$|^www/ } # subdomain empty string or www
 
 end
 

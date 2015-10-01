@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923182809) do
+ActiveRecord::Schema.define(version: 20150929102809) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,9 +60,10 @@ ActiveRecord::Schema.define(version: 20150923182809) do
     t.datetime "updated_at"
     t.jsonb    "data"
     t.string   "name"
-    t.integer  "site_type",  default: 2
+    t.integer  "site_type",   default: 2
     t.string   "title"
     t.integer  "user_id"
+    t.integer  "template_id"
   end
 
   add_index "sites", ["name"], name: "index_sites_on_name", unique: true, using: :btree

@@ -1,0 +1,14 @@
+<%= link_to("View Your Profile", account_path(current_user.id), :class => "btn btn-primary", :style => "") %>
+<%= link_to("Log Out", destroy_user_session_path, :style => "font-size:14px; color:blue !important; margin-left:10px;") %>
+
+<h3> Your Sites </h3>
+<ul style="list-style-type: none; padding:0px;">
+	<% current_user.sites.each do |s| %>
+		<li>
+			<%= s.name %>
+			<%= link_to("Edit Site", [:edit, s], :target => "_blank", :class => "btn btn-sm btn-primary", :style => "color:white !important; font-size: 14px; border-right:1px solid:#333;") %>
+			|
+			<%= link_to("View Site", s, :target => "_blank", :class => "btn btn-sm btn-primary", :style => "color:white !important; font-size: 14px;") %>
+		</li>
+	<% end %>
+</ul>

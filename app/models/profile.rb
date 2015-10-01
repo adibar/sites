@@ -19,6 +19,8 @@ class Profile < ActiveRecord::Base
 
 	belongs_to :user
 
+  # validates :user, :presence => true
+
 	LANGUAGE = Enum.new(:LANGUAGE, Profile, :en => 0, :he => 1)
   enum_column :language, LANGUAGE, scoped: true
 

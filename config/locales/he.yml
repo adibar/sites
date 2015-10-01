@@ -1,12 +1,17 @@
 he:
-  hello: "שלום עולם"
-  again: "שלום גם לך"
-  welcome:
-    index:
+  common: &common
+    navbar:
+      hi: הי
+      login: כניסה
+    navbar_list:
       easy_site: אתר בקלות
       about: עלינו
       plans: תוכניות
-      hi: הי
-      login: כניסה
     site_name_selection:
       subdomain_tooltip: "שם האתר יכול את האותיות a-z 0-9 ו -. מרווחים יוסרו משם האתר"
+  shared:
+    << : *common
+  welcome:
+    << : *common
+  accounts:
+    << : *common

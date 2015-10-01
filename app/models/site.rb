@@ -2,14 +2,15 @@
 #
 # Table name: sites
 #
-#  id         :integer          not null, primary key
-#  created_at :datetime
-#  updated_at :datetime
-#  data       :jsonb
-#  name       :string
-#  site_type  :integer          default(2)
-#  title      :string
-#  user_id    :integer
+#  id          :integer          not null, primary key
+#  created_at  :datetime
+#  updated_at  :datetime
+#  data        :jsonb
+#  name        :string
+#  site_type   :integer          default(2)
+#  title       :string
+#  user_id     :integer
+#  template_id :integer
 #
 # Indexes
 #
@@ -28,10 +29,40 @@ class Site < ActiveRecord::Base
   # has_many :images
   has_and_belongs_to_many :images, -> { uniq }
   belongs_to :user
-  # has_and_belongs_to_many :images
 
-  # def [](l_attr)
-  #   data[l_attr.to_s]
+  # attr_accessor (:template_id)
+
+  # before_create :build_site
+
+  def initialize(args = nil)
+
+    super
+
+    template_id = args[:template_id]
+    if template_id
+
+      template_site = Site.find(template_id.to_i)
+
+      obj = template_site.deep_clone include: [ :images, ], except: [ :name, :site_type, :title ]
+
+      self.images = obj.images
+      self.data = obj.data
+
+    else
+      super
+    end
+  end
+
+  # def build_site
+  #   puts "site build_site with #{template_id}"
+  #   puts "site build_site with #{template_id}"
+  #   puts "site build_site with #{template_id}"
+  #   puts "site build_site with #{template_id}"
+  #   puts "site build_site with #{template_id}"
+
+  #   # template_site = Site.find(template_id.to_i)
+  #   # self = template_site.deep_clone include: [ :images, ], except: [ :name, :site_type, :title ]
+  #   # byebug
   # end
 
   def self.seperate_widgets_from_pages(site_id)
@@ -101,9 +132,9 @@ class Site < ActiveRecord::Base
         },
         # :images => images.map(&:id)
         :images => images.map{ |i| { :id => i.id, :name => i.name ? i.name : File.basename(i.get_path(:big)[:absolute]) } }
-      } 
+      }
     }
-    data  
+    data
   end
 
   def self.seed_create_sites_yml

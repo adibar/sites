@@ -42,5 +42,11 @@ class ApplicationController < ActionController::Base
     # I18n.fallbacks[ I18n.locale ] = [ [lang, locale_suffix].compact.join('-'), lang, ['en', locale_suffix].compact.join('-'), 'en' ]
   end
 
+  def redirect_loggedin
+    if current_user
+      redirect_to :controller => :accounts, :action => 'show', :id => current_user.id
+    end
+  end
+
 
 end

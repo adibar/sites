@@ -25,8 +25,21 @@ $(document).ready(function(){
 
   $("#general-modal").on("show.bs.modal", function(e) {
     var lurl = $("#general-modal").data('url');
-    console.log("loading " + lurl);
-    $("#general-modal .modal-content").load(lurl);
+    var template_id = $("#general-modal").data('template_id');
+    var site_name = $("#general-modal").data('site_name');
+
+    $("#general-modal .modal-content").load(lurl, function() {
+      $("#user_sites_attributes_0_template_id").val(template_id);
+      $("#user_sites_attributes_0_name").val(site_name);
+    });
+  });
+
+  $("#general-modal").on("hide.bs.modal", function(e) {
+
+    var cb = $("#general-modal").data( 'cb');
+    eval(cb);
+    // a cb might be assigned while opening the modal
+    $("#general-modal").removeData( 'cb');
   });
 
 });

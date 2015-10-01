@@ -28,6 +28,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one  :profile
-  has_many :sites
+
+  has_one  :profile, dependent: :destroy
+  has_many :sites, dependent: :destroy
+
+  accepts_nested_attributes_for :profile, :sites
+
+
 end
